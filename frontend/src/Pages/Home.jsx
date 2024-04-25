@@ -1,0 +1,30 @@
+import React from 'react'
+import Navbar from '../Components/Navbar'
+import {home} from '../Components/Styles'
+const Home = () => {
+  return (
+    <>
+        <Navbar />
+        <div id='home'>
+            <div className="container">
+            <div className="row">
+                <div className="col-lg-6" id='homeImg'></div>
+                <div className="col-lg-6" id='homeContent'>
+                    <p>
+                    Welcome to Sara Decorations, your go
+                    to destination for exquisite handcrafted 
+                    decorations and personalized gifts. 
+                    Nestled in the heart of Jaffna, we take 
+                    pride in bringing your celebrations to life 
+                    with our unique and artistic creations
+                    </p>
+                    <button className='btn'>Book now</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </>
+  )
+}
+
+export default Home

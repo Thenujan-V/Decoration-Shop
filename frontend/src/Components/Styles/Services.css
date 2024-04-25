@@ -1,0 +1,30 @@
+#service{
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)),url('../Assets/aboutback.png');
+    height: 87.8vh;
+}
+
+#service h1{
+    padding-top: 50px;
+    color: var(--background_blue);
+    font-weight: bold;
+    text-align: center;
+}
+#service .row{
+    margin-top: 80px;
+}
+#service .card{
+    box-shadow: 2px 6px 15px black;
+}
+#service .card .btn{
+    background-color: var(--background_blue);
+    color: var(--wheat);
+    border-radius: 20px;
+}
+#service .card .card-body{
+    text-align: center;
+}
+#service .card .card-body h5{
+    color: rgb(10, 101, 71);
+    font-size: 22px;
+    font-weight: bold;
+}

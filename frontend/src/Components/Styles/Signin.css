@@ -1,0 +1,75 @@
+#signinComp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#signinComp h3{
+    display: flex;
+    justify-content: center;
+    color: var(--wheat);
+    margin-top: 30px;
+}
+#signinForm{
+    margin-top:30px;
+    padding-top: 40px;
+    background-color: var(--wheat);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    width: 70%;
+    /* justify-content: center; */
+}
+#signinForm .sign-in-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#signinForm .form-group {
+    /* margin-bottom: 15px; */
+    
+}
+
+#signinForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--background_blue);
+
+}
+
+#signinForm .form-group input {
+    width: 20VW;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#signinForm .error {
+    border-color: red;
+}
+
+#signinForm .error-message {
+    color: red;
+    font-size: 12px;
+}
+
+#signinForm .forgot-password {
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: var(--background_blue);
+}
+
+#signinForm button {
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--background_blue);
+    color: var(--wheat);
+    border-radius: 4px;
+    cursor: pointer;
+    width: 20VW;
+    margin: 0 0 40px 0;
+}
+
+#signinForm button:hover {
+    background-color: #0056b3;
+}

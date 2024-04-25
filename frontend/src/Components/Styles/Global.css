@@ -1,0 +1,12 @@
+:root{
+    --background_blue: #03044F;
+    --navfont: #F2ECD2;
+    --background-linear: linear-gradient(180deg, #FFFFFF 60.52%, #03044F 100%);
+    --wheat: #D9D9D9;
+    --about_back_linear:linear-gradient(180deg, #040555 0%, #7B7C92 100%);
+    --signin-back: #D9D9D9;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
