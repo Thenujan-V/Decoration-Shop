@@ -24,7 +24,7 @@
     text-align: center;
 }
 #service .card .card-body h5{
-    color: rgb(10, 101, 71);
+    color: var(--headingGreen);
     font-size: 22px;
     font-weight: bold;
 }

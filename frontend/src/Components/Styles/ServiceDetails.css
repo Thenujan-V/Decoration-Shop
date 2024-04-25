@@ -1,0 +1,56 @@
+#serviceDetails{
+    height: 87.7vh;
+    padding-top: 150px;
+    /* background: var(--background-linear); */
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#serviceDetails h2{
+    color: var(--headingGreen);
+    font-size: 40px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+#serviceDetails #serviceImg{
+    background-image:url('../Assets/background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    position: relative;
+    bottom: 50px;
+    background-size: cover;
+    box-shadow:2px 2px 5px black;
+    border-radius: 20px;
+    width: 40%;
+}
+#serviceDetails #serviceContent{
+    padding-left: 50px;
+    text-align: center  ;
+
+}
+#serviceDetails #serviceContent p{
+    font-size: 20px;
+    border-radius: 30px;
+    /* text-align: center; */
+    padding: 30px;
+    font-weight: bold;
+}
+#serviceDetails #serviceContent h5{
+    font-size: 20px;
+    margin-top: -20px;
+    font-weight: bold;
+    background-color: var(--wheat);
+    padding: 10px;
+    width: 70%;
+}
+#serviceDetails #serviceContent button{
+    background-color: var(--background_blue);
+    font-size: 22px;
+    font-style:italic;
+    font-weight: bold;
+    color: var(--wheat);
+    width: 15vw;
+    border-radius: 40px;
+    box-shadow:2px 2px 5px black;
+    margin-top: 10px;
+}

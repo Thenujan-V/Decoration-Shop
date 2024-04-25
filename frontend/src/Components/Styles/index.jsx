@@ -6,6 +6,7 @@ import about from './About.css'
 import service from './Services.css'
 import sign from './Signup.css'
 import signin from './Signin.css'
+import serviceDetails from './ServiceDetails.css'
+import card from './Card.css'
 
-
-export {navbar, global, home, about, service, sign, signin}
+export {navbar, global, home, about, service, sign, signin, serviceDetails, card}
