@@ -1,0 +1,52 @@
+#myOrders{
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#myOrders h1{
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+#myOrders #orders{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: var(--wheat);
+        margin-top: 30px;
+        padding: 10px;
+}
+#myOrders #orders #order{
+    box-shadow: 3px 3px 10px black;
+}
+#myOrders #orders #order h3{
+    color: var(--headingGreen);
+    font-style: italic;
+    font-weight: bold;
+}
+#myOrders #orders #order p{
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+#myOrders #orders #order .accepted{
+    background-color: var(--accepted);
+    width: 14vw;
+}
+#myOrders #orders #order .cancelled{
+    background-color: var(--cancelled);
+    width: 14vw;
+}
+#myOrders #orders #order .onGoing{
+    background-color: var(--onGoing);
+    width: 14vw;
+}
+#myOrders #orders #order .finished{
+    background-color: var(--finished);
+    width: 14vw;
+}
+#myOrders #orders #order .devlivered{
+    background-color: var(--delivered);
+    width: 14vw;
+}

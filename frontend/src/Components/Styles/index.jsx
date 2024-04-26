@@ -8,5 +8,7 @@ import sign from './Signup.css'
 import signin from './Signin.css'
 import serviceDetails from './ServiceDetails.css'
 import card from './Card.css'
+import myOrders from './MyOrders.css'
 
-export {navbar, global, home, about, service, sign, signin, serviceDetails, card}
+export {navbar, global, home, about, service, sign, signin,
+     serviceDetails, card, myOrders}    
