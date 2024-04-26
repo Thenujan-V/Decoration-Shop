@@ -7,6 +7,7 @@ import Signup from './Pages/Signup'
 import ServiceDetails from './Pages/ServiceDetails'
 import Card from './Pages/Card'
 import MyOrders from './Pages/MyOrders'
+import Payment from './Pages/Payment'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/servicedetails/:key" element={<ServiceDetails />} />
         <Route path="/card" element={<Card />} />
+        <Route path='/payment' element={<Payment />} />
         <Route path='/orders' element={<MyOrders />} />
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}

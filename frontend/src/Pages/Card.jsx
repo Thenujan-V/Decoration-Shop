@@ -2,8 +2,11 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import { Link } from 'react-router-dom'
 import { card } from '../Components/Styles'
+import { useNavigate } from 'react-router-dom'
 
 const Card = () => {
+    const navigater = useNavigate()
+
     const ourservices = [
         {title : 'flower', image: 'https://www.wishque.com/data/images/products/8931/18259175_722703353812_0.98404200-1646116247.jpg', price: '200' , details : 'Welcome to Sara Decorations, your go-to destination for exquisite handcrafted decorations and personalized gifts. Nestled in the heart of Jaffna, we take pride in bringing your celebrations to life with our unique and artistic creations'},
         {title : 'flowers',  image: 'https://www.wishque.com/data/images/products/8931/18259175_722703353812_0.98404200-1646116247.jpg', price: '200' , details : 'Welcome to Sara Decorations, your go-to destination for exquisite handcrafted decorations and personalized gifts. Nestled in the heart of Jaffna, we take pride in bringing your celebrations to life with our unique and artistic creations'},
@@ -15,6 +18,7 @@ const Card = () => {
     }
     const handleOrder = () => {
         console.log('api for add to order table')
+        navigater('/payment')
     }
   return (
     <div id='card'>
@@ -46,7 +50,7 @@ const Card = () => {
             </tbody>
         </table>
         <div id="buttons">
-            <button className='btn btn-warning m-3' onClick={handleOrder()}>Place Order</button>
+            <button className='btn btn-warning m-3' onClick={handleOrder}>Place Order</button>
             <button className='btn btn-warning m-3'>Close</button>
         </div>
         </div>

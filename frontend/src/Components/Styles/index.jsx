@@ -9,6 +9,7 @@ import signin from './Signin.css'
 import serviceDetails from './ServiceDetails.css'
 import card from './Card.css'
 import myOrders from './MyOrders.css'
+import payment from './Payment.css'
 
 export {navbar, global, home, about, service, sign, signin,
-     serviceDetails, card, myOrders}    
+     serviceDetails, card, myOrders, payment}    

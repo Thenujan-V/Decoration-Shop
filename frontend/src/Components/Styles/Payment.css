@@ -1,0 +1,75 @@
+/* Payment Form Styles */
+#paymentPage{
+    background-image: url('../Assets/aboutcontent.png');
+    height: 100vh;
+}
+#paymentPage #payment  {
+    margin: 80px auto; 
+    height: 70vh;
+    padding: 20px; 
+    border-radius: 8px; 
+    background-color:var(--signin_back); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#paymentPage #payment  h1 {
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 0px 0 20px 0;
+}
+
+#paymentPage #payment .form-group {
+    padding-bottom: 30px;
+    height: 100px;
+    /* padding-left: 100px; */
+    /* margin-right: auto; */
+}
+
+#paymentPage #payment .form-control {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    outline: none; 
+    box-sizing: border-box; 
+    
+}
+
+#paymentPage #payment .form-control.is-invalid {
+    border-color: red;
+}
+
+#paymentPage #payment .invalid-feedback {
+    color: red; 
+    font-size: 12px; 
+}
+
+#paymentPage #payment .btn {
+    display: block; 
+    width: 40%; 
+    padding: 10px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none;
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#paymentPage #payment .btn:hover {
+    background-color: #0056b3;
+}
+
+#paymentPage #payment .card-logo img {
+    width: 40px; 
+    height: auto; 
+    margin-top: 10px; 
+}
