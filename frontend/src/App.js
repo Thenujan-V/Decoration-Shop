@@ -8,6 +8,7 @@ import ServiceDetails from './Pages/ServiceDetails'
 import Card from './Pages/Card'
 import MyOrders from './Pages/MyOrders'
 import Payment from './Pages/Payment'
+import VerticalNavbar from './Components/Employee/VerticalNavbar'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/card" element={<Card />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/orders' element={<MyOrders />} />
+        <Route path='/ver' element={<VerticalNavbar />} />
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>

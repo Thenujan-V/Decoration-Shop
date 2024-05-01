@@ -10,6 +10,7 @@ import serviceDetails from './ServiceDetails.css'
 import card from './Card.css'
 import myOrders from './MyOrders.css'
 import payment from './Payment.css'
+import verticalNavbar from './VerticalNavbar.css'
 
 export {navbar, global, home, about, service, sign, signin,
-     serviceDetails, card, myOrders, payment}    
+     serviceDetails, card, myOrders, payment, verticalNavbar}    
