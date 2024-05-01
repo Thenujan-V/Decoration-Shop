@@ -11,6 +11,7 @@ import card from './Card.css'
 import myOrders from './MyOrders.css'
 import payment from './Payment.css'
 import verticalNavbar from './VerticalNavbar.css'
+import dashboard from './Dashboard.css'
 
-export {navbar, global, home, about, service, sign, signin,
+export {navbar, global, home, about, service, sign, signin, dashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar}    

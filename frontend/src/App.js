@@ -9,6 +9,7 @@ import Card from './Pages/Card'
 import MyOrders from './Pages/MyOrders'
 import Payment from './Pages/Payment'
 import VerticalNavbar from './Components/Employee/VerticalNavbar'
+import Dashboard from './Components/Employee/Dashboard'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/orders' element={<MyOrders />} />
         <Route path='/ver' element={<VerticalNavbar />} />
+        <Route path='/empdashboard' element={<Dashboard />} />
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>

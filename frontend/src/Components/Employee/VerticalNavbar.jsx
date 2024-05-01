@@ -16,7 +16,7 @@ const VerticalNavbar = () => {
           </div>
           <div className='links'>
             <Link to='' className='link'><FontAwesomeIcon icon={faHouse} /> Home</Link>
-            <Link to='' className='link'><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
+            <Link to='/empdashboard' className='link'><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
             <Link to='' className='link'><FontAwesomeIcon icon={faBell} /> Notifications</Link>
             <Link to='' className='link'><FontAwesomeIcon icon={faMoneyBill} /> Allowance</Link>
           </div>
