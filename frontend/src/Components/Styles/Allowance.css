@@ -29,6 +29,17 @@
    background-color: var(--delivered);
    border-bottom: 3px solid black;
 }
+.allowance .details .detail .row .button{
+    background-color: var(--background_blue);
+    width: 6vw;
+    height: 4vh;
+    color: var(--wheat);
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 6px;
+    padding: 0 0 4px 0;
+    border-radius: 50px;
+ }
 .allowance .details .detail p{
     font-size: 22px;
     font-weight: bold;

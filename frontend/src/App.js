@@ -15,6 +15,7 @@ import OrderReq from './Components/Employee/OrderReq'
 import Allowance from './Components/Employee/Allowance'
 import AdminVerticalNav from './Components/Admin/AdminVerticalNav'
 import Admindashboard from './Components/Admin/Dashboard'
+import Booking from './Components/Admin/Booking'
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/allowance' element={<Allowance />} />
         <Route path='/adminpanel' element={<AdminVerticalNav />} />
         <Route path='/admindashboard' element={<Admindashboard />} />
+        <Route path='/booking' element={<Booking />} />
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
     </>

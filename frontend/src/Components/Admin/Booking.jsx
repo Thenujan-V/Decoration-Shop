@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import VerticalNavbar from './VerticalNavbar'
+import VerticalNavbar from '../Employee/VerticalNavbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { faCircle } from '@fortawesome/free-regular-svg-icons';
-import { allowance } from '../Styles';
+import { faCircle, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import AdminVerticalNav from './AdminVerticalNav'
+import { allowance } from '../Styles'
+import { Link } from 'react-router-dom'
 
-const Allowance = () => {
+const Booking = () => {
     const allowance = [
         {order_id:'1123',status:'completed', allowance:'3000'},
         {order_id:'1124',status:'completed', allowance:'3000'},
@@ -31,17 +32,16 @@ const Allowance = () => {
     };
 console.log('soid : ',selectedOrderId)
   return (
-    <div>
-        <div style={{display:'flex', height:'100vh'}}>
-            <VerticalNavbar />
-            <div style={{flex:1}} className='container allowance'>
-                <h1>Allowance</h1>
+    <div style={{display:'flex' , height:'100vh'}}>
+        <AdminVerticalNav />
+        <div style={{flex:1}} className='container allowance'>
+            <h1>ORDERS</h1>
                 <div className='details'>
                     <div className="row head">
                         <h3 className='col-lg-3'>ORDER ID</h3>
-                        <h3 className='col-lg-3'>W.STATUS</h3>
-                        <h3 className='col-lg-3'>ALLOWANCE</h3>
-                        <h3 className='col-lg-3'>A.STATUS</h3>
+                        <h3 className='col-lg-3'>STATUS</h3>
+                        <h3 className='col-lg-3'></h3>
+                        <h3 className='col-lg-3'>PAYMENT</h3>
                     </div>
                     <div className="detail">
                         {
@@ -49,7 +49,7 @@ console.log('soid : ',selectedOrderId)
                                 <div className="row">
                                     <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
                                     <p className='col-lg-3'>{order.status}</p>
-                                    <p className='col-lg-3'>{order.allowance}</p>
+                                    <Link to='' className='btn button' >View</Link>
                                     {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
                                     {selectedOrderId === order.order_id ? (
                                         <button
@@ -81,10 +81,9 @@ console.log('soid : ',selectedOrderId)
                         }
                     </div>
                 </div>
-            </div>
         </div>
     </div>
   )
 }
 
-export default Allowance
+export default Booking
