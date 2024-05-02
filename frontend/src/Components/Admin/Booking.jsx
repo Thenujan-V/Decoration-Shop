@@ -49,7 +49,7 @@ console.log('soid : ',selectedOrderId)
                                 <div className="row">
                                     <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
                                     <p className='col-lg-3'>{order.status}</p>
-                                    <Link to='' className='btn button' >View</Link>
+                                    <Link to={`/employeeassign/${order.order_id}`} className='btn button' >View</Link>
                                     {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
                                     {selectedOrderId === order.order_id ? (
                                         <button
