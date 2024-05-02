@@ -18,7 +18,7 @@ const VerticalNavbar = () => {
             <Link to='' className='link'><FontAwesomeIcon icon={faHouse} /> Home</Link>
             <Link to='/empdashboard' className='link'><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
             <Link to='' className='link'><FontAwesomeIcon icon={faBell} /> Notifications</Link>
-            <Link to='' className='link'><FontAwesomeIcon icon={faMoneyBill} /> Allowance</Link>
+            <Link to='/allowance' className='link'><FontAwesomeIcon icon={faMoneyBill} /> Allowance</Link>
           </div>
           <div className='otherLinks'>
             <Link to='' className='link'><FontAwesomeIcon icon={faGear} /> Settings</Link>

@@ -13,6 +13,8 @@ import payment from './Payment.css'
 import verticalNavbar from './VerticalNavbar.css'
 import dashboard from './Dashboard.css'
 import pendingWorks from './PendingWorks.css'
+import orderReq from './OrderReq.css'
+import allowance from './Allowance.css'
 
-export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks,
+export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, 
      serviceDetails, card, myOrders, payment, verticalNavbar}    

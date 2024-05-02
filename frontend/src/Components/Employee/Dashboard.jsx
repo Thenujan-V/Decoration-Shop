@@ -65,7 +65,7 @@ const Dashboard = () => {
                                     <p className='p-0 m-0'>order_id : {order.order_id}</p>
                                 </div>
                                 <div className="col-lg-4">
-                                    <Link className='link'>View</Link>
+                                    <Link to={`/orders/${order.order_id}`} className='link'>View</Link>
                                 </div>
                             </div>
                         ))
