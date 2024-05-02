@@ -15,6 +15,8 @@ import dashboard from './Dashboard.css'
 import pendingWorks from './PendingWorks.css'
 import orderReq from './OrderReq.css'
 import allowance from './Allowance.css'
+import adminVerticalNav from './AdminVerticalNav.css'
+import adminDashboard from './AdminDashboard.css'
 
-export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, 
+export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar}    

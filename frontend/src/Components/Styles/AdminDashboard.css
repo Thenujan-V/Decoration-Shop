@@ -1,0 +1,95 @@
+.adminDashboard{
+    margin-top: 100px;
+    gap: 80px;
+    text-align: center;
+}
+.adminDashboard .boxes{
+    padding: 0 200px 0 200px;
+}
+.adminDashboard .orders{
+    background-color: var(--background_blue);
+    color: var(--wheat);
+    width: 14vw;
+    height: 20vh;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px black;
+}
+.adminDashboard .orders p{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 15px;
+}
+.adminDashboard .delivery{
+    background-color: var(--cancelled);
+    color: var(--background_blue);
+    width: 12vw;
+    height: 20vh;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px black;
+}
+.adminDashboard .delivery p{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-transform: uppercase;
+}
+.adminDashboard .table{
+    margin-top: 30px;
+    padding: 0 30px 0 30px;
+}
+.adminDashboard table thead{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-align: center;
+}
+.adminDashboard table thead{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 15px;
+    
+}
+.adminDashboard table thead td{
+    border: 2px solid black;
+}
+.adminDashboard table tbody{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 15px;
+}
+.adminDashboard table tbody td{
+    padding: 10px;
+    border: 2px solid black;
+}
+.adminDashboard .table .edit{
+    padding: 30px;
+}
+.adminDashboard .table .edit p{
+    margin-top: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-transform: uppercase;
+    width: 20vw;
+}
+.adminDashboard .edit button{
+    margin-top: 39px;
+    width: 10vw;
+    height: 5vh;
+    text-align: center;
+    background-color: var(--background_blue);
+    color: var(--wheat);
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}

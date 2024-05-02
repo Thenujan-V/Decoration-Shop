@@ -1,0 +1,53 @@
+.adminVerticalNav{
+    background-color: var(--background_blue);
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    height: 100vh;
+}
+.adminVerticalNav .logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminVerticalNav .logo img{
+    height: 12vh;
+    margin: 20px;
+}
+.adminVerticalNav .link{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-decoration: none;
+    color:var(--wheat);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 6px 0 13px 30px;
+    text-transform: uppercase;
+}
+.adminVerticalNav .nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminVerticalNav .profile{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.adminVerticalNav .links{
+    /* margin-top: 35px; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.adminVerticalNav .otherLinks{
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.adminVerticalNav .link:hover{
+    background-color: var(--wheat);
+    color: var(--background_blue);
+    /* margin: 0 0 18px 0 ; */
+    width: 15vw;
+}

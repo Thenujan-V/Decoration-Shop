@@ -13,6 +13,8 @@ import Dashboard from './Components/Employee/Dashboard'
 import PendingWorks from './Components/Employee/PendingWorks'
 import OrderReq from './Components/Employee/OrderReq'
 import Allowance from './Components/Employee/Allowance'
+import AdminVerticalNav from './Components/Admin/AdminVerticalNav'
+import Admindashboard from './Components/Admin/Dashboard'
 
 const App = () => {
   return (
@@ -31,7 +33,8 @@ const App = () => {
         <Route path='/pending/:order_id' element={<PendingWorks />} />
         <Route path='/orders/:order_id' element={<OrderReq />} />
         <Route path='/allowance' element={<Allowance />} />
-        
+        <Route path='/adminpanel' element={<AdminVerticalNav />} />
+        <Route path='/admindashboard' element={<Admindashboard />} />
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
     </>
