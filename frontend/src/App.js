@@ -10,6 +10,7 @@ import MyOrders from './Pages/MyOrders'
 import Payment from './Pages/Payment'
 import VerticalNavbar from './Components/Employee/VerticalNavbar'
 import Dashboard from './Components/Employee/Dashboard'
+import PendingWorks from './Components/Employee/PendingWorks'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/orders' element={<MyOrders />} />
         <Route path='/ver' element={<VerticalNavbar />} />
         <Route path='/empdashboard' element={<Dashboard />} />
+        <Route path='/pending/:order_id' element={<PendingWorks />} />
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
