@@ -27,13 +27,14 @@ const AllowanceDetails = () => {
     <div>
         <div style={{display:'flex', height:'100vh'}}>
         <AdminVerticalNav />
-        <div style={{flex:1}} className='container allowance'>
+        <div style={{flex:1}} className='container payments'>
             <h1>EMPLOYEE MANAGEMENT</h1>
             {
                 employee && 
                 <div>
                         {<h2>{employee.emp_id}</h2>}
                         <div className="details">
+                            <h3 >ALLOWANCE DETAILS</h3>
                             <div className='detail'>
                                 <p className='qes'>TOTAL AMOUNT </p>
                                 <p className='ans'>- {employee.total}</p>

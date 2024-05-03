@@ -21,8 +21,9 @@ import booking from './Booking.css'
 import employeeManagement from './EmployeeManagement.css'
 import viewEmployee from './ViewEmployee.css'
 import allowanceDetails from './AllowanceDetails.css'
+import customerMgt from './CustomerMgt.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
-     serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails
+     serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails, customerMgt
      
      }    

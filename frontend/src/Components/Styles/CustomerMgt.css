@@ -1,0 +1,55 @@
+.customers{
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.customers h1{
+    padding-top: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+.customers .details{
+    background-color: var(--delivered);
+    width: 55vw;
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px rgb(83, 76, 76);
+    padding: 0 20px;
+}
+.customers .details .row{
+    font-size: 22px;
+    font-weight:700;
+    border-bottom: 2px solid black;
+}
+.customers .details .row .name{
+    color: rgb(69, 65, 65);
+}
+.customers .details .row .view{
+    background-color: var(--background_blue);
+    width: 7vw;
+    height: 4vh;
+    color: var(--wheat);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+    margin-left: 30px;
+}
+.customers .details .row .delete{
+    background-color: red;
+    width: 7vw;
+    height: 4vh;
+    color: var(--wheat);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+    margin-left: 30px;
+}

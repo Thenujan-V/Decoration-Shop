@@ -1,35 +1,51 @@
-.allowance{
+.payments{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 }
-.allowance .details{
+.payments h2{
+    margin-top: 80px;
+    text-align: left;
+}
+.payments .details{
     background-color: var(--delivered);
     border-radius: 30px;
     box-shadow: 3px 3px 10px rgb(92, 81, 81);
     width: 40vw;
-    margin-top: 30px;
     height: 30vh;
     padding-top: 20px;
 }
-.allowance .details .detail{
+.payments .details h3{
+    color: var(--background_blue);
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 16px;
+}
+.payments .details .detail{
     display: flex;
     justify-content: center;
+    font-weight: bold;
+    font-size: 26px;
 }
-.allowance .details .detail .qes{
+.payments .details .detail .qes{
     text-align: left;
     width: 15vw;
 }
-.allowance .buttons{
+.payments .buttons{
     margin-top: 15px;
 }
-.allowance .buttons .hand{
+.payments .buttons .hand{
     background-color: var(--onGoing);
     border-radius: 40px;
     font-size: 16px;
     font-weight: bold;
     margin: 10px;
 }
-.allowance .buttons .now{
+.payments .buttons .now{
     background-color: var(--cancelled);
     border-radius: 40px;
     font-size: 16px;

@@ -18,7 +18,7 @@ const AdminVerticalNav = () => {
             <Link to='/booking' className='link'><FontAwesomeIcon icon={faListCheck} /> BOOKING</Link>
             <Link to='/employeeManagement' className='link'><FontAwesomeIcon icon={faUserTie} /> EMPLOYEE MANAGEMENT</Link>
             <Link to='' className='link'><FontAwesomeIcon icon={faBell} /> Notification  Management</Link>
-            <Link to='/' className='link'><FontAwesomeIcon icon={faUser} /> CUSTOMER MANAGEMENT</Link>
+            <Link to='/customerMgt' className='link'><FontAwesomeIcon icon={faUser} /> CUSTOMER MANAGEMENT</Link>
             <Link to='/' className='link'><FontAwesomeIcon icon={faComment} /> FEEDBACK  MANAGEMENT</Link>
           </div>
           <div className='otherLinks'>            
