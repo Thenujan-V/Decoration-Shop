@@ -1,0 +1,29 @@
+.review {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.review .input .stars{
+    justify-content: center;
+    margin-top: 20px;
+}
+.review .input .rating{
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: var(--headingGreen);
+}
+.review h1{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--background_blue);
+    font-size: 52px;
+}
+.review .input #reviewMsg{
+    margin-top: 70px;
+    width: 40vw;
+    height: 20vh;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px black;
+}
