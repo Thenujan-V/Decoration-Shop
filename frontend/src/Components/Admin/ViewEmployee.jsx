@@ -19,12 +19,12 @@ const ViewEmployee = () => {
         setGetEmployee(employees)
 
     },[])
+    console.log('ok :',getEmployee)
 
     const findEmployee = getEmployee.find((employee) => employee.id === emp_id.emp_id)
     useEffect(() => {
         setEmployee(findEmployee)
     })
-    console.log('emp : ',employee)
 
   return (
     <div style={{display:'flex', height:'100vh'}}>

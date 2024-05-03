@@ -20,8 +20,9 @@ import adminDashboard from './AdminDashboard.css'
 import booking from './Booking.css'
 import employeeManagement from './EmployeeManagement.css'
 import viewEmployee from './ViewEmployee.css'
+import allowanceDetails from './AllowanceDetails.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
-     serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee
+     serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails
      
      }    

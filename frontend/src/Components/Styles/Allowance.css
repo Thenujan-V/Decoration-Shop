@@ -45,3 +45,9 @@
     font-weight: bold;
     text-align: center;
 }
+.allowance .details .allowanceBtn{
+    background-color: var(--background_blue);
+    color: var(--wheat);
+    border-radius: 50px;
+    font-weight: bold;
+}

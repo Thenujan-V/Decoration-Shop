@@ -20,6 +20,7 @@ import AssignEmployee from './Components/Admin/AssignEmployee'
 import EmployeeManagement from './Components/Admin/EmployeeManagement'
 import ViewEmployee from './Components/Admin/ViewEmployee'
 import ViewOrders from './Components/Admin/ViewOrders'
+import AllowanceDetails from './Components/Admin/AllowanceDetails'
 
 
 const App = () => {
@@ -46,7 +47,8 @@ const App = () => {
         <Route path='/employeeManagement' element={<EmployeeManagement />} />
         <Route path='/viewemployee/:emp_id' element={<ViewEmployee />} />
         <Route path='/vieworders/:emp_id' element={<ViewOrders />} />
-
+        <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
+        
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
     </>
