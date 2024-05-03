@@ -18,6 +18,9 @@ import allowance from './Allowance.css'
 import adminVerticalNav from './AdminVerticalNav.css'
 import adminDashboard from './AdminDashboard.css'
 import booking from './Booking.css'
+import employeeManagement from './EmployeeManagement.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
-     serviceDetails, card, myOrders, payment, verticalNavbar, booking}    
+     serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement
+     
+     }    

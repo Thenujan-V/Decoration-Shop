@@ -17,6 +17,7 @@ import AdminVerticalNav from './Components/Admin/AdminVerticalNav'
 import Admindashboard from './Components/Admin/Dashboard'
 import Booking from './Components/Admin/Booking'
 import AssignEmployee from './Components/Admin/AssignEmployee'
+import EmployeeManagement from './Components/Admin/EmployeeManagement'
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         <Route path='/admindashboard' element={<Admindashboard />} />
         <Route path='/booking' element={<Booking />} />
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
+        <Route path='/employeeManagement' element={<EmployeeManagement />} />
 
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>

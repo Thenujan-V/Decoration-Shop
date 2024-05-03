@@ -16,10 +16,10 @@ const AdminVerticalNav = () => {
           <div className='links'>
             <Link to='/admindashboard' className='link'><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
             <Link to='/booking' className='link'><FontAwesomeIcon icon={faListCheck} /> BOOKING</Link>
-            <Link to='/empdashboard' className='link'><FontAwesomeIcon icon={faUserTie} /> EMPLOYEE MANAGEMENT</Link>
+            <Link to='/employeeManagement' className='link'><FontAwesomeIcon icon={faUserTie} /> EMPLOYEE MANAGEMENT</Link>
             <Link to='' className='link'><FontAwesomeIcon icon={faBell} /> Notification  Management</Link>
-            <Link to='/allowance' className='link'><FontAwesomeIcon icon={faUser} /> CUSTOMER MANAGEMENT</Link>
-            <Link to='/allowance' className='link'><FontAwesomeIcon icon={faComment} /> FEEDBACK  MANAGEMENT</Link>
+            <Link to='/' className='link'><FontAwesomeIcon icon={faUser} /> CUSTOMER MANAGEMENT</Link>
+            <Link to='/' className='link'><FontAwesomeIcon icon={faComment} /> FEEDBACK  MANAGEMENT</Link>
           </div>
           <div className='otherLinks'>            
             <Link to='' className='link'><FontAwesomeIcon icon={faFileWaveform} /> REPORT</Link>
