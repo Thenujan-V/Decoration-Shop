@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 const EmployeeManagement = () => {
     const employees = [
         { id: 'E001', name: 'John Doe', createdDate:'10th july 2203' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203' },{ id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },{ id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },{ id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
+        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203' },
+        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
+        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
+        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
         { id: 'E003', name: 'Alice Johnson', createdDate:'15th july 2203' }
     ];
 
@@ -26,6 +29,9 @@ const EmployeeManagement = () => {
         <AdminVerticalNav />
         <div style={{flex:1}} className='container empMgt'>
             <h1>EMPLOYEE MANAGEMENT</h1>
+            <div className="add">
+                <Link to='' className='btn'> ADD EMPLOYEE</Link>
+            </div>
             <div className="row">
             {
                 isApiResponse && (
@@ -40,7 +46,7 @@ const EmployeeManagement = () => {
                             <p>Name - {employee.name}</p>
                             <p>Date Joined - {employee.createdDate}</p>
                             <div className="btnn">
-                                <Link to='' className='btn'>View</Link>
+                                <Link to={`/viewemployee/${employee.id}`} className='btn'>View</Link>
                             </div>
                         </div>
                     ))

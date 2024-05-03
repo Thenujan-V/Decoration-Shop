@@ -18,6 +18,8 @@ import Admindashboard from './Components/Admin/Dashboard'
 import Booking from './Components/Admin/Booking'
 import AssignEmployee from './Components/Admin/AssignEmployee'
 import EmployeeManagement from './Components/Admin/EmployeeManagement'
+import ViewEmployee from './Components/Admin/ViewEmployee'
+import ViewOrders from './Components/Admin/ViewOrders'
 
 
 const App = () => {
@@ -42,6 +44,8 @@ const App = () => {
         <Route path='/booking' element={<Booking />} />
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
         <Route path='/employeeManagement' element={<EmployeeManagement />} />
+        <Route path='/viewemployee/:emp_id' element={<ViewEmployee />} />
+        <Route path='/vieworders/:emp_id' element={<ViewOrders />} />
 
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
