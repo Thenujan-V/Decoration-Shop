@@ -23,9 +23,10 @@ import viewEmployee from './ViewEmployee.css'
 import allowanceDetails from './AllowanceDetails.css'
 import customerMgt from './CustomerMgt.css'
 import review from './Review.css'
+import reviewCheck from './ReviewCheck.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails, customerMgt,
-     review
+     review, reviewCheck
      
      }    

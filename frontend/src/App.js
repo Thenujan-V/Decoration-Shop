@@ -24,6 +24,8 @@ import AllowanceDetails from './Components/Admin/AllowanceDetails'
 import CustomerMgt from './Components/Admin/CustomerMgt'
 import ViewCustomer from './Components/Admin/ViewCustomer'
 import Review from './Pages/Review'
+import ReviewCheck from './Components/Admin/ReviewCheck'
+import ViewReview from './Components/Admin/ViewReview'
 
 
 const App = () => {
@@ -54,6 +56,8 @@ const App = () => {
         <Route path='/customerMgt' element={<CustomerMgt />} />
         <Route path='/viewCustomer/:cust_id' element={<ViewCustomer />} />
         <Route path='/review' element={<Review />} />
+        <Route path='/reviewCheck' element={<ReviewCheck />} />
+        <Route path='/viewReview/:cust_id' element={<ViewReview />} />
 
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
