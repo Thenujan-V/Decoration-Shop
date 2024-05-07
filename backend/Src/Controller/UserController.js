@@ -29,7 +29,7 @@ exports.signin = (req, res) => {
             const passwordMatch = await bcrypt.compare(req.body.password, signinRes[0].password)
 
             if(passwordMatch){
-                res.status(201).json({message: 'successfully signin'})
+                res.status(200).json({message: 'successfully signin'})
             }
             else{
                 res.status(401).json({error: 'Invalid credentials.'})
@@ -44,4 +44,29 @@ exports.signin = (req, res) => {
         })
 }
 
+exports.showDetails = (req, res) => {
+    userModels.show_user_details(req.params)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot fetching data',
+                details: err.message
+            })
+        })
 
+}
+
+exports.showAllUsers = (req,res) => {
+    userModels.get_all_users_details()
+        .then((response) => {
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: 'connot fetching data',
+                details: err.message
+            })
+        })
+}
