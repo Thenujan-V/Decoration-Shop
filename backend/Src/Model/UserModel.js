@@ -1,4 +1,6 @@
 const dbConnection  = require('../Config/Db.confic')
+const bcrypt = require('bcrypt');
+
 
 const users = function(user){
     this.user_name = user.user_name
@@ -11,20 +13,52 @@ const users = function(user){
     this.city   = user.city
 }
 
-users.user_signup = function(user, result){
-    console.log(user)
-    const sql = `insert into user (user_name, mail_id, password, first_name, last_name, house_no, road_name, city) values (?, ?, ?, ?, ?, ?, ?, ?)`
-    dbConnection.execute(sql, [user.user_name, user.mail_id, user.password, user.first_name, user.last_name, user.house_no, user.road_name, user.city],
-                            function(err, res){
-                                if(err){
-                                    result(err, null)
-                                }
-                                else{
-                                    result(null, res)
-                                }
-                            }
-    )
+users.user_signup = function(user){
+
+    return new Promise(async (resolve, reject) => {
+            console.log(user)
+
+            const saltRounds = 10;
+            try{
+                const hashPassword = await bcrypt.hash(user.password, saltRounds)
+                user.password = hashPassword
+    
+                const sql = `insert into user (user_name, mail_id, password, first_name, last_name, house_no, road_name, city) values (?, ?, ?, ?, ?, ?, ?, ?)`
+                dbConnection.execute(sql, [user.user_name, user.mail_id, user.password, user.first_name, user.last_name, user.house_no, user.road_name, user.city],
+                                        (err, res) => {
+                                            if(err){
+                                                reject(err)
+                                            }
+                                            else{
+                                                resolve(res)
+                                            }
+                                        }
+                )
+            }
+            catch(error){
+                reject(error)
+            }
+            })
                
 }
+
+users.user_signin = function(signinRes){
+    return new Promise((resolve, reject) => {
+        const sql = `select * from user where mail_id = ?`
+        dbConnection.execute(sql, [signinRes.mail_id], 
+            (err, res) => {
+                if(err){
+                    console.log('error', err)
+                    reject(err)
+                }
+                else{
+                    resolve(res)
+                }
+            }
+        )
+    })
+}
+
+
 
 module.exports = users
