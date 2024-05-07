@@ -48,7 +48,6 @@ users.user_signin = function(signinRes){
         dbConnection.execute(sql, [signinRes.mail_id], 
             (err, res) => {
                 if(err){
-                    console.log('error', err)
                     reject(err)
                 }
                 else{
@@ -67,26 +66,12 @@ users.show_user_details = (user_Id) => {
                 reject(err)
             }
             else{
-                console.log(res)
                 resolve(res)
             }
         })
     })
 }
 
-users.get_all_users_details = () => {
-    return new Promise((resolve, reject) => {
-        const sql = `select * from user`
-        dbConnection.execute(sql, (err, res) => {
-            if(err){
-                reject(err)
-            }
-            else{
-                console.log(res)
-                resolve(res)
-            }
-        })
-    })
-}
+
 
 module.exports = users

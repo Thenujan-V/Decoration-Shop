@@ -9,8 +9,12 @@ Server.use(express.json())
 Server.use(bodyParser.json())
 
 const userRouter = require('./Src/Routers/UserRouter')
+const adminRouter = require('./Src/Routers/AdminRouter')
+const employeeRouter = require('./Src/Routers/EmployeeRouter')
 
 Server.use('/api/user', userRouter)
+Server.use('/api/admin', adminRouter)
+Server.use('/api/admin', employeeRouter)
 
 
 

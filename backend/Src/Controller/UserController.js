@@ -7,7 +7,6 @@ exports.signup = (req, res) => {
             return res.status(201).json(signupRes)
        }) 
        .catch(err => {
-            console.error('signup error :',err)
             return res.status(500).json({
                 error: 'Signup failed. Please try again later.',
                 details: err.message,
@@ -58,15 +57,3 @@ exports.showDetails = (req, res) => {
 
 }
 
-exports.showAllUsers = (req,res) => {
-    userModels.get_all_users_details()
-        .then((response) => {
-            res.status(200).json(response)
-        })
-        .catch((err) => {
-            res.status(500).json({
-                error: 'connot fetching data',
-                details: err.message
-            })
-        })
-}
