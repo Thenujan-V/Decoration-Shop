@@ -11,10 +11,12 @@ Server.use(bodyParser.json())
 const userRouter = require('./Src/Routers/UserRouter')
 const adminRouter = require('./Src/Routers/AdminRouter')
 const employeeRouter = require('./Src/Routers/EmployeeRouter')
+const servicesRouter = require('./Src/Routers/ServicesRouter')
 
 Server.use('/api/user', userRouter)
 Server.use('/api/admin', adminRouter)
 Server.use('/api/admin', employeeRouter)
+Server.use('/api/services', servicesRouter)
 
 
 

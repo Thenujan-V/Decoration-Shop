@@ -1,5 +1,8 @@
 var userModels = require('../Model/UserModel')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+
+const secret_key = 'sdfghgfdasdfghjhtrewqwertyuytrewqaxcvbhuytrewsxcvhytrewasxcvghytrewsxcvbhytrewsxcvghytrewazxcvgtrewazxcvghytrewasxcg'
 
 exports.signup = (req, res) => {
     userModels.user_signup(req.body)
@@ -28,7 +31,11 @@ exports.signin = (req, res) => {
             const passwordMatch = await bcrypt.compare(req.body.password, signinRes[0].password)
 
             if(passwordMatch){
-                res.status(200).json({message: 'successfully signin'})
+                const token = jwt.sign({"id":signinRes[0].user_Id, "role":signinRes[0].role}, 'secret_key', { expiresIn: '24h' });
+                res.status(200).json({
+                    jwtToken:token,
+                    message: 'successfully signin'
+                })
             }
             else{
                 res.status(401).json({error: 'Invalid credentials.'})
