@@ -24,3 +24,16 @@ exports.updateQuantity = (req, res) => {
             })
         })
 }
+
+exports.showCard = (req, res) => {
+    cardModel.show_card_items(req.params.user_Id)
+        .then((cardRes) => {
+            return res.status(200).send(cardRes)
+        })
+        .catch((err) => {
+        return res.status(501).json({
+            error : 'fetch card items faild',
+            details : err.message
+        })
+    })
+}
