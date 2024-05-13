@@ -28,6 +28,50 @@ services.add_service = (service) => {
     })
 }
 
+services.view_services = (services) => {
+    return new Promise((resolve, reject) => {
+        try{
+            sql = `select * from service`
+            dbConnection.execute(sql, (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    resolve(res)
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
+
+services.view_service_details = (service_Id) => {
+    return new Promise((reslove, reject) => {
+        try{
+            const sql = `select * from service where service_id = ?`
+            dbConnection.execute(sql, [service_Id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    reslove(res)
+                }
+            }) 
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
+
+
+
+
+
 
 
 module.exports = services
