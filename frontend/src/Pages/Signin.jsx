@@ -35,8 +35,11 @@ const Signin = () => {
                     password : password
                 } 
                 const response  = await userSignin(formData)
-                if(response === 200){
+                
+                if(response.status === 200){
                     alert('you are login successfully')
+                    const token = response.data.jwtToken
+                    localStorage.setItem('token' , token)
                     navigate('/')
                 }
                 else{
@@ -45,6 +48,9 @@ const Signin = () => {
             }
             catch(error){
                 console.log('error occur : ',error)
+                if(error.response.status === 401 || error.response.status === 404){
+                    alert('wrong email or password try again')
+                }
             }
         }
     }

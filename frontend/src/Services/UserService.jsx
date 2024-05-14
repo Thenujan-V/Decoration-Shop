@@ -19,7 +19,7 @@ export const userSignin = async (formData) => {
             mail_id : formData.mail_id,
             password : formData.password
         })
-        return response.status
+        return response
     }
     catch(error){
         throw error

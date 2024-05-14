@@ -9,16 +9,36 @@ const cardTable = function(card){
 cardTable.add_to_card = (cardItems) => {
     return new Promise((resolve, reject) => {
         try{
+            const selectSql = `select service_id from card where user_Id = ?`
             const sql = `insert into card (service_id, quantity, user_Id) values (? ,?, ?)`
-            dbConnection.execute(sql, [cardItems.service_id,1, cardItems.user_Id], 
-                (err, res) => {
+            dbConnection.execute(selectSql, [cardItems.user_Id], 
+                (err, response) => {
                     if(err){
                         reject(err)
                     }
                     else{
-                        resolve(res)
+                        console.log(response)
+                        const foundItem = response.find((service_ids) => service_ids && service_ids.service_id == cardItems.service_id)
+
+                        if(foundItem){
+                            resolve('itemExist')
+                        }
+                        else{
+                            console.log('si : ',cardItems.service_id)
+                            dbConnection.execute(sql, [cardItems.service_id,1, cardItems.user_Id], 
+                                (err, res) => {
+                                    if(err){
+                                        reject(err)
+                                    }
+                                    else{
+                                        resolve(res)
+                                    }
+                                })
+                        }
                     }
-                })
+                }
+            )
+            
         }
         catch(error){
             reject(error)

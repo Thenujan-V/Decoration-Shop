@@ -3,7 +3,13 @@ const cardModel = require('../Model/CardModel')
 exports.addToCard = (req, res) => {
     cardModel.add_to_card(req.body)
         .then((cardRes) => {
-            return res.status(201).send(cardRes)
+            if(cardRes === 'itemExist'){
+                return res.status(409).send(cardRes)
+            }
+            else{
+                return res.status(201).send(cardRes)
+            }
+            
         })
         .catch((err) => {
             return res.status(501).json({

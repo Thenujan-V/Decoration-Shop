@@ -1,6 +1,6 @@
 #service{
     background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)),url('../Assets/aboutback.png');
-    height: 87.8vh;
+    min-height: 87.7vh;
 }
 
 #service h1{
