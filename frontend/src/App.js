@@ -26,6 +26,7 @@ import ViewCustomer from './Components/Admin/ViewCustomer'
 import Review from './Pages/Review'
 import ReviewCheck from './Components/Admin/ReviewCheck'
 import ViewReview from './Components/Admin/ViewReview'
+import Signin from './Pages/Signin'
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/service" element={<Services />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/servicedetails/:key" element={<ServiceDetails />} />
         <Route path="/card" element={<Card />} />
         <Route path='/payment' element={<Payment />} />

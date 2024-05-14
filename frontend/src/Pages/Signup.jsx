@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import '../Components/Styles';
 import Navbar from '../Components/Navbar';
-import { Link } from 'react-router-dom';
-import Signin from '../Components/Signin';
+import { Link, useNavigate } from 'react-router-dom';
+import Signin from './Signin';
+import { userSignup } from '../Services/UserService';
 
 const Signup = () => {
+    const navigate = useNavigate()
     // State variables for form data and errors
     const [formData, setFormData] = useState({
-        fullName: '',
+        first_name: '',
+        last_name: '',
         address: '',
-        contactNo: '',
-        email: '',
-        username: '',
+        contact_no: '',
+        mail_id: '',
+        user_name: '',
         password: '',
         confirmPassword: '',
     });
 
     const [errors, setErrors] = useState({});
 
-    // Handler function for input changes
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -27,13 +29,15 @@ const Signup = () => {
         });
     };
 
-    // Validation function for form data
     const validateForm = () => {
         const newErrors = {};
 
         // Validate full name
-        if (!formData.fullName) {
-            newErrors.fullName = 'Full name is required.';
+        if (!formData.first_name) {
+            newErrors.first_name = 'Full name is required.';
+        }
+        if (!formData.last_name) {
+            newErrors.last_name = 'last name is required.';
         }
 
         // Validate address
@@ -42,18 +46,18 @@ const Signup = () => {
         }
 
         // Validate contact number
-        if (!formData.contactNo || !/^\d{10}$/.test(formData.contactNo)) {
-            newErrors.contactNo = 'Contact number must be 10 digits.';
+        if (!formData.contact_no || !/^\d{10}$/.test(formData.contact_no)) {
+            newErrors.contact_no = 'Contact number must be 10 digits.';
         }
 
-        // Validate email
-        if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Invalid email address.';
+        // Validate mail_id
+        if (!formData.mail_id || !/\S+@\S+\.\S+/.test(formData.mail_id)) {
+            newErrors.mail_id = 'Invalid mail_id address.';
         }
 
-        // Validate username
-        if (!formData.username) {
-            newErrors.username = 'Username is required.';
+        // Validate user_name
+        if (!formData.user_name) {
+            newErrors.user_name = 'user_name is required.';
         }
 
         // Validate password
@@ -71,23 +75,33 @@ const Signup = () => {
     };
 
     // Handler function for form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (validateForm()) {
-            // Form is valid, submit the form (e.g., make an API call)
-            console.log('Form data:', formData);
-            // Reset form after successful submission
-            setFormData({
-                fullName: '',
-                address: '',
-                contactNo: '',
-                email: '',
-                username: '',
-                password: '',
-                confirmPassword: '',
-            });
+            // setFormData({
+            //     first_name: '',
+            //     address: '',
+            //     contact_no: '',
+            //     mail_id: '',
+            //     user_name: '',
+            //     password: '',
+            //     confirmPassword: '',
+            // });
             setErrors({});
+            try{
+                const response  = await userSignup(formData)
+                if(response === 201){
+                    alert('you are registerd successfully')
+                    navigate('/signin')
+                }
+                else{
+                    alert('wrong datas please try again...!')
+                }
+            }   
+            catch(error){
+                console.log('error occure : ',error)
+            }
         }
     };
 
@@ -95,7 +109,7 @@ const Signup = () => {
         <>
         <Navbar />
         <div className="form">
-            <div className="">
+            <div className=''>
                 <div className="row">
                     <div className="col-lg-6 col-md-6 col-12">
                     {/* <div className="container"> */}
@@ -103,21 +117,33 @@ const Signup = () => {
                 <form onSubmit={handleSubmit}>
                     {/* Full Name */}
                     <div className="form-group">
-                        <label htmlFor="fullName">Full Name:</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="fullName"
-                            name="fullName"
-                            value={formData.fullName}
+                            id="first_name"
+                            name="first_name"
+                            value={formData.first_name}
                             onChange={handleInputChange}
+                            placeholder='First Name'
                         />
-                        {errors.fullName && <span className="text-danger">{errors.fullName}</span>}
+                        {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+                    </div>
+
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="last_name"
+                            name="last_name"
+                            value={formData.last_name}
+                            onChange={handleInputChange}
+                            placeholder='Last Name'
+                        />
+                        {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
                     </div>
 
                     {/* Address */}
                     <div className="form-group">
-                        <label htmlFor="address">Address:</label>
                         <input
                             type="text"
                             className="form-control"
@@ -125,55 +151,59 @@ const Signup = () => {
                             name="address"
                             value={formData.address}
                             onChange={handleInputChange}
+                            placeholder='Address'
+
                         />
                         {errors.address && <span className="text-danger">{errors.address}</span>}
                     </div>
 
                     {/* Contact Number */}
                     <div className="form-group">
-                        <label htmlFor="contactNo">Contact No:</label>
                         <input
                             type="tel"
                             className="form-control"
-                            id="contactNo"
-                            name="contactNo"
-                            value={formData.contactNo}
+                            id="contact_no"
+                            name="contact_no"
+                            value={formData.contact_no}
                             onChange={handleInputChange}
+                            placeholder='Contact No'
+
                         />
-                        {errors.contactNo && <span className="text-danger">{errors.contactNo}</span>}
+                        {errors.contact_no && <span className="text-danger">{errors.contact_no}</span>}
                     </div>
 
-                    {/* Email */}
+                    {/* mail_id */}
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
                         <input
-                            type="email"
+                            type="mail_id"
                             className="form-control"
-                            id="email"
-                            name="email"
-                            value={formData.email}
+                            id="mail_id"
+                            name="mail_id"
+                            value={formData.mail_id}
                             onChange={handleInputChange}
+                            placeholder='email'
+
                         />
-                        {errors.email && <span className="text-danger">{errors.email}</span>}
+                        {errors.mail_id && <span className="text-danger">{errors.mail_id}</span>}
                     </div>
 
-                    {/* Username */}
+                    {/* user_name */}
                     <div className="form-group">
-                        <label htmlFor="username">Username:</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="username"
-                            name="username"
-                            value={formData.username}
+                            id="user_name"
+                            name="user_name"
+                            value={formData.user_name}
                             onChange={handleInputChange}
+                            placeholder='user_name'
+
                         />
-                        {errors.username && <span className="text-danger">{errors.username}</span>}
+                        {errors.user_name && <span className="text-danger">{errors.user_name}</span>}
                     </div>
 
                     {/* Password */}
                     <div className="form-group">
-                        <label htmlFor="password">Password:</label>
                         <input
                             type="password"
                             className="form-control"
@@ -181,13 +211,14 @@ const Signup = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleInputChange}
+                            placeholder='Password'
+
                         />
                         {errors.password && <span className="text-danger">{errors.password}</span>}
                     </div>
 
                     {/* Confirm Password */}
                     <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirm Password:</label>
                         <input
                             type="password"
                             className="form-control"
@@ -195,16 +226,20 @@ const Signup = () => {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
+                            placeholder='Confirm Password'
+
                         />
                         {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword}</span>}
                     </div>
 
-                    {/* Submit Button */}
-                    <button type="submit" className="btn ">Sign Up</button>
+                    {/* Submit Button */}   
+                    <div className="button">
+                        <button type="submit" className="btn ">Sign Up</button>
+                    </div>
                 </form>
                     </div>
                     <div className="col-lg-6 col-md-6 col-12" id='img'>
-                        <Signin />
+                        <Link to='/signin' className='link'>Alredy have an account? Click Here</Link>
                     </div>
 
                 </div>
