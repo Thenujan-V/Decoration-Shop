@@ -20,7 +20,7 @@ payments.add_payment_method = (payment) => {
     return new Promise((resolve, reject) => {
         try{
             const reference_no = generateReferenceNumber();
-            const balance_amount = payment.total_amount - payment.paid_amount
+            const balance_amount = payment.total_amount
 
             const selectSql = `select referance_no from payments`
             dbConnection.execute(selectSql, (err, response) => {
@@ -66,6 +66,27 @@ payments.add_payment_method = (payment) => {
                             }
                         })
                     }
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
+payments.add_payment = (paymentData) => {
+    return new Promise((resolve, reject) => {
+        console.log('dd : ',paymentData)
+        try{
+            const sql = `update payments set paid_amount = ? ,balance_amount = ? where order_id = ?`
+            dbConnection.execute(sql, [paymentData.paid_amount, 0, paymentData.order_id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    console.log(res)
+                    resolve(res)
                 }
             })
         }

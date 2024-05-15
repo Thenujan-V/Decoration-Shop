@@ -12,3 +12,14 @@ export const addPaymentMethod = async (paymentData) => {
         throw error
     }
 }
+
+export const addPayment = async (paymentData) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/payment/addpayment`, paymentData)
+        console.log('res :',response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

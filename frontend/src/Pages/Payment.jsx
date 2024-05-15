@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
 import { viewCartItems } from '../Services/CardServices';
 import { getLeastOrder, getOrders } from '../Services/OrderService';
+import { addPayment } from '../Services/PaymentsService';
 
 
 const Payment = () => {
@@ -21,7 +22,7 @@ const Payment = () => {
     const user_id = decodedToken.id
 
     const [orderRes, setorderRes] = useState('')
-    const [totalAmount, setTotalAmount] = useState(0)
+    const [paymentRes, setPaymentRes] = useState('')
 
     const totalOrderAmount = orderRes && orderRes.reduce((acc, item) => {
         if (item.order_id === orderId.order_id) {
@@ -42,6 +43,7 @@ const Payment = () => {
         }
         fetchCardItems(user_id)
     }, [])
+
     useEffect(() => {
         const fetchOrderId = async (user_id) => {
             try{
@@ -66,22 +68,18 @@ const Payment = () => {
         return '';
     };
 
-    // Validate the form inputs
     const validateForm = () => {
         const errors = {};
-        // Validate card number
         if (!cardNumber) {
             errors.cardNumber = 'Card number is required';
         } else if (!/^\d{16}$/.test(cardNumber)) {
             errors.cardNumber = 'Card number must be 16 digits';
         }
-        // Validate expiration date
         if (!expirationDate) {
             errors.expirationDate = 'Expiration date is required';
         } else if (!/^(0[1-9]|1[0-2])\/(\d{2})$/.test(expirationDate)) {
             errors.expirationDate = 'Invalid expiration date (MM/YY)';
         }
-        // Validate CVV
         if (!cvv) {
             errors.cvv = 'CVV is required';
         } else if (!/^\d{3}$/.test(cvv)) {
@@ -91,21 +89,29 @@ const Payment = () => {
         return Object.keys(errors).length === 0;
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e, paidAmount, order_id) => {
         e.preventDefault();
         if (validateForm()) {
-            // Form is valid; proceed with form submission
-            console.log('Form submitted');
-            // Add your form submission logic here
+            try{
+                const paymentData = {
+                    paid_amount : paidAmount,
+                    order_id : order_id
+                }
+                console.log('pd  :',paymentData)
+                const response = await addPayment(paymentData)
+                console.log('ppp :',response.data)
+                setPaymentRes(response.data)
+
+            }
+            catch(error){
+                console.log('error occur : ', error)
+            }
         }
     };
 
-    // Handle card number change
     const handleCardNumberChange = (e) => {
         const value = e.target.value;
         setCardNumber(value);
-        // Determine card type based on the inputted card number
         setCardType(determineCardType(value));
     };
 
@@ -118,7 +124,7 @@ const Payment = () => {
                     <h1>
                         Payment Details
                     </h1>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => handleSubmit(e, totalOrderAmount, orderId.order_id)}>
                         <div className="form-group">
                             <label>Card Number</label>
                             <input
