@@ -18,6 +18,7 @@ const Card = () => {
     const [quantityRes, setQuantityRes] = useState('')
     const [orderRes, setOrderRes] = useState('')
     const [sevenDaysLater, setSevenDaysLater] = useState(null);
+    const [totalAmount, setTotalAmount] = useState(0)
 
     useEffect(() => {
       const today = new Date();
@@ -76,7 +77,7 @@ const Card = () => {
             const response = await addToOrder(formData)
             console.log('orderres',response)
             setOrderRes(response)
-            // navigater('/payment')
+            navigater('/selectpayment')
         }
         catch(error){
             console.log('error occur :',error)
@@ -91,43 +92,57 @@ const Card = () => {
         <div className="container" >
             <h1>Card</h1>
             <table className="table" id='cart-items' style={{ backgroundColor: 'red' }}>
-            <thead>
-                <tr id='cardHead'>
-                    <th className='col-3'>Title</th>
-                    <th className='col-3'>Image</th>
-                    <th className='col-2'>Price</th>
-                    <th className='col-2'>Quantity</th>
-                    <th className='col-2'>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
-                    <tr key={index} id='item' className='mb-5'>
-                        <td className='col-3'>{item.service_name}</td>
-                        <td className='col-2'>
-                            <img src={aboutback} alt={item.title} style={{ width: '100px', height: '100px' }} />
-                        </td>
-                        <td className='col-2'>{item.price}</td>
-                        <td>
-                            <form onSubmit={(e) => handleSubmit(e, item.service_id, item.quantity)}>
-                                <div className="form-control" >
-                                    <input type="number" name='quantity' value={item.quantity} onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}/>
-                                    <button type='submit' className='btn btn-warning w-50 h-25'>update</button>
-                                </div>
-                            </form> 
-                        </td>
-                        <td className='col-2'>
-                            <button onClick={() => handleDelete(index)} className='btn btn-danger' id='link' >Cancel</button>
-                        </td>
+                <thead>
+                    <tr id='cardHead'>
+                        <th className='col-3'>Title</th>
+                        <th className='col-3'>Image</th>
+                        <th className='col-2'>Price</th>
+                        <th className='col-2'>Quantity</th>
+                        <th className='col-2'>Remove</th>
                     </tr>
-                )) : <p style={{fontSize:'22px', fontWeight:'bold', color:'red', backgroundColor:'white'}}>There is no items in your card</p>
-                }
-            </tbody>
-        </table>
-        <div id="buttons">
-            <button className='btn btn-warning m-3' onClick={() => handleOrder(user_id)}>CheckOut</button>
-            <button className='btn btn-warning m-3' onClick={handleClose}>Close</button>
-        </div>
+                </thead>
+                <tbody>
+                    {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
+                        <tr key={index} id='item' className='mb-5'>
+                            <td className='col-3'>{item.service_name}</td>
+                            <td className='col-2'>
+                                <img src={aboutback} alt={item.title} style={{ width: '100px', height: '100px' }} />
+                            </td>
+                            <td className='col-2'>{item.price}</td>
+                            <td>
+                                <form onSubmit={(e) => handleSubmit(e, item.service_id, item.quantity)}>
+                                    <div className="form-control" >
+                                        <input type="number" name='quantity' value={item.quantity} onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}/>
+                                        <button type='submit' className='btn btn-warning w-50 h-25'>update</button>
+                                    </div>
+                                </form> 
+                            </td>
+                            <td className='col-2'>
+                                <button onClick={() => handleDelete(index)} className='btn btn-danger' id='link' >Cancel</button>
+                            </td>
+                        </tr>
+                    )) : <p style={{fontSize:'22px', fontWeight:'bold', color:'red', backgroundColor:'white'}}>There is no items in your card</p>
+                    }
+                </tbody>
+            </table>    
+
+            <div className="totalAmount">
+                <h1>Your Card Items Prices</h1>
+                {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
+                        <div className='Amount'>                        
+                            <h5>{item.service_name} : <span> {item.price} LKR</span></h5>
+                        </div>
+                    )) : <p>    </p>
+                }     
+                <h2>Total Amount : {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price), 0)} LKR</h2>
+                <hr />
+                <div id="buttons">
+                    <button className='btn btn-warning m-3' onClick={() => handleOrder(user_id)}>Place Order</button>
+                    <button className='btn btn-warning m-3' onClick={handleClose}>Close</button>
+                </div>
+            </div>
+
+        
         </div>
     </div>
   )

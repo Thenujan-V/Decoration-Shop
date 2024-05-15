@@ -50,3 +50,7 @@
     background-color: var(--delivered);
     width: 14vw;
 }
+#myOrders #orders #order .pending{
+    background-color: var(--pending);
+    width: 14vw;
+}

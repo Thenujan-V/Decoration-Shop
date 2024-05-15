@@ -1,0 +1,44 @@
+.paymentMethod{
+    background-image: url('../Assets/aboutcontent.png');
+    height: 100vh;
+}
+.paymentMethod .method{
+    background-color: var(--accepted);
+    text-align: center;
+    padding: 30px;
+    height: 87vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.paymentMethod .method h2{
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+.paymentMethod .method div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.paymentMethod .method div .link{
+    text-decoration: none;
+    margin: 10px;
+    width: 20vw;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--cancelled);
+    color: var(--background_blue);
+    font-size: 22px;
+    font-weight: bold;
+}
+.paymentMethod .method div .link:hover{
+    background-color: #f0acb3;
+}

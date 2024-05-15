@@ -13,3 +13,15 @@ export const addToOrder = async (formData) => {
         throw error
     }
 }
+
+export const getOrders = async (user_id) => {
+    console.log('fd :',user_id)
+    try{
+        const response = await axios.get(`${BASR_API_URL}/order/vieworders/${user_id}`, user_id)
+        console.log('response : ', response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

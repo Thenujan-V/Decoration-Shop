@@ -27,6 +27,7 @@ import Review from './Pages/Review'
 import ReviewCheck from './Components/Admin/ReviewCheck'
 import ViewReview from './Components/Admin/ViewReview'
 import Signin from './Pages/Signin'
+import SelectPayment from './Pages/SelectPayment'
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/servicedetails/:key" element={<ServiceDetails />} />
         <Route path="/card" element={<Card />} />
         <Route path='/payment' element={<Payment />} />
+        <Route path='/selectpayment' element={<SelectPayment />} />
         <Route path='/orders' element={<MyOrders />} />
         <Route path='/ver' element={<VerticalNavbar />} />
         <Route path='/empdashboard' element={<Dashboard />} />

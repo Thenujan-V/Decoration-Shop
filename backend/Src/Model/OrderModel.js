@@ -76,7 +76,7 @@ order.place_order = (orders) => {
 order.view_order_items = (user_Id) => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `select * from order_table t join order_service s on t.order_id = s.order_id where t.user_Id = ? `
+            const sql = `select * from order_table t join order_service s on t.order_id = s.order_id join service p on p.service_id = s.service_id where t.user_Id = ? `
             dbConnection.execute(sql, [user_Id], (err, res) => {
                 if(err){
                     reject(err)
