@@ -4,15 +4,10 @@
     height: 100vh;
 }
 #paymentPage #payment  {
-    margin: 80px auto; 
-    height: 70vh;
+    height: 87vh;
     padding: 20px; 
-    border-radius: 8px; 
     background-color:var(--signin_back); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 #paymentPage #payment  h1 {
@@ -22,12 +17,12 @@
     text-align: center;
     margin: 0px 0 20px 0;
 }
-
+#paymentPage #payment form{
+    margin-top: 100px;
+}
 #paymentPage #payment .form-group {
     padding-bottom: 30px;
     height: 100px;
-    /* padding-left: 100px; */
-    /* margin-right: auto; */
 }
 
 #paymentPage #payment .form-control {
@@ -72,4 +67,29 @@
     width: 40px; 
     height: auto; 
     margin-top: 10px; 
+}
+#paymentPage .totalAmount{
+    background-color: var(--wheat);
+    text-align: center;
+    height: 87vh;
+    border-left: 1px solid #000;
+}
+#paymentPage .totalAmount h1{
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 50px 0;
+}
+#paymentPage .totalAmount .Amount h5{
+    color: var(--headingGreen);
+}
+#paymentPage .totalAmount h2{
+    color: rgb(6, 61, 43);
+    margin-top: 20px;
+    
+}
+#paymentPage .totalAmount .head{
+    border-bottom: 3px solid var(--headingGreen);
+    margin-bottom: 10px;
 }

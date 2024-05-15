@@ -128,13 +128,20 @@ const Card = () => {
 
             <div className="totalAmount">
                 <h1>Your Card Items Prices</h1>
-                {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
-                        <div className='Amount'>                        
-                            <h5>{item.service_name} : <span> {item.price} LKR</span></h5>
-                        </div>
-                    )) : <p>    </p>
-                }     
-                <h2>Total Amount : {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price), 0)} LKR</h2>
+                <div className="head row">
+                        <h4 className='col-lg-4'>Service_Name</h4>
+                        <h4 className='col-lg-4'>Service_Qantity</h4>
+                        <h4 className='col-lg-4'>Total</h4>
+                    </div>
+                    {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
+                            <div className='Amount row'>                        
+                                <h5 className='col-lg-4'>{item.service_name}</h5>
+                                <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
+                                <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
+                            </div>
+                        )) : <p>    </p>
+                    }     
+                <h2>Total Amount : {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price * item.quantity), 0)} LKR</h2>
                 <hr />
                 <div id="buttons">
                     <button className='btn btn-warning m-3' onClick={() => handleOrder(user_id)}>Place Order</button>

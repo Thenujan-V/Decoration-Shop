@@ -3,21 +3,21 @@
     height: 100vh;
 }
 .paymentMethod .method{
-    background-color: var(--accepted);
+    background-color: var(--wheat);
     text-align: center;
     padding: 30px;
     height: 87vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 .paymentMethod .method h2{
     font-style: italic;
     font-weight: bold;
     color: var(--background_blue);
     text-align: center;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 50px 0;
 }
 .paymentMethod .method div{
     display: flex;
@@ -34,11 +34,35 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background-color: var(--cancelled);
-    color: var(--background_blue);
+    background-color: var(--background_blue);
+    color: var(--wheat);
     font-size: 22px;
     font-weight: bold;
 }
 .paymentMethod .method div .link:hover{
-    background-color: #f0acb3;
+    background-color: #2f3063;
+}
+.paymentMethod .totalAmount{
+    background-color: var(--wheat);
+    text-align: center;
+    height: 87vh;
+    border-left: 1px solid #000;
+}
+.paymentMethod .totalAmount h1{
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 50px 0;
+}
+.paymentMethod .totalAmount .Amount h5{
+    color: var(--headingGreen);
+}
+.paymentMethod .totalAmount h2{
+    color: rgb(6, 61, 43);
+    margin-top: 20px;
+}
+.paymentMethod .totalAmount .head{
+    border-bottom: 3px solid var(--headingGreen);
+    margin-bottom: 10px;
 }

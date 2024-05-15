@@ -1,7 +1,7 @@
 const paymentModel = require('../Model/PaymentModel')
 
-exports.addPayment = (req, res) => {
-    paymentModel.add_payment(req.body)
+exports.addPaymentMethod = (req, res) => {
+    paymentModel.add_payment_method(req.body)
         .then((paymentRes) => {
             return res.status(201).send(paymentRes)
         })

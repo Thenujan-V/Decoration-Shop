@@ -25,3 +25,16 @@ exports.viewOrders = (req, res) => {
             })
         })          
 }
+
+exports.getLeastOrder = (req, res) => {
+    orderModel.get_least_order(req.params.user_Id)
+     .then((orderRes) => {
+        return res.status(200).send(orderRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'Get order items faild',
+                dettails : err.message
+            })
+        })      
+}

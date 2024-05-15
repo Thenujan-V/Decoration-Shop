@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import { viewCartItems } from '../Services/CardServices'
 import { retrieveToken } from '../Services/JwtToken'
+import { addPaymentMethod } from '../Services/PaymentsService'
+import { getLeastOrder } from '../Services/OrderService'
 
 const SelectPayment = () => {
     const navigater = useNavigate()
@@ -11,6 +13,10 @@ const SelectPayment = () => {
 
     const [cardRes, setCardRes] = useState('')
     const [totalAmount, setTotalAmount] = useState(0)
+    const [paymentMethod, setPaymentMethod] = useState('')
+    const [orderId, setOrderId] = useState('')
+
+
     useEffect( () => {
         const fetchCardItems = async (user_id) => {
             try{
@@ -23,27 +29,99 @@ const SelectPayment = () => {
         }
         fetchCardItems(user_id)
     }, [])
+
+    useEffect(() => {
+        const fetchOrderId = async (user_id) => {
+            try{
+                const response = await getLeastOrder(user_id)
+                setOrderId(response.data[0])
+            }
+            catch(error){
+                console.log('error occur :', error)
+            }
+        }
+        fetchOrderId(user_id)
+    }, [])
+
+    const totalOrderAmount = cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price * item.quantity), 0)
+    
+    const handleOnlinePayment = async (totalAmount, order_id) => {
+        try{
+            const paymentData = {
+                total_amount : totalAmount,
+                order_id : order_id,
+                method : 'online'
+            }
+            const response = await addPaymentMethod(paymentData)
+            setPaymentMethod(response.data)
+            navigater('/payment')
+
+        }
+        catch(error){
+            console.log('error occur :',error)
+        }
+    }
+    const handleOnHandPayment = async (totalAmount, order_id) => {
+        try{
+            const paymentData = {
+                total_amount : totalAmount,
+                order_id : order_id,
+                method : 'onHand'
+            }
+            const response = await addPaymentMethod(paymentData)
+            setPaymentMethod(response.data)
+            navigater('/')
+
+        }
+        catch(error){
+            console.log('error occur :',error)
+        }
+    }
+    const handleCancelOrder = async (totalAmount, order_id) => {
+        try{
+            const paymentData = {
+                total_amount : totalAmount,
+                order_id : order_id,
+                method : 'Cancel'
+            }
+            const response = await addPaymentMethod(paymentData)
+            setPaymentMethod(response.data)
+            navigater('/')
+        }
+        catch(error){
+            console.log('error occur :',error)
+        }
+    }
+
   return (
     <div className='paymentMethod'>
         <Navbar />
         <div className="container">
             <div className="row">
-                <div className="col-lg-6 method">
+                <div className="col-lg-4 method">
                     <h2>SELECT PAYMENT METHOD</h2>
                     <div>
-                        <Link to='/payment' className='link'>Online Payment</Link>
-                        <Link to='/' className='link'>Cash Payment (On Hand)</Link>
+                        <Link onClick={() => handleOnlinePayment(totalOrderAmount, orderId.order_id)} className='link'>Online Payment</Link>
+                        <Link onClick={() => handleOnHandPayment(totalOrderAmount, orderId.order_id)} className='link'>Cash Payment (On Hand)</Link>
+                        <Link onClick={() => handleCancelOrder(totalOrderAmount, orderId.order_id)} className='link mt-5' style={{backgroundColor:'red'}}>Cancel Order</Link>
                     </div>
                 </div>
-                <div className="col-lg-6 totalAmount">
-                    <h1>Your Card Items Prices</h1>
+                <div className="col-lg-8 totalAmount">
+                    <h1>Your Orderd Items Prices</h1>
+                    <div className="head row">
+                        <h4 className='col-lg-4'>Service_Name</h4>
+                        <h4 className='col-lg-4'>Service_Qantity</h4>
+                        <h4 className='col-lg-4'>Total</h4>
+                    </div>
                     {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
-                            <div className='Amount'>                        
-                                <h5>{item.service_name} : <span> {item.price} LKR</span></h5>
+                            <div className='Amount row'>                        
+                                <h5 className='col-lg-4'>{item.service_name}</h5>
+                                <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
+                                <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
                             </div>
                         )) : <p>    </p>
                     }     
-                    <h2>Total Amount : {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price), 0)} LKR</h2>
+                    <h2>Total Amount : {totalOrderAmount} LKR</h2>
                     <hr />
                 </div>
             </div>

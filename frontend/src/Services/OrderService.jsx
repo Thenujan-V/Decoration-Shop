@@ -15,10 +15,18 @@ export const addToOrder = async (formData) => {
 }
 
 export const getOrders = async (user_id) => {
-    console.log('fd :',user_id)
     try{
         const response = await axios.get(`${BASR_API_URL}/order/vieworders/${user_id}`, user_id)
         console.log('response : ', response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+export const getLeastOrder = async (user_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/order/getleastorder/${user_id}`, user_id)
         return response
     }
     catch(error){
