@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { serviceDetails } from '../Components/Styles'
 import Navbar from '../Components/Navbar'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fetchServiceDetails } from '../Services/ProductsService'
 import { retrieveToken } from '../Services/JwtToken'
 import { addToCard } from '../Services/CardServices'
 
 const ServiceDetails = () => {    
+
+    const [user_id, setUser_id] = useState('')
+
+    const navigate = useNavigate()
     const params = useParams();
     const decodedToken = retrieveToken();
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            const id = null
+            setUser_id(id)
+        }
+    }, [])
 
     const service_id = params.key
-    const user_id = decodedToken.id
 
     const [service, setService] = useState('')
     const [cardResponse, setCardResponse] = useState('')
@@ -20,7 +33,6 @@ const ServiceDetails = () => {
         const fetchData = async (service_id) => {
             try{
                 const response = await fetchServiceDetails(service_id)
-                console.log(response)
                 setService(response)
             }
             catch(error){
@@ -31,27 +43,30 @@ const ServiceDetails = () => {
     }, [])
 
     const inputCard = async(service_id, user_id) => {
-        console.log('si', service_id)
-        console.log('ui', user_id)
-        try{
-            const formData = {
-                service_id : service_id,
-                user_Id : user_id
-            }
-            const response = await addToCard(formData)
-            if(response.status === 201){
-                alert('item successfully added to card')
-                setCardResponse(response)
-            }
-            else{
-                alert('some error try again')
-            }
+        if(user_id === null){
+            navigate('/signin')
         }
-        catch(error){
-            if(error.response.status === 409){
-                alert('item already added to card')
+        else{
+            try{
+                const formData = {
+                    service_id : service_id,
+                    user_Id : user_id
+                }
+                const response = await addToCard(formData)
+                if(response.status === 201){
+                    alert('item successfully added to card')
+                    setCardResponse(response)
+                }
+                else{
+                    alert('some error try again')
+                }
             }
-            console.log('error occur',error)
+            catch(error){
+                if(error.response.status === 409){
+                    alert('item already added to card')
+                }
+                console.log('error occur',error)
+            }
         }
     }
   return (
@@ -68,7 +83,7 @@ const ServiceDetails = () => {
                         {service[0].description}
                     </p>
                     <h5> General cost range / flower :LKR {service[0].price}</h5>
-                    <button className='btn' onClick={() => inputCard(service[0].service_id, user_id)}>Add to Card</button>
+                    <button className='btn' onClick={() => inputCard(service[0].service_id, user_id?user_id : null)}>Add to Card</button>
                 </div>
                 }
                 <div className="col-lg-6" id='serviceImg' style={{backgroundImage:`url('https://www.wishque.com/data/images/products/8931/18259175_722703353812_0.98404200-1646116247.jpg')`}}></div>

@@ -47,6 +47,8 @@ cardTable.add_to_card = (cardItems) => {
 }
 
 cardTable.update_quantity = (quantity, service_id) => {
+    console.log('q',quantity)
+    console.log('s', service_id)
     return new Promise((resolve, reject) => {
         try{
             const sql = `update card set quantity = ? where service_id = ?`
