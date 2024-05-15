@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { updateQuantity, viewCartItems } from '../Services/CardServices'
 import { retrieveToken } from '../Services/JwtToken'
 import { aboutback } from '../Components/Assets'
+import axios from 'axios'
+import { addToOrder } from '../Services/OrderService'
 
 const Card = () => {
     const navigater = useNavigate()
@@ -14,6 +16,18 @@ const Card = () => {
 
     const [cardRes, setCardRes] = useState('')
     const [quantityRes, setQuantityRes] = useState('')
+    const [orderRes, setOrderRes] = useState('')
+    const [sevenDaysLater, setSevenDaysLater] = useState(null);
+
+    useEffect(() => {
+      const today = new Date();
+      const sevenDaysLaterDate = new Date(today);
+      sevenDaysLaterDate.setDate(today.getDate() + 7);
+      const formattedDate = sevenDaysLaterDate.toISOString().split('T')[0];
+
+      setSevenDaysLater(formattedDate);
+    }, []);
+
     useEffect( () => {
         const fetchCardItems = async (user_id) => {
             try{
@@ -30,10 +44,7 @@ const Card = () => {
     const handleQuantityChange = async (index, newQuantity) => {
         const updatedCardRes = [...cardRes];
         updatedCardRes[index].quantity = newQuantity;
-        setCardRes(updatedCardRes);
-        console.log('cr :',cardRes)
-
-        
+        setCardRes(updatedCardRes);        
     };
 
     const handleSubmit = async(e, service_id, newQuantity) => {
@@ -53,9 +64,26 @@ const Card = () => {
     const handleDelete = (key) => {
         console.log('key : ',key)
     }
-    const handleOrder = () => {
-        console.log('api for add to order table')
-        navigater('/payment')
+    const handleOrder = async(user_id) => {
+        console.log('oooo')
+        try{
+            const formData = {
+                status : 'payment pending',
+                deadline : sevenDaysLater,
+                user_Id : user_id   
+            }
+            console.log('ok')
+            const response = await addToOrder(formData)
+            console.log('orderres',response)
+            setOrderRes(response)
+            // navigater('/payment')
+        }
+        catch(error){
+            console.log('error occur :',error)
+        }
+    }
+    const handleClose = () => {
+        navigater('/service')
     }
   return (
     <div id='card'>
@@ -73,7 +101,7 @@ const Card = () => {
                 </tr>
             </thead>
             <tbody>
-                {cardRes && cardRes.map((item, index) => (
+                {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
                     <tr key={index} id='item' className='mb-5'>
                         <td className='col-3'>{item.service_name}</td>
                         <td className='col-2'>
@@ -92,12 +120,13 @@ const Card = () => {
                             <button onClick={() => handleDelete(index)} className='btn btn-danger' id='link' >Cancel</button>
                         </td>
                     </tr>
-                ))}
+                )) : <p style={{fontSize:'22px', fontWeight:'bold', color:'red', backgroundColor:'white'}}>There is no items in your card</p>
+                }
             </tbody>
         </table>
         <div id="buttons">
-            <button className='btn btn-warning m-3' onClick={handleOrder}>Place Order</button>
-            <button className='btn btn-warning m-3'>Close</button>
+            <button className='btn btn-warning m-3' onClick={() => handleOrder(user_id)}>CheckOut</button>
+            <button className='btn btn-warning m-3' onClick={handleClose}>Close</button>
         </div>
         </div>
     </div>
