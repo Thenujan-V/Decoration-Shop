@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
-import { viewCartItems } from '../Services/CardServices'
 import { retrieveToken } from '../Services/JwtToken'
 import { addPaymentMethod } from '../Services/PaymentsService'
-import { getLeastOrder } from '../Services/OrderService'
+import { getLeastOrder, getOrders } from '../Services/OrderService'
 
 const SelectPayment = () => {
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
     const user_id = decodedToken.id
 
-    const [cardRes, setCardRes] = useState('')
+    const [orderRes, setorderRes] = useState('')
     const [totalAmount, setTotalAmount] = useState(0)
     const [paymentMethod, setPaymentMethod] = useState('')
     const [orderId, setOrderId] = useState('')
@@ -20,8 +19,8 @@ const SelectPayment = () => {
     useEffect( () => {
         const fetchCardItems = async (user_id) => {
             try{
-                const response = await viewCartItems(user_id)
-                setCardRes(response.data)
+                const response = await getOrders(user_id)
+                setorderRes(response.data)
             }
             catch(error){
                 console.log('error occur', error)
@@ -43,7 +42,12 @@ const SelectPayment = () => {
         fetchOrderId(user_id)
     }, [])
 
-    const totalOrderAmount = cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price * item.quantity), 0)
+    const totalOrderAmount = orderRes && orderRes.reduce((acc, item) => {
+            if (item.order_id === orderId.order_id) {
+                return (acc + parseInt(item.price) * item.quantity);
+            }
+            return acc
+        }, 0)
     
     const handleOnlinePayment = async (totalAmount, order_id) => {
         try{
@@ -113,13 +117,19 @@ const SelectPayment = () => {
                         <h4 className='col-lg-4'>Service_Qantity</h4>
                         <h4 className='col-lg-4'>Total</h4>
                     </div>
-                    {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
-                            <div className='Amount row'>                        
-                                <h5 className='col-lg-4'>{item.service_name}</h5>
-                                <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
-                                <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
-                            </div>
-                        )) : <p>    </p>
+                    {orderRes && orderRes.length !== 0 ? orderRes.map((item, index) => {
+                            if (item.order_id === orderId.order_id) {
+                                return (
+                                    <div className='Amount row' key={index}>                        
+                                        <h5 className='col-lg-4'>{item.service_name}</h5>
+                                        <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
+                                        <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
+                                    </div>
+                                );
+                            } else {
+                                return null;
+                            }
+                    }) : <p>    </p>
                     }     
                     <h2>Total Amount : {totalOrderAmount} LKR</h2>
                     <hr />

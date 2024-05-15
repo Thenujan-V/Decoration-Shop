@@ -94,7 +94,7 @@ order.view_order_items = (user_Id) => {
 order.get_least_order = (user_Id) => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `select order_id from order_table where user_Id = ? order by order_date asc limit 1`
+            const sql = `select order_id from order_table where user_Id = ? order by order_date desc limit 1`
             dbConnection.execute(sql, [user_Id], (err, res) => {
                 if(err){
                     reject(err)

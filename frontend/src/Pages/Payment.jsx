@@ -5,6 +5,7 @@ import Navbar from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
 import { viewCartItems } from '../Services/CardServices';
+import { getLeastOrder, getOrders } from '../Services/OrderService';
 
 
 const Payment = () => {
@@ -13,18 +14,27 @@ const Payment = () => {
     const [cvv, setCvv] = useState('');
     const [cardType, setCardType] = useState('');
     const [formErrors, setFormErrors] = useState({});
+    const [orderId, setOrderId] = useState('')
 
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
     const user_id = decodedToken.id
 
-    const [cardRes, setCardRes] = useState('')
+    const [orderRes, setorderRes] = useState('')
     const [totalAmount, setTotalAmount] = useState(0)
+
+    const totalOrderAmount = orderRes && orderRes.reduce((acc, item) => {
+        if (item.order_id === orderId.order_id) {
+            return (acc + parseInt(item.price) * item.quantity);
+        }
+        return acc
+    }, 0)
+
     useEffect( () => {
         const fetchCardItems = async (user_id) => {
             try{
-                const response = await viewCartItems(user_id)
-                setCardRes(response.data)
+                const response = await getOrders(user_id)
+                setorderRes(response.data)
             }
             catch(error){
                 console.log('error occur', error)
@@ -32,7 +42,18 @@ const Payment = () => {
         }
         fetchCardItems(user_id)
     }, [])
-
+    useEffect(() => {
+        const fetchOrderId = async (user_id) => {
+            try{
+                const response = await getLeastOrder(user_id)
+                setOrderId(response.data[0])
+            }
+            catch(error){
+                console.log('error occur :', error)
+            }
+        }
+        fetchOrderId(user_id)
+    }, [])
 
     const determineCardType = (number) => {
         const visaRegex = /^4/;
@@ -138,7 +159,7 @@ const Payment = () => {
                             {formErrors.cvv && <div className="invalid-feedback">{formErrors.cvv}</div>}
                         </div>
 
-                        <button type="submit" className="btn btn-primary">Pay {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price * item.quantity), 0)}</button>
+                        <button type="submit" className="btn btn-primary">Pay {totalOrderAmount} LKR</button>
                 </form>
                 </div>                  
                 <div className="col-lg-8 totalAmount">
@@ -148,15 +169,21 @@ const Payment = () => {
                         <h4 className='col-lg-4'>Service_Qantity</h4>
                         <h4 className='col-lg-4'>Total</h4>
                     </div>
-                    {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
-                            <div className='Amount row'>                        
-                                <h5 className='col-lg-4'>{item.service_name}</h5>
-                                <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
-                                <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
-                            </div>
-                        )) : <p>    </p>
+                    {orderRes && orderRes.length !== 0 ? orderRes.map((item, index) => {
+                            if (item.order_id === orderId.order_id) {
+                                return (
+                                    <div className='Amount row' key={index}>                        
+                                        <h5 className='col-lg-4'>{item.service_name}</h5>
+                                        <h5 className='col-lg-4'>({item.quantity} item * {item.price})</h5>
+                                        <h5 className='col-lg-4'>{item.price * item.quantity} LKR</h5>
+                                    </div>
+                                );
+                            } else {
+                                return null;
+                            }
+                    }) : <p>    </p>
                     }     
-                    <h2>Total Amount : {cardRes && cardRes.reduce((acc, item) => acc + parseInt(item.price * item.quantity), 0)} LKR</h2>
+                    <h2>Total Amount : {totalOrderAmount} LKR</h2>
                     <hr />
                 </div>
             </div>
