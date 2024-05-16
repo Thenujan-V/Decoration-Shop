@@ -1,12 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {navbar} from './Styles'
 import { logoPic } from './Assets'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartArrowDown, faUser } from '@fortawesome/free-solid-svg-icons';
+import { retrieveToken } from '../Services/JwtToken';
 
 const Navbar = () => {
-    const user_id = null
+    const navigater = useNavigate()
+    const decodedToken = retrieveToken()
+    const user_id = decodedToken.id
+
   return (
     <>
         <nav class="navbar navbar-expand-lg" id='navbar'>
@@ -23,8 +27,9 @@ const Navbar = () => {
                         <Link to='contact' class="nav-link p-3 Link">Contact us</Link>
                         <Link to='/signup' class="nav-link p-3 Link">Signup/Signin</Link>
                     </div>
-                    <div id='userIcon'>
-                        <Link to={user_id ? '/userIndex' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='2x'/> </Link>
+                    <div id='userIcon'>                        
+                        <Link to={user_id ? '/card' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faCartArrowDown} size='xl'/> </Link>
+                        <Link to={user_id ? '/userIndex' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='xl'/> </Link>
                     </div>
                 </div>
             </div>

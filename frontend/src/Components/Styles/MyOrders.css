@@ -17,40 +17,50 @@
         margin-top: 30px;
         padding: 10px;
 }
-#myOrders #orders #order{
-    box-shadow: 3px 3px 10px black;
+#myOrders #orders .card .row .dates{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-#myOrders #orders #order h3{
-    color: var(--headingGreen);
-    font-style: italic;
-    font-weight: bold;
-}
-#myOrders #orders #order p{
-    padding: 0;
-    margin: 0;
-    font-size: 18px;
-}
-#myOrders #orders #order .accepted{
+#myOrders #orders .card .row .dates .accepted{
     background-color: var(--accepted);
     width: 14vw;
 }
-#myOrders #orders #order .cancelled{
+#myOrders #orders .card .row .dates .cancelled{
     background-color: var(--cancelled);
     width: 14vw;
 }
-#myOrders #orders #order .onGoing{
+#myOrders #orders .card .row .dates .onGoing{
     background-color: var(--onGoing);
     width: 14vw;
 }
-#myOrders #orders #order .finished{
+#myOrders #orders .card .row .dates .finished{
     background-color: var(--finished);
     width: 14vw;
 }
-#myOrders #orders #order .devlivered{
+#myOrders #orders .card .row .dates .devlivered{
     background-color: var(--delivered);
     width: 14vw;
 }
-#myOrders #orders #order .pending{
+#myOrders #orders .card .row .dates .pending{
     background-color: var(--pending);
     width: 14vw;
+}
+#myOrders #orders .card{
+    background-color: rgb(250, 246, 246);
+    
+}
+#myOrders #orders .card h2{
+    color: var(--background_blue);  
+    text-decoration: underline;  
+}
+#myOrders #orders .card .row .details h4{
+    color: var(--background_blue);
+    text-align: center;
+}
+#myOrders #orders .card .row .dates p{
+    color: var(--background_blue);
+    text-align: center;
+    font-size: 20px;
 }
