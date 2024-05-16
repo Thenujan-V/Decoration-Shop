@@ -5,22 +5,26 @@ import { faCircle, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import AdminVerticalNav from './AdminVerticalNav'
 import { allowance } from '../Styles'
 import { Link } from 'react-router-dom'
+import { getAllOrders } from '../../Services/OrderService'
 
 const Booking = () => {
-    const allowance = [
-        {order_id:'1123',status:'completed', allowance:'3000'},
-        {order_id:'1124',status:'completed', allowance:'3000'},
-        {order_id:'1125',status:'on progress', allowance:'9000'},
-        {order_id:'1126',status:'completed', allowance:'3000'},
-        {order_id:'1127',status:'on progress', allowance:'5000'}
-    ]
-
+   
     const [apiReq, setApiReq] = useState([])
     const [selectedOrderId, setSelectedOrderId] = useState(null);
 
 
     useEffect(() => {
-        setApiReq(allowance)
+        const fetchOrders = async () => {
+            try{
+                const response = await getAllOrders()
+                // console.log('rd :', response)
+                setApiReq(response.data)
+            }
+            catch(error){
+                console.log('error get oreders ', error)
+            }
+        }
+        fetchOrders()
     },[])
 
     const handleButtonClick = (orderId) => {
@@ -32,7 +36,7 @@ const Booking = () => {
     };
 console.log('soid : ',selectedOrderId)
   return (
-    <div style={{display:'flex' , height:'100vh'}}>
+    <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container allowance'>
             <h1>ORDERS</h1>
@@ -45,7 +49,7 @@ console.log('soid : ',selectedOrderId)
                     </div>
                     <div className="detail">
                         {
-                            apiReq.map((order, index) => (
+                            apiReq && apiReq.map((order, index) => (
                                 <div className="row">
                                     <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
                                     <p className='col-lg-3'>{order.status}</p>

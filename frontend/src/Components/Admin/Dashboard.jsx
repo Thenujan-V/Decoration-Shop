@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
+import { fetchServiceDetails, fetchServices } from '../../Services/ProductsService'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
+    const [fetchAllServices, setFetchAllServices] = useState([])
+
+    useEffect(() => {
+       const fetchAllServices = async() => {
+            try{
+                const response = await fetchServices()
+                setFetchAllServices(response)
+            }
+            catch(error){
+                console.log('fetch services error :', error)
+            }               
+       }
+       fetchAllServices()
+    }, [])
+    
   return (
-    <div style={{display:'flex', height:'100vh'}}>
+    <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}}>
             <div className="container adminDashboard">
@@ -23,24 +40,27 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="row table">
-                    <div className='row edit'>
-                        <p className='col-lg-6'>SERVICE LIST</p>
-                        <button className='col-lg-6'>EDIT</button>
-                    </div>
                     <table>
                         <thead>
                             <tr>
                                 <td>Service Id</td>
                                 <td>Service Name</td>
                                 <td>Description</td>
+                                <td>Edit</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>s001</td>
-                                <td>NAME NAME</td>
-                                <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, nam!</td>
-                            </tr>
+                            {
+                                fetchAllServices && fetchAllServices.map((service) => (
+                                    <tr key={service.service_id}>
+                                        <td>id:{service.service_id}</td>
+                                        <td>{service.service_name}</td>
+                                        <td>{service.description}</td>
+                                        <Link className='btn btn-warning mt-1'>Edit</Link>
+                                    </tr>
+                                ))
+                            }
+                            
                         </tbody>
                     </table>
                 </div>

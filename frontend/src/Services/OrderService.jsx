@@ -33,3 +33,14 @@ export const getLeastOrder = async (user_id) => {
         throw error
     }
 }
+
+export const getAllOrders = async () => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/order/viewallorders`,)
+        console.log('response : ', response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

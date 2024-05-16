@@ -38,3 +38,16 @@ exports.getLeastOrder = (req, res) => {
             })
         })      
 }
+
+exports.viewAllOrders = (req, res) => {
+    orderModel.get_all_orders()
+     .then((orderRes) => {
+        return res.status(200).send(orderRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'Get order items faild',
+                dettails : err.message
+            })
+        })      
+}
