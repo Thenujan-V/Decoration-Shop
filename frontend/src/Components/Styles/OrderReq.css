@@ -82,3 +82,17 @@
 .orderWorks .buttons .reject{
     background-color: rgb(224, 32, 32);
 }
+.orderWorks .details .dates{
+    margin-top: 30px;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px rgb(106, 104, 104);
+    width: 30vw;
+}
+
+.orderWorks .details .dates p{
+   font-size: 20px;
+   font-style: italic;
+   font-weight: bold;
+   color: var(--background_blue);
+}

@@ -113,7 +113,7 @@ order.get_least_order = (user_Id) => {
 order.get_all_orders = () => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `select * from order_table t join order_service s on t.order_id = s.order_id join service p on p.service_id = s.service_id`
+            const sql = `select * from order_table where payment_status != 'cancel'`
             dbConnection.execute(sql, (err, res) => {
                 if(err){
                     reject(err)
@@ -129,6 +129,24 @@ order.get_all_orders = () => {
     })
 }
 
+order.view_order_details = (order_id) => {
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `select * from order_table t join order_service s on t.order_id = s.order_id join service p on p.service_id = s.service_id where t.order_id = ? `
+            dbConnection.execute(sql, [order_id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    resolve(res)
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
 
 
 

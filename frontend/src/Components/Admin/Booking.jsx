@@ -17,7 +17,7 @@ const Booking = () => {
         const fetchOrders = async () => {
             try{
                 const response = await getAllOrders()
-                // console.log('rd :', response)
+                console.log('rd :', response.data)
                 setApiReq(response.data)
             }
             catch(error){
@@ -44,7 +44,7 @@ console.log('soid : ',selectedOrderId)
                     <div className="row head">
                         <h3 className='col-lg-3'>ORDER ID</h3>
                         <h3 className='col-lg-3'>STATUS</h3>
-                        <h3 className='col-lg-3'></h3>
+                        <h3 className='col-lg-3'>View Details</h3>
                         <h3 className='col-lg-3'>PAYMENT</h3>
                     </div>
                     <div className="detail">
@@ -53,34 +53,41 @@ console.log('soid : ',selectedOrderId)
                                 <div className="row">
                                     <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
                                     <p className='col-lg-3'>{order.status}</p>
-                                    <Link to={`/employeeassign/${order.order_id}`} className='btn button' >View</Link>
+                                    <div className='col-lg-3 text-center'>
+                                        <Link to={`/employeeassign/${order.order_id}`} className='btn button' >View</Link>
+                                    </div>
                                     {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
-                                    {selectedOrderId === order.order_id ? (
-                                        <button
-                                            className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(order.order_id)}
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faCircleCheck}
-                                                size="xl"
-                                                style={{ color: "#34b823" }}
-                                            />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(order.order_id)}
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faCircle}
-                                                size="xl"
-                                                style={{ color: "#34b823" }}
-                                            />
-                                        </button>
-                                    )}
-                                
-                                
-                                </div>
+                                    { order.payment_status === 'complete' ? <button className="btn col-lg-3">
+                                        <FontAwesomeIcon
+                                                    icon={faCircleCheck}
+                                                    size="2xl" 
+                                                    style={{ color: "rgb(10, 101, 71)" }}
+                                                />
+                                        </button>:
+                                        selectedOrderId === order.order_id ? (
+                                            <button
+                                                className="btn col-lg-3"
+                                                onClick={() => handleButtonClick(order.order_id)}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faCircleCheck}
+                                                    size="2xl" 
+                                                    style={{ color: "#rgb(10, 101, 71)" }}
+                                                />
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn col-lg-3"
+                                                onClick={() => handleButtonClick(order.order_id)}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faCircle}
+                                                    size="2xl"
+                                                    style={{ color: "#34b823" }}
+                                                />
+                                            </button>
+                                        )}
+                                    </div>
                             ))
                         }
                     </div>

@@ -51,3 +51,16 @@ exports.viewAllOrders = (req, res) => {
             })
         })      
 }
+
+exports.viewOrdersDetails = (req, res) => {
+    orderModel.view_order_details(req.params.order_id)
+     .then((orderRes) => {
+        return res.status(200).send(orderRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'Get order details faild',
+                dettails : err.message
+            })
+        })      
+}
