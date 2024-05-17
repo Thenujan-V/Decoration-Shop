@@ -65,3 +65,16 @@ exports.showEmployeeDetails = (req,res) => {
             })
         })
 }
+
+exports.showUserDetails = (req,res) => {
+    adminModels.get_user_details(req.params.user_Id)
+        .then((response) => {
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: 'connot fetching data',
+                details: err.message
+            })
+        })
+}

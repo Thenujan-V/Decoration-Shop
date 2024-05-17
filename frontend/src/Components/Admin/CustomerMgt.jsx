@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
 import { Link } from 'react-router-dom';
+import { getAllCustomers } from '../../Services/AdminServices';
 
 const CustomerMgt = () => {
-    const Customers = [
-        { id: 'E001', name: 'John Doe', createdDate:'10th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E003', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E004', name: 'Lane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E005', name: 'Pane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E006', name: 'Alice Johnson', createdDate:'15th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' }
-    ];
-
     const [getCustomers, setGetCustomers] = useState([])
 
     useEffect(() => {
-        setGetCustomers(Customers)
+        const fetchCust = async() => {
+            try{
+                const response =await getAllCustomers()
+                setGetCustomers(response.data)
+            }
+            catch(error){
+                console.log('fetching error :', error)
+            }
+        }
+        fetchCust()
     },[])
-
 
   return (
     <div style={{display:'flex', height:'100vh'}}>
@@ -28,11 +28,12 @@ const CustomerMgt = () => {
                 getCustomers &&
                 <div className='details'>
                     {
+                        getCustomers &&
                         getCustomers.map((customer) => (
                             <div className="row">
-                                <p className='col-lg-3 col-md-3 col-3'>{customer.id}</p>
-                                <p className='col-lg-3 col-md-3 col-3 name'>{customer.name}</p>
-                                <Link to={`/viewCustomer/${customer.id}`} className='btn col-lg-3 col-md-3 col-3 view'>View</Link>
+                                <p className='col-lg-3 col-md-3 col-3'>{customer.user_Id}</p>
+                                <p className='col-lg-3 col-md-3 col-3 name'>{customer.first_name}</p>
+                                <Link to={`/viewCustomer/${customer.user_Id}`} className='btn col-lg-3 col-md-3 col-3 view'>View</Link>
                                 <Link className='btn col-lg-3 col-md-3 col-3 delete'>delete</Link>
                             </div>
                         ))

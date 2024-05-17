@@ -4,110 +4,101 @@ import VerticalNavbar from '../Employee/VerticalNavbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import AdminVerticalNav from './AdminVerticalNav'
+import { getOrders } from '../../Services/OrderService'
 
 const ViewOrders = () => {
-    const emp_id = useParams()
+    const Id = useParams()
+    const user_id = Id.user_Id
 
-    const allowance = [
-        {order_id:'1123',status:'completed', allowance:'3000'},
-        {order_id:'1124',status:'completed', allowance:'3000'},
-        {order_id:'1125',status:'on progress', allowance:'9000'},
-        {order_id:'1126',status:'completed', allowance:'3000'},
-        {order_id:'1127',status:'on progress', allowance:'5000'}
-    ]
-    const employees = [
-        { id: 'E001', name: 'John Doe', createdDate:'10th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E003', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E004', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E005', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E006', name: 'Alice Johnson', createdDate:'15th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' }
-    ];
-
-    const [getEmployee, setGetEmployee] = useState([])
-    const [apiReq, setApiReq] = useState([])
-    const [employee, setEmployee] = useState('')
-    const [selectedOrderId, setSelectedOrderId] = useState(null);
-
+    const [orders, setOrders] = useState([])
 
     useEffect(() => {
-        setApiReq(allowance)
-    },[])
-    useEffect(() => {
-        setGetEmployee(employees)
-
-    },[])
-    const findEmployee = getEmployee.find((employee) => employee.id === emp_id.emp_id)
-    
-    useEffect(() => {
-        setEmployee(findEmployee)
-    })
-console.log("emp :",employee)
-
-    const handleButtonClick = (orderId) => {
-        if (selectedOrderId === orderId) {
-            setSelectedOrderId(null); 
-        } else {
-            setSelectedOrderId(orderId);
+        const fetchOrders = async (user_id) => {
+            try{
+                const response = await getOrders(user_id)
+                console.log('res: ', response)
+                setOrders(response.data)
+            }
+            catch(error){
+                console.log('error occur :', error)
+            }
         }
-    };
+        fetchOrders(user_id)
+    }, [])
+    console.log('order : ', orders)
+
+    const addClassName = (status) => {
+        if(status == 'accepted'){
+            return 'accepted'
+        }
+        else if(status == 'payment pending'){
+            return 'pending'
+        }
+        else if(status == 'cancelled'){
+            return 'cancelled'
+        }
+        else if(status == 'finished'){
+            return 'finished'
+        }
+        else if(status == 'on going'){
+            return 'onGoing'
+        }
+        else if(status == 'delivered'){
+            return 'devlivered'
+        }
+    
+    }
+    const groupOrdersById = (orders) => {
+        return orders.reduce((groups, order) => {
+          const { order_id } = order;
+          if (!groups[order_id]) {
+            groups[order_id] = {
+              orders: [],
+              totalPrice: 0,
+              order_date: order.order_date,
+              deadline: order.deadline,
+              status:order.status
+            };
+          }
+          groups[order_id].orders.push(order);
+          groups[order_id].totalPrice += parseFloat(order.price) * order.quantity;
+          return groups;
+        }, {});
+      };
+      const groupedOrders = groupOrdersById(orders);
   return (
     <div>
         <div style={{display:'flex', height:'100vh'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container allowance'>
             <h1>EMPLOYEE MANAGEMENT</h1>
-            {
-                employee && 
-                <div className='details'>
-                <h1>{employee.id}</h1>
-                <Link to={`/allowanceDetails/${employee.id}`} className='btn allowanceBtn'>PAY ALLOWANCE</Link>
-
-                <div className="row head">
-                    <h3 className='col-lg-3'>ORDER ID</h3>
-                    <h3 className='col-lg-3'>W.STATUS</h3>
-                    <h3 className='col-lg-3'>ALLOWANCE</h3>
-                    <h3 className='col-lg-3'>A.STATUS</h3>
-                </div>
-                <div className="detail">
-                    {
-                        apiReq.map((order, index) => (
-                            <div className="row">
-                                <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
-                                <p className='col-lg-3'>{order.status}</p>
-                                <p className='col-lg-3'>{order.allowance}</p>
-                                {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
-                                {selectedOrderId === order.order_id ? (
-                                    <button
-                                        className="btn col-lg-3"
-                                        onClick={() => handleButtonClick(order.order_id)}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faCircleCheck}
-                                            size="xl"
-                                            style={{ color: "#34b823" }}
-                                        />
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn col-lg-3"
-                                        onClick={() => handleButtonClick(order.order_id)}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faCircle}
-                                            size="xl"
-                                            style={{ color: "#34b823" }}
-                                        />
-                                    </button>
-                                )}
-                            
-                            
+            <div id="orders" className="row justify-content-center">
+                {Object.keys(groupedOrders).length > 0 ? (
+                    Object.keys(groupedOrders).map((orderId, index) => (
+                    <div key={index} id={`order-group-${orderId}`} className="card m-2" >
+                        <h2>Order ID :  {orderId}</h2>
+                        <div className="row">
+                            <div className='col-lg-7 details'>
+                                {groupedOrders[orderId].orders.map((order, subIndex) => (
+                                <div key={subIndex} className="details m-2">
+                                    <h4>{order.service_name} ({order.quantity} * {order.price}) = {order.quantity * order.price}</h4>
+                                    {/* <p>Price: {order.price} LKR</p> */}
+                                </div>
+                                ))} 
                             </div>
-                        ))
-                    }
-                </div>
-            </div>
-            }
+                            <div className='dates col-lg-5'>
+                                <p className={`${addClassName(groupedOrders[orderId].status)}`}>Status - {groupedOrders[orderId].status}</p>
+                                <p>Total Amount - {groupedOrders[orderId].totalPrice} LKR</p>
+                                <p>Ordered Date - {new Date(groupedOrders[orderId].order_date).toLocaleDateString('en-US')}</p>
+                                <p>Delivery Date - {new Date(groupedOrders[orderId].deadline).toLocaleDateString('en-US')}</p>       
+                            </div>  
+                        </div>
+                    </div>
+                    ))
+                ) : (
+                    <p>There are no orders</p>
+                )}
+                </div> 
         </div>
         </div>
     </div>

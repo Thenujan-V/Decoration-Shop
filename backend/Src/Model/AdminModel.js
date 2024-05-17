@@ -62,7 +62,7 @@ admins.get_all_employees_details = () => {
 
 admins.get_all_users_details = () => {
     return new Promise((resolve, reject) => {
-        const sql = `select * from user`
+        const sql = `select * from user where role = 'user'`
         dbConnection.execute(sql, (err, res) => {
             if(err){
                 reject(err)
@@ -89,6 +89,19 @@ admins.get_employee_details = (user_Id) => {
     })
 }
 
-
+admins.get_user_details = (user_Id) => {    
+    return new Promise((resolve, reject) => {
+        const sql = `select * from user where user_Id = ?`
+        dbConnection.execute(sql, [user_Id], (err, res) => {
+            if(err){
+                
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
 module.exports = admins

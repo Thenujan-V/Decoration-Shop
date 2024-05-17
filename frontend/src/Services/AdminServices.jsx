@@ -21,3 +21,23 @@ export const showEmployeeDetail = async(user_Id) => {
         throw error
     }
 }
+
+export const getAllCustomers = async() => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/getusersdetails`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const showUserDetail = async(user_Id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/showUserDetail/${user_Id}`, user_Id)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

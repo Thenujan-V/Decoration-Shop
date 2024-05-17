@@ -1,76 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
+import { showUserDetail } from '../../Services/AdminServices';
 
 const ViewCustomer = () => {
-    const cust_id = useParams()
-    const Customers = [
-        { id: 'E001', name: 'John Doe', createdDate:'10th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E003', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E004', name: 'Lane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E005', name: 'Pane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' },
-        { id: 'E006', name: 'Alice Johnson', createdDate:'15th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com' }
-    ];
+    const Id = useParams()
+    const user_Id = Id.user_Id
 
     const [getCustomers, setGetCustomers] = useState([])
-    const [customers, setCustomers] = useState('')
-    useEffect(() => {
-        setGetCustomers(Customers)
 
+    useEffect(() => {
+        const fetchUser = async(user_Id) => {
+            try{
+                const response = await showUserDetail(user_Id)
+                setGetCustomers(response.data[0])
+            }
+            catch(error){
+                console.log('error fetching user details :' ,error)
+            }
+        }
+        fetchUser(user_Id)
     },[])
     console.log('ok :',getCustomers)
-
-    const findCustomers = getCustomers.find((customer) => customer.id === cust_id.cust_id)
-    useEffect(() => {
-        setCustomers(findCustomers)
-    })
-
 
   return (
     <div style={{display:'flex', height:'100vh'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container empMgt'>
             <h1>CUSTOMERS MANAGEMENT</h1>
-            { customers && 
+            { getCustomers && 
                 <div>
-                    <h2>{customers.id}</h2>
+                    <h2>{getCustomers.id}</h2>
                     <div className="details">
-                        <div className='detail'>
-                            <p className='qes'>NAME</p>
-                            <p className='ans'>- {customers.name}</p>
+                    <div className='detail'>
+                            <p className='qes'>USER ID</p>
+                            <p className='ans'>- {getCustomers.user_Id}</p>
                         </div>
                         <div className='detail'>
-                            <p className='qes'>NIC NO</p>
-                            <p className='ans'>- {customers.NIC}</p>
+                            <p className='qes'>NAME</p>
+                            <p className='ans'>- {getCustomers.first_name} {getCustomers.last_name}</p>
                         </div>
                         <div className='detail'>
                             <p className='qes'>CONTACT NO</p>
-                            <p className='ans'>- {customers.contact_no}</p>
-                        </div>
-                        <div className='detail'>
-                            <p className='qes'>DATE HIRED</p>
-                            <p className='ans'>- {customers.createdDate}</p>
+                            <p className='ans'>- {getCustomers.contact_no}</p>
                         </div>
                         <div className='detail'>
                             <p className='qes'>EMAIL ID</p>
-                            <p className='ans'>- {customers.email}</p>
+                            <p className='ans'>- {getCustomers.mail_id}</p>
                         </div>
                         <div className='detail'>
                             <p className='qes'>ADDRESS</p>
-                            <p className='ans'>- {customers.email}</p>
-                        </div>
-                        <div className='detail'>
-                            <p className='qes'>JOB SPECIFICATION</p>
-                            <p className='ans'>- {customers.name}</p>
-                        </div>
-                        <div className='detail'>
-                            <p className='qes'>ACCOUNT DETAILS</p>
-                            <p className='ans'>- {customers.name}</p>
+                            <p className='ans'>- {getCustomers.adress}</p>
                         </div>
                     </div>
                     <div className="buttons">
-                        <Link to={`/vieworders/${customers.id}`} className='btn history'>VIEW ORDER HISTORY</Link>
+                        <Link to={`/vieworders/${getCustomers.user_Id}`} className='btn history'>VIEW ORDER HISTORY</Link>
                         <Link to='' className='btn delete'> DELETE PROFILE</Link>
                     </div>
                 </div>

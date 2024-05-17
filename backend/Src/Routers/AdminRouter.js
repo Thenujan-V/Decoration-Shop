@@ -8,6 +8,7 @@ router.get('/showadmindetails/:admin_id',adminController.showAdminDetails)
 router.get('/showAllEmployees',adminController.showAllEmployees)
 router.get('/showEmployeeDetail/:user_Id',adminController.showEmployeeDetails)
 router.get('/getusersdetails',adminController.showAllUsers)
+router.get('/showUserDetail/:user_Id',adminController.showUserDetails)
 
 
-module.exports = router
+module.exports = router  
