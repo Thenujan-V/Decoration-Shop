@@ -1,6 +1,7 @@
 const reviewModel = require('../Model/ReviewModel')
 
 exports.addReview = (req, res) => {
+    console.log(req.body)
     reviewModel.add_review(req.body)
         .then((reviewRes) => {
             return res.status(201).send(reviewRes)

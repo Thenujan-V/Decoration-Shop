@@ -31,7 +31,7 @@ reviews.add_review = (review) => {
 reviews.get_review = (reviews) => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `select * from rate`
+            const sql = `select * from rate r join user u on r.user_Id = u.user_Id`
             dbConnection.execute(sql,
                     (err, res) => {
                         if(err){

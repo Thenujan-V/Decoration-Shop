@@ -1,15 +1,53 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Navbar from '../Components/Navbar';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import { addReview } from '../Services/ReviewService';
+import { useNavigate } from 'react-router-dom';
+import { retrieveToken } from '../Services/JwtToken';
 
 
 const Review = () => {
+  const navigater = useNavigate()
+    const decodedToken = retrieveToken()
+    const [user_id, setUser_id] = useState('')
+
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            navigater('/signin')
+        }
+    }, [])
+
   const [review, setReview] = useState('')
   const [error, setError] = useState('')
 
   const [rating, setRating] = useState(0);
+  const[apiResponse, setApiResponse] = useState('')
+
+  const handleSubmit = async(e,review, rating, user_id) => {
+    e.preventDefault()
+    try{
+      const reviewData = {
+        review: review,
+        rating : rating,
+        user_Id : user_id
+      }
+      const response = await addReview(reviewData)
+      if(response === 201){
+        alert('review add successfully')
+      }
+      setApiResponse(response)
+    }
+    catch(error){
+      console.log('error occur :',error)
+    }
+  }
+
 
   const handleStarClick = (star) => {
       if (rating === star) {
@@ -46,8 +84,9 @@ const Review = () => {
             </div>
             <p className='rating'>Rating given: {rating} out of 5</p>
 
-            <form>
+            <form onSubmit={(e) => handleSubmit(e,review, rating, user_id)}>
               <textarea type="text" name="reviewMsg" id="reviewMsg" value={review} onChange={(e) => setReview(e.target.value)} placeholder='Write Something............'/>
+              <button type='submit' className='btn btn-warning w-25 mt-3'>Submit</button>
             </form>
           </div>
         </div>

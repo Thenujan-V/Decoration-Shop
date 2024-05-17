@@ -4,21 +4,22 @@ import AdminVerticalNav from './AdminVerticalNav'
 
 const ViewReview = () => {
     const cust_id = useParams()
-    const review = [
-        { id: 'E001', name: 'John Doe', createdDate:'10th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'3', msg:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, dolores.' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'3', msg:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aperiam soluta voluptatum, nobis dolore aut?' },
-        { id: 'E003', name: 'Jane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'2', msg:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aperiam soluta voluptatum, nobis dolore aut?' },
-        { id: 'E004', name: 'Lane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'5', msg:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis aperiam soluta voluptatum, nobis dolore aut?' },
-        { id: 'E005', name: 'Pane Smith', createdDate:'12th june 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'5', msg:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, dolores.'   },
-        { id: 'E006', name: 'Alice Johnson', createdDate:'15th july 2203', NIC:'20001980989789', contact_no:'0709887890', email:'john@gmail.com', rating:'4', msg:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, dolores.'  }
     
-    ]
-
     const [getReview, setGetReview] = useState([])
     const [custReview, setCuseReview] = useState('')
 
     useEffect(() => {
-        setGetReview(review)
+        const fetchReviews = async() => {
+            try{
+                const response = await getReview()
+                console.log('review :', response)
+                setGetReview(response.data)
+            }
+            catch(error){
+                console.log('error occure when get reviews :', error)
+            }
+            fetchReviews()
+        }
     },[])
 
     const findReview = getReview?.find((review) => review.id === cust_id.cust_id)
