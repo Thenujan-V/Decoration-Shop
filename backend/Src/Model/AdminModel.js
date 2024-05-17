@@ -74,7 +74,20 @@ admins.get_all_users_details = () => {
     })
 }
 
-
+admins.get_employee_details = (user_Id) => {    
+    return new Promise((resolve, reject) => {
+        const sql = `select * from user join employee on user.user_Id = employee.user_Id where user.user_Id = ?`
+        dbConnection.execute(sql, [user_Id], (err, res) => {
+            if(err){
+                
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
 
 

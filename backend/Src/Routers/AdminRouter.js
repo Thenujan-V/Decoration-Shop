@@ -6,6 +6,7 @@ const adminController = require('../Controller/AdminController')
 router.post('/signup',adminController.signup)
 router.get('/showadmindetails/:admin_id',adminController.showAdminDetails)
 router.get('/showAllEmployees',adminController.showAllEmployees)
+router.get('/showEmployeeDetail/:user_Id',adminController.showEmployeeDetails)
 router.get('/getusersdetails',adminController.showAllUsers)
 
 

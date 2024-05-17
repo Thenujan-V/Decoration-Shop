@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
 import { Link } from 'react-router-dom';
+import { getAllEmployees } from '../../Services/AdminServices';
 
 const EmployeeManagement = () => {
-    const employees = [
-        { id: 'E001', name: 'John Doe', createdDate:'10th july 2203' },
-        { id: 'E002', name: 'Cane Smith', createdDate:'12th sep 2203' },
-        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
-        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
-        { id: 'E002', name: 'Jane Smith', createdDate:'12th june 2203' },
-        { id: 'E003', name: 'Alice Johnson', createdDate:'15th july 2203' }
-    ];
-
     const [getEmployee, setGetEmployee] = useState([])
 
     useEffect(() => {
-        setGetEmployee(employees)
+        const fetchEmployees = async () => {
+            try{
+                const response = await getAllEmployees()
+                setGetEmployee(response.data)
+            }
+            catch(error){
+                console.log('fetching employees error :', error)
+            }
+        }
+        fetchEmployees()
     },[])
-    console.log('res :',getEmployee)
     
-    const getResponse = () => {
-        return getEmployee.length > 0 ? getEmployee[0] : null
-    }
-    const isApiResponse = getResponse()
-
   return (
     <div style={{display:'flex', height:'100vh'}}>
         <AdminVerticalNav />
@@ -34,23 +29,23 @@ const EmployeeManagement = () => {
             </div>
             <div className="row">
             {
-                isApiResponse && (
+                getEmployee && (
                     getEmployee.map((employee) => (
                         <div className="card col-lg-3">
                             <div className="img">
                                 <div className="image">
-                                    <p>{employee.name.charAt(0).toUpperCase()}</p>
+                                    <p>{employee.user_name.charAt(0).toUpperCase()}</p>
                                 </div>
                             </div>
-                            <p>Employee Id - {employee.id}</p>
-                            <p>Name - {employee.name}</p>
-                            <p>Date Joined - {employee.createdDate}</p>
+                            <p>Employee Id - {employee.user_Id}</p>
+                            <p>Employee Name - {employee.user_name}</p>
+                            <p>Contact No - {employee.contact_no}</p>
                             <div className="btnn">
-                                <Link to={`/viewemployee/${employee.id}`} className='btn'>View</Link>
+                                <Link to={`/viewemployee/${employee.user_Id}`} className='btn'>View</Link>
                             </div>
                         </div>
                     ))
-                )
+                ) 
             }
             </div>
         </div>
