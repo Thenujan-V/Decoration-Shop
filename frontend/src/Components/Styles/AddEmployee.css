@@ -1,0 +1,73 @@
+.container.addEmp {
+    padding: 20px;
+}
+
+.container.addEmp h1 {
+    /* margin-bottom: 20px; */
+    /* text-align: center; */
+    padding-top: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+.container.addEmp h3 {
+    /* margin-bottom: 20px; */
+    /* text-align: center; */
+    padding-top: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    /* text-align: center; */
+    margin: 20px 0 20px 0;
+}
+.container.addEmp .admin{
+    background-color: var(--wheat);
+    border-radius: 10px;
+    width: 35vw;
+    /* margin: 10px; */
+}
+.container.addEmp .employee{
+    border: 2px solid var(--wheat);
+    border-radius: 10px;
+    width: 35vw;
+    margin-left: 50px;
+    padding: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+    width: 30vw;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.button {
+    margin-top: 20px;
+    width: 20vw;
+}
+
+.button .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.button .btn:hover {
+    background-color: #0056b3;
+}

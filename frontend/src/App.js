@@ -28,6 +28,7 @@ import ReviewCheck from './Components/Admin/ReviewCheck'
 import ViewReview from './Components/Admin/ViewReview'
 import Signin from './Pages/Signin'
 import SelectPayment from './Pages/SelectPayment'
+import AddEmployee from './Components/Admin/AddEmployee'
 
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
         <Route path='/review' element={<Review />} />
         <Route path='/reviewCheck' element={<ReviewCheck />} />
         <Route path='/viewReview/:cust_id' element={<ViewReview />} />
+        <Route path='/addemployee' element={<AddEmployee />} />
 
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}

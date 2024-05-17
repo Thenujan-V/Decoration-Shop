@@ -25,7 +25,7 @@ const AllowanceDetails = () => {
     })
   return (
     <div>
-        <div style={{display:'flex', height:'100vh'}}>
+        <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container payments'>
             <h1>EMPLOYEE MANAGEMENT</h1>

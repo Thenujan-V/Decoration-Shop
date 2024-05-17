@@ -25,9 +25,10 @@ import customerMgt from './CustomerMgt.css'
 import review from './Review.css'
 import reviewCheck from './ReviewCheck.css'
 import method from './PaymentMethod.css'
+import addEmployee from './AddEmployee.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails, customerMgt,
-     review, reviewCheck, method
+     review, reviewCheck, method, addEmployee
      
      }    

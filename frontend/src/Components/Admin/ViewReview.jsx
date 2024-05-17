@@ -30,7 +30,7 @@ const ViewReview = () => {
 console.log(custReview)
   return (
     <div>
-        <div style={{display:'flex', height:'100vh'}}>
+        <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container payments'>
             <h1>Review</h1>

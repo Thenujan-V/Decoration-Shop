@@ -24,7 +24,7 @@ const ViewCustomer = () => {
     console.log('ok :',getCustomers)
 
   return (
-    <div style={{display:'flex', height:'100vh'}}>
+    <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container empMgt'>
             <h1>CUSTOMERS MANAGEMENT</h1>

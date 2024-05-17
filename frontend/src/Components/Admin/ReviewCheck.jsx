@@ -25,7 +25,7 @@ const ReviewCheck = () => {
     console.log(getApiReview)
 
   return (
-    <div style={{display:'flex', height:'100vh'}}>
+    <div style={{display:'flex'}}>
         <AdminVerticalNav />
         <div style={{flex:1}} className='container customers'>
             <h1>Reviews</h1>
