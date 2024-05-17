@@ -3,11 +3,22 @@ import Navbar from '../Components/Navbar'
 import { myOrders } from '../Components/Styles'
 import { retrieveToken } from '../Services/JwtToken'
 import { getOrders } from '../Services/OrderService'
+import { useNavigate } from 'react-router-dom'
 
 const MyOrders = () => {
+    const navigater = useNavigate()
     const decodedToken = retrieveToken()
-    const user_id = decodedToken.id
+    const [user_id, setUser_id] = useState('')
 
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            navigater('/signin')
+        }
+    }, [])
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
@@ -22,7 +33,7 @@ const MyOrders = () => {
             }
         }
         fetchOrders(user_id)
-    }, [])
+    }, [user_id])
     console.log('order : ', orders)
 
     const addClassName = (status) => {

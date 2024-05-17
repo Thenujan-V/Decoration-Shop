@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import VerticalNavbar from '../Employee/VerticalNavbar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import {useParams } from 'react-router-dom'
 import AdminVerticalNav from './AdminVerticalNav'
 import { getOrders } from '../../Services/OrderService'
+import { myOrders } from '../Styles'
 
 const ViewOrders = () => {
     const Id = useParams()
@@ -16,7 +14,6 @@ const ViewOrders = () => {
         const fetchOrders = async (user_id) => {
             try{
                 const response = await getOrders(user_id)
-                console.log('res: ', response)
                 setOrders(response.data)
             }
             catch(error){
@@ -67,11 +64,11 @@ const ViewOrders = () => {
       };
       const groupedOrders = groupOrdersById(orders);
   return (
-    <div>
-        <div style={{display:'flex', height:'100vh'}}>
+    <div id='myOrders'>
+        <div style={{display:'flex'}}>
         <AdminVerticalNav />
-        <div style={{flex:1}} className='container allowance'>
-            <h1>EMPLOYEE MANAGEMENT</h1>
+        <div style={{flex:1}} className='container'>
+            <h1 className='text-center'>Orders Details</h1>
             <div id="orders" className="row justify-content-center">
                 {Object.keys(groupedOrders).length > 0 ? (
                     Object.keys(groupedOrders).map((orderId, index) => (

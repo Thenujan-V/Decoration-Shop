@@ -12,7 +12,17 @@ import { addToOrder } from '../Services/OrderService'
 const Card = () => {
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
-    const user_id = decodedToken.id
+    const [user_id, setUser_id] = useState('')
+
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            navigater('/signin')
+        }
+    }, [])
 
     const [cardRes, setCardRes] = useState('')
     const [quantityRes, setQuantityRes] = useState('')
@@ -33,6 +43,8 @@ const Card = () => {
         const fetchCardItems = async (user_id) => {
             try{
                 const response = await viewCartItems(user_id)
+                console.log('card :', response.data)
+                console.log('card :', user_id)
                 setCardRes(response.data)
             }
             catch(error){
@@ -40,7 +52,8 @@ const Card = () => {
             }
         }
         fetchCardItems(user_id)
-    }, [])
+    }, [user_id])
+   
 
     const handleQuantityChange = async (index, newQuantity) => {
         const updatedCardRes = [...cardRes];

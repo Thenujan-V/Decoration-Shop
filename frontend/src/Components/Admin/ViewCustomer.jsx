@@ -6,7 +6,7 @@ import { showUserDetail } from '../../Services/AdminServices';
 const ViewCustomer = () => {
     const Id = useParams()
     const user_Id = Id.user_Id
-
+    
     const [getCustomers, setGetCustomers] = useState([])
 
     useEffect(() => {

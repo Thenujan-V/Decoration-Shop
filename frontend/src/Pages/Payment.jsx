@@ -19,8 +19,17 @@ const Payment = () => {
 
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
-    const user_id = decodedToken.id
+    const [user_id, setUser_id] = useState('')
 
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            navigater('/signin')
+        }
+    }, [])
     const [orderRes, setorderRes] = useState('')
     const [paymentRes, setPaymentRes] = useState('')
 
@@ -42,7 +51,7 @@ const Payment = () => {
             }
         }
         fetchCardItems(user_id)
-    }, [])
+    }, [user_id])
 
     useEffect(() => {
         const fetchOrderId = async (user_id) => {
@@ -55,7 +64,7 @@ const Payment = () => {
             }
         }
         fetchOrderId(user_id)
-    }, [])
+    }, [user_id])
 
     const determineCardType = (number) => {
         const visaRegex = /^4/;

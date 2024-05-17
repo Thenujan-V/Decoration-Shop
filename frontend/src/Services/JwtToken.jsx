@@ -9,7 +9,7 @@ export const getToken = () => {
         console.log(currentTime)
         console.log(decodedToken.exp)
         if (decodedToken.exp && currentTime > decodedToken.exp) {
-            localStorage.removeItem("token");
+            localStorage.removeItem("token"); 
             return null
         } 
         else {

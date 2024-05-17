@@ -8,19 +8,20 @@ import { addToCard } from '../Services/CardServices'
 
 const ServiceDetails = () => {    
 
-    const [user_id, setUser_id] = useState('')
 
     const navigate = useNavigate()
     const params = useParams();
     const decodedToken = retrieveToken();
+
+    const [user_id, setUser_id] = useState('')
+
     useEffect(() => {
         if(decodedToken){
             const id = decodedToken.id
             setUser_id(id)
         }
         else{
-            const id = null
-            setUser_id(id)
+            navigate('/signin')
         }
     }, [])
 
@@ -40,7 +41,7 @@ const ServiceDetails = () => {
             }
         }
         fetchData(service_id)
-    }, [])
+    }, [user_id])
 
     const inputCard = async(service_id, user_id) => {
         if(user_id === null){

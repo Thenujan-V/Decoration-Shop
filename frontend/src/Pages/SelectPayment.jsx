@@ -8,8 +8,17 @@ import { getLeastOrder, getOrders } from '../Services/OrderService'
 const SelectPayment = () => {
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
-    const user_id = decodedToken.id
+    const [user_id, setUser_id] = useState('')
 
+    useEffect(() => {
+        if(decodedToken){
+            const id = decodedToken.id
+            setUser_id(id)
+        }
+        else{
+            navigater('/signin')
+        }
+    }, [])
     const [orderRes, setorderRes] = useState('')
     const [totalAmount, setTotalAmount] = useState(0)
     const [paymentMethod, setPaymentMethod] = useState('')
@@ -27,7 +36,7 @@ const SelectPayment = () => {
             }
         }
         fetchCardItems(user_id)
-    }, [])
+    }, [user_id])
 
     useEffect(() => {
         const fetchOrderId = async (user_id) => {
@@ -40,7 +49,7 @@ const SelectPayment = () => {
             }
         }
         fetchOrderId(user_id)
-    }, [])
+    }, [user_id])
 
     const totalOrderAmount = orderRes && orderRes.reduce((acc, item) => {
             if (item.order_id === orderId.order_id) {

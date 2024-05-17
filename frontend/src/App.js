@@ -55,7 +55,7 @@ const App = () => {
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
         <Route path='/employeeManagement' element={<EmployeeManagement />} />
         <Route path='/viewemployee/:user_Id' element={<ViewEmployee />} />
-        <Route path='/vieworders/:emp_id' element={<ViewOrders />} />
+        <Route path='/vieworders/:user_Id' element={<ViewOrders />} />
         <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
         <Route path='/customerMgt' element={<CustomerMgt />} />
         <Route path='/viewCustomer/:user_Id' element={<ViewCustomer />} />
