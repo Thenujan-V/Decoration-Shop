@@ -25,18 +25,15 @@ const Dashboard = () => {
 
 
     useEffect(() => {
+        
         setPendingWorks(pending_works)
         setOrderReq(order_req)
         setCompleteWorks(complete_works)
     },[])
     console.log(completeWorks)
 
-    
-
-
-
   return (
-    <div style={{display:'flex', height:'100vh'}}>
+    <div style={{display:'flex'}}>
         <VerticalNavbar />
         <div style={{flex:1}}>
             <div className='container dashboard'>

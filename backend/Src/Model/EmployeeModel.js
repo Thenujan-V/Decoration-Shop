@@ -23,9 +23,41 @@ employees.showEmployeeDetails = (employee_id) => {
     })
 }
 
+employees.task_acceptance = (employee_id, order_id, data) => {
+    return new Promise((resolve, reject) => {
+        const sql = `update emp_order set task_acceptence = ? where employee_id = ? and order_id = ?`
+        dbConnection.execute(sql, [data.task_acceptence, employee_id, order_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
-
-
+employees.status_update = (employee_id, order_id, data) => {
+    return new Promise((resolve, reject) => {
+        const sql = `update emp_order set work_status = ? where employee_id = ? and order_id = ?`
+        dbConnection.execute(sql, [data.work_status , employee_id, order_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                const sqlOrder = `update order_table set status = ? where order_id = ?`
+                dbConnection.execute(sqlOrder, [data.work_status , order_id], (err, response) => {
+                    if(err){
+                        reject(err)
+                    }
+                    else{
+                        resolve(response)
+                    }
+                })
+            }
+        })
+    })
+}
 
 
 

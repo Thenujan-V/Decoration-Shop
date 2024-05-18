@@ -92,3 +92,16 @@ exports.empSignup = (req, res) => {
             })
         })
 }
+
+exports.asignEmp = (req, res) => {
+    adminModels.employee_asign(req.body)
+        .then((signupRes) => {
+            return res.status(201).json(signupRes)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error : 'signup faild',
+                details : err.message
+            })
+        })
+}

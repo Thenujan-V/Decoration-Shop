@@ -12,3 +12,29 @@ exports.showEmployeeDetails = (req, res) => {
             })
         })
 }
+
+exports.taskAcceptance = (req, res) => {
+    employeeModels.task_acceptance(req.params.employee_id, req.params.order_id, req.body)
+        .then((detailsRes) => {
+            res.status(201).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot update data',
+                details: err.message
+            })
+        })
+}
+
+exports.statusUpdate = (req, res) => {
+    employeeModels.status_update(req.params.employee_id, req.params.order_id, req.body)
+        .then((detailsRes) => {
+            res.status(201).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot update data',
+                details: err.message
+            })
+        })
+}

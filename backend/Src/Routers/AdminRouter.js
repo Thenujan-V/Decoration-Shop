@@ -10,6 +10,7 @@ router.get('/showEmployeeDetail/:user_Id',adminController.showEmployeeDetails)
 router.get('/getusersdetails',adminController.showAllUsers)
 router.get('/showUserDetail/:user_Id',adminController.showUserDetails)
 router.post('/signupemp',adminController.empSignup)
+router.post('/asignemp',adminController.asignEmp)
 
 
 module.exports = router  

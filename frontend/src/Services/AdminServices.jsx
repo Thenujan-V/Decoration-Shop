@@ -52,9 +52,18 @@ export const addNewAdmin = async (adminData) => {
 }
 
 export const addNewEmp = async (employeeData) => {
-    console.log(employeeData)
     try{
         const response = await axios.post(`${BASR_API_URL}/admin/signupemp`, employeeData)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const asignEmployee = async (employeeData) => {
+    try{
+        const response = await axios.post(`${BASR_API_URL}/admin/asignemp`, employeeData)
         return response
     }
     catch(error){

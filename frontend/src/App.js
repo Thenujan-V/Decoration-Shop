@@ -49,7 +49,7 @@ const App = () => {
         <Route path='/empdashboard' element={<Dashboard />} />
         <Route path='/pending/:order_id' element={<PendingWorks />} />
         <Route path='/orders/:order_id' element={<OrderReq />} />
-        <Route path='/allowance' element={<Allowance />} />
+        <Route path='/empallowance' element={<Allowance />} />
         <Route path='/adminpanel' element={<AdminVerticalNav />} />
         <Route path='/admindashboard' element={<Admindashboard />} />
         <Route path='/booking' element={<Booking />} />

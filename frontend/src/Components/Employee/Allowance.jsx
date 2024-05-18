@@ -32,7 +32,7 @@ const Allowance = () => {
 console.log('soid : ',selectedOrderId)
   return (
     <div>
-        <div style={{display:'flex', height:'100vh'}}>
+        <div style={{display:'flex'}}>
             <VerticalNavbar />
             <div style={{flex:1}} className='container allowance'>
                 <h1>Allowance</h1>

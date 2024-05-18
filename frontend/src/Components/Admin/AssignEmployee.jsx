@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AdminVerticalNav from './AdminVerticalNav'
 import { getOrdersDetails } from '../../Services/OrderService'
+import { asignEmployee, getAllEmployees } from '../../Services/AdminServices'
 
 const AssignEmployee = () => {
     const params = useParams()
     const order_id = params.order_id
 
-    const res = [
-        {deadLine:'22/2/2024', allowance:'2000', serviceId:'002'}
-    ]
-    const employees = [
-        { id: 'E001', name: 'John Doe' },
-        { id: 'E002', name: 'Jane Smith' },
-        { id: 'E003', name: 'Alice Johnson' }
-    ];
-
     const [apiResponse,setApiResponse] = useState([])
+    const [employees, setEmployees] = useState([])
+    const [asignEmpRes, setAsignEmpRes] = useState('')
+
     const [selectedEmployee, setSelectedEmployee] = useState('');
 
     useEffect(() => {
@@ -31,16 +26,37 @@ const AssignEmployee = () => {
         }
         fetchDatas(order_id)
     },[])
-    console.log(apiResponse[0])
 
-    const handleEmployeeChange = (event) => {
+    useEffect(() => {
+        const fetchEmployees = async () => {
+            try{
+                const response = await getAllEmployees()
+                setEmployees(response.data)
+            }
+            catch(error){
+                console.log('Employees fetching error : ', error)
+            }
+        }
+        fetchEmployees()
+    }, [])
+
+    const handleEmployeeChange = async(event) => {
         setSelectedEmployee(event.target.value);
+        const data = {
+            order_id : order_id,
+            employee_id : selectedEmployee
+        }
+        try{
+            const response = await asignEmployee(data)
+            setAsignEmpRes(response)
+        }
+        catch(error){
+            console.log('assign employee error : ',error)
+        }
     };
+    console.log(apiResponse)
 
-    // const getFirstResponse = () => {
-    //     return apiResponse.length > 0 ? apiResponse[0] : null;
-    // };
-    // const firstResponse = getFirstResponse();
+
   return (
     <div style={{display:'flex'}}>
         <AdminVerticalNav />
@@ -91,8 +107,8 @@ const AssignEmployee = () => {
                                         >
                                             <option value="" disabled> ASSIGN EMPLOYEE</option>
                                             {employees.map(employee => (
-                                                <option key={employee.id} value={employee.id}>
-                                                    {employee.name}
+                                                <option key={employee.id} value={employee.employee_id}>
+                                                    {employee.first_name}
                                                 </option>
                                             ))}
                                         </select>   

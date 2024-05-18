@@ -20,7 +20,7 @@ const paymentRouter = require('./Src/Routers/PaymentRouter')
 
 Server.use('/api/user', userRouter)
 Server.use('/api/admin', adminRouter)
-Server.use('/api/admin', employeeRouter)
+Server.use('/api/employee', employeeRouter)
 Server.use('/api/services', servicesRouter)
 Server.use('/api/card', cardRouter)
 Server.use('/api/order', orderRouter)
