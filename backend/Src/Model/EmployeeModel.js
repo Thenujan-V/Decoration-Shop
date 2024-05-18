@@ -9,10 +9,11 @@ const employees = function(employee){
 }
 
 
-employees.showEmployeeDetails = (employee_id) => {
+employees.show_employee_details = (employee_id) => {
+    console.log(employee_id)
     return new Promise((resolve, reject) => {
-        const sql = `select * from user u join employee a on u.user_Id = a.user_Id where admin_id = ?`
-        dbConnection.execute(sql, [employee_id.admin_id], (err, res) => {
+        const sql = `select * from user u join employee a on u.user_Id = a.user_Id where u.user_Id = ?`
+        dbConnection.execute(sql, [employee_id.employee_id], (err, res) => {
             if(err){
                 reject(err)
             }

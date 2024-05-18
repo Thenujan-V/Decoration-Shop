@@ -54,7 +54,7 @@ const AssignEmployee = () => {
             console.log('assign employee error : ',error)
         }
     };
-    console.log(apiResponse)
+    console.log(employees)
 
 
   return (
