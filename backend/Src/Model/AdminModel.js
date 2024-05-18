@@ -4,26 +4,60 @@ const admins = function(user){
     this.user_Id = user.user_Id
 }
 
+const setAdminId = () => {
+    const prefix = 'ADMIN_'
+    const randomNo = Math.floor(10000 + Math.random() * 90000)
+    const adminId = prefix + randomNo
+    return adminId
+}
+const adminId = setAdminId()
+
+const setEmployeeId = () => {
+    const prefix = 'EMP_'
+    const randomNo = Math.floor(10000 + Math.random() * 90000)
+    const adminId = prefix + randomNo
+    return adminId
+}
+const employeeId = setEmployeeId()
+
 admins.admins_signup = (admin) => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `insert into admin (user_Id) values(?)`
-            dbConnection.execute(sql, [admin.user_Id], (err, res) => {
+
+            const selectSql = `select admin_id from admin`
+            dbConnection.execute(selectSql, (err, res) => {
                 if(err){
                     reject(err)
                 }
                 else{
-                    const sql_2 = `update user set role = 'admin' where user_Id = ?`
-                    dbConnection.execute(sql_2, [admin.user_Id] , (err, res) => {
-                        if(err){
-                            reject(err)
-                        }
-                        else{
-                            resolve(res)
-                        }
-                    })
+                    const admin_Id = adminId;
+                    const found_adminId = res.find((obj) => obj.admin_id === admin_Id)
+                    if(found_adminId){
+                       setAdminId() 
+                    }
+                    else{
+                        const sql = `insert into admin (admin_id, user_Id) values(?, ?)`
+                        dbConnection.execute(sql, [adminId, admin.user_Id], (err, res) => {
+                            if(err){
+                                reject(err)
+                            }
+                            else{
+                                const sql_2 = `update user set role = 'admin' where user_Id = ?`
+                                dbConnection.execute(sql_2, [admin.user_Id] , (err, res) => {
+                                    if(err){
+                                        reject(err)
+                                    }
+                                    else{
+                                        resolve(res)
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }
             })
+
+            
             
         }
         catch(error){
@@ -104,4 +138,47 @@ admins.get_user_details = (user_Id) => {
     })
 }
 
+admins.employee_signup = (employee) => {
+    return new Promise((resolve, reject) => {
+        try{
+            const selectSql = `select employee_id from employee`
+            dbConnection.execute(selectSql, (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    const emp_Id = employeeId;
+                    const found_empId = res.find((obj) => obj.emp_id === emp_Id)
+                    if(found_empId){
+                       setEmployeeId() 
+                    }
+                    else{
+                        const sql = `insert into employee (employee_id, job_specialization, nic_num, user_Id) values(?, ?, ?, ?)`
+                        dbConnection.execute(sql, [employeeId,employee.job_specialization, employee.nic_num, employee.user_Id], (err, res) => {
+                            if(err){
+                                reject(err)
+                            }
+                            else{
+                                const sql_2 = `update user set role = 'employee' where user_Id = ?`
+                                dbConnection.execute(sql_2, [employee.user_Id] , (err, res) => {
+                                    if(err){
+                                        reject(err)
+                                    }
+                                    else{
+                                        resolve(res)
+                                    }
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
 module.exports = admins
+

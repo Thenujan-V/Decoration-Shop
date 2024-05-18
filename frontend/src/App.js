@@ -64,6 +64,7 @@ const App = () => {
         <Route path='/reviewCheck' element={<ReviewCheck />} />
         <Route path='/viewReview/:cust_id' element={<ViewReview />} />
         <Route path='/addemployee' element={<AddEmployee />} />
+        <Route path='/addworkers' element={<AddEmployee />} />
 
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}

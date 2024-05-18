@@ -24,9 +24,6 @@ const EmployeeManagement = () => {
         <AdminVerticalNav />
         <div style={{flex:1}} className='container empMgt'>
             <h1>EMPLOYEE MANAGEMENT</h1>
-            <div className="add">
-                <Link to='' className='btn'> ADD EMPLOYEE</Link>
-            </div>
             <div className="row">
             {
                 getEmployee && (

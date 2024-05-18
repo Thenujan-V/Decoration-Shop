@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { addEmployee } from '../Styles';
+import { addNewAdmin, addNewEmp } from '../../Services/AdminServices';
 const AddEmployee = () => {
-    const [adminData, setAdminData] = useState({ user_id: '' });
+    const [adminRes, setAdminRes] = useState('')
+    const [adminData, setAdminData] = useState({ user_Id: '' });
     const [employeeData, setEmployeeData] = useState({
-        user_id: '',
+        user_Id: '',
         job_specialization: '',
         nic_num: ''
     });
@@ -20,16 +22,32 @@ const AddEmployee = () => {
         setEmployeeData({ ...employeeData, [name]: value });
     };
 
-    const handleAdminSubmit = (e) => {
+    const handleAdminSubmit = async(e, adminData) => {
         e.preventDefault();
-        // Add logic to handle admin form submission
-        console.log('Admin data submitted:', adminData);
+        try{
+            const response = await addNewAdmin(adminData)
+            if(response.status === 201){
+                alert('admin signup successful')
+                setAdminRes(response.status)
+            }
+        }
+        catch(error){
+            console.log('admin add fail :', error)
+        }
     };
 
-    const handleEmployeeSubmit = (e) => {
+    const handleEmployeeSubmit = async (e, employeeData) => {
         e.preventDefault();
-        // Add logic to handle employee form submission
-        console.log('Employee data submitted:', employeeData);
+        try{
+            const response = await addNewEmp(employeeData)
+            if(response.status === 201){
+                alert('Employee signup successful')
+                setAdminRes(response.status)
+            }
+        }
+        catch(error){
+            console.log('employee add fail :', error)
+        }
     };
 
     return (
@@ -40,15 +58,15 @@ const AddEmployee = () => {
                     <h1>Add New Employee / Admin</h1>
                     <div className="row">
                         <div className="col-lg-6 admin">
-                            <form onSubmit={handleAdminSubmit}>
+                            <form onSubmit={(e) => handleAdminSubmit(e,adminData)}>
                                 <h3>Add Admin</h3>
                                 <div className="form-group">
-                                    <label htmlFor="admin_user_id">USER ID</label>
+                                    <label htmlFor="admin_user_Id">USER ID</label>
                                     <input
                                         type="text"
-                                        id="admin_user_id"
-                                        name="user_id"
-                                        value={adminData.user_id}
+                                        id="admin_user_Id"
+                                        name="user_Id"
+                                        value={adminData.user_Id}
                                         onChange={handleAdminChange}
                                         required
                                     />
@@ -59,15 +77,15 @@ const AddEmployee = () => {
                             </form>
                         </div>
                         <div className="col-lg-6 employee">
-                            <form onSubmit={handleEmployeeSubmit}>
+                            <form onSubmit={(e) => handleEmployeeSubmit(e, employeeData)}>
                                 <h3>Add Employee</h3>
                                 <div className="form-group">
-                                    <label htmlFor="employee_user_id">USER ID</label>
+                                    <label htmlFor="employee_user_Id">USER ID</label>
                                     <input
                                         type="text"
-                                        id="employee_user_id"
-                                        name="user_id"
-                                        value={employeeData.user_id}
+                                        id="employee_user_Id"
+                                        name="user_Id"
+                                        value={employeeData.user_Id}
                                         onChange={handleEmployeeChange}
                                         required
                                     />
