@@ -7,6 +7,7 @@ router.get('/showemployeedetails/:employee_id',employeeController.showEmployeeDe
 router.put('/taskacceptance/:employee_id/:order_id',employeeController.taskAcceptance)
 router.put('/statusupdate/:employee_id/:order_id',employeeController.statusUpdate)
 router.get('/getorderdetails/:employee_id',employeeController.getOrderDetails)
+router.get('/showorderdetails/:order_id',employeeController.showOrderDetails)
 
 
 module.exports = router

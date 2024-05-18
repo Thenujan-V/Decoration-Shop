@@ -47,8 +47,8 @@ const App = () => {
         <Route path='/orders' element={<MyOrders />} />
         <Route path='/ver' element={<VerticalNavbar />} />
         <Route path='/empdashboard' element={<Dashboard />} />
-        <Route path='/pending/:order_id' element={<PendingWorks />} />
-        <Route path='/orders/:order_id' element={<OrderReq />} />
+        <Route path='/pending/:order_id/:employee_id' element={<PendingWorks />} />
+        <Route path='/orders/:order_id/:employee_id' element={<OrderReq />} />
         <Route path='/empallowance' element={<Allowance />} />
         <Route path='/adminpanel' element={<AdminVerticalNav />} />
         <Route path='/admindashboard' element={<Admindashboard />} />

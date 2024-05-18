@@ -21,3 +21,33 @@ export const getOrders = async(employee_id) => {
         throw error
     }
 }
+
+export const getOrderDetails = async(order_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/employee/showorderdetails/${order_id}`, order_id)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const taskAcceptence = async(employee_id, order_id, data) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/employee/taskacceptance/${employee_id}/${order_id}`, data)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const statusUpdate = async(employee_id, order_id, status) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/employee/showorderdetails/${employee_id}/${order_id}`, status)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

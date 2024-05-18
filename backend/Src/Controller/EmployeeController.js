@@ -50,3 +50,16 @@ exports.getOrderDetails = (req, res) => {
             })
         })
 }
+
+exports.showOrderDetails = (req, res) => {
+    employeeModels.show_order_details(req.params.order_id)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot get datas',
+                details: err.message
+            })
+        })
+}

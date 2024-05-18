@@ -24,6 +24,7 @@ employees.show_employee_details = (employee_id) => {
 }
 
 employees.task_acceptance = (employee_id, order_id, data) => {
+    console.log(employee_id, ' ', order_id ,' ',data )
     return new Promise((resolve, reject) => {
         const sql = `update emp_order set task_acceptence = ? where employee_id = ? and order_id = ?`
         dbConnection.execute(sql, [data.task_acceptence, employee_id, order_id], (err, res) => {
@@ -74,7 +75,20 @@ employees.get_order_details = (employee_id) => {
     })
 }
 
-
+employees.show_order_details = (order_id) => {
+    console.log(order_id)
+    return new Promise((resolve, reject) => {
+        const sql = `select * from order_table o join order_service s on o.order_id = s.order_id join service p on p.service_id = s.service_id where o.order_id = ?`
+        dbConnection.execute(sql, [order_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
 
 module.exports = employees

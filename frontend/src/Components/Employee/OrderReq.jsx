@@ -1,24 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import VerticalNavbar from './VerticalNavbar'
 import { useParams } from 'react-router-dom'
+import { getOrderDetails, taskAcceptence } from '../../Services/EmployeeService'
 
 const OrderReq = () => {
     const params = useParams()
     const order_id = params.order_id
+    const employee_id = params.employee_id
 
-    const res = [
-        {deadLine:'22/2/2024', allowance:'2000'}
-    ]
     const [apiResponse,setApiResponse] = useState([])
+    const [acceptRes, setAcceptRes] = useState('')
 
     useEffect(() => {
-        setApiResponse(res)
-    },[])
+        const fetchOrderDetails = async(order_id) => {
+            try{
+                const response = await getOrderDetails(order_id)
+                setApiResponse(response.data)
+            }
+            catch(error){
+                console.log('error fetch order details :',error.response.data)
+            }
+        }
+        fetchOrderDetails(order_id)
+    },[order_id])
 
+    const handelClickAccept = async (employee_id, order_id, data) => {
+        console.log(employee_id,  order_id, data)
+        try{
+            const response = await taskAcceptence(employee_id, order_id, data)
+            console.log('update res :', response)
+            setAcceptRes(response.data)
+        }
+        catch(error){
+            console.log('error update :',error.response.data)
+        }
+    }
+
+    // const handelClickReject = async() => {
+    //     try{
+    //         const response = await 
+    //         setAcceptRes(response.data)
+    //     }
+    //     catch(error){
+    //         console.log('error update :',error.response.data)
+    //     }
+    // }
+
+console.log('res :',apiResponse)
 
   return (
     <div>
-        <div style={{display:'flex', height:'100vh'}}>
+        <div style={{display:'flex'}}>
             <VerticalNavbar />
             <div style={{flex:1}}>
             <div className='container orderWorks' style={{flex:1}}>
@@ -26,17 +58,21 @@ const OrderReq = () => {
                 <div className='row'>
                     <div className="col-lg-6 details">
                             <h1>ORDER DETAILS</h1>
-                            <div className="detail">
-                                <h3>Flower Boutique</h3>
-                                <h4>Quantity : 2</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at aperiam pariatur voluptate ex delectus debitis vero omnis minima quas.</p>
-                            </div>
+                            {
+                                apiResponse && apiResponse.length > 0 && apiResponse.map((detail) => (
+                                    <div className="detail" key={detail.service_id}>
+                                        <h3>{detail.service_name} - {detail.quantity}</h3>
+                                        <p>({detail.description})</p>
+                                    </div>
+                                ))
+                            }
+                            
                     </div>
                     <div className="col-lg-6 info">
                     {
                         apiResponse.length > 0 && (
                             <>
-                                <p className='date'>DEADLINE - {apiResponse[0].deadLine}</p>
+                                <p className='date'>DEADLINE - {new Date(apiResponse[0].deadline).toLocaleDateString()}</p>
                                 <p className='allowance'>Approx. Allowance - {apiResponse[0].allowance} LKR</p>
                             </>
                         )
@@ -44,8 +80,8 @@ const OrderReq = () => {
                     </div>
                 </div>
                 <div className="buttons">
-                    <button className='btn accept'>Accept</button>
-                    <button className='btn reject'>Reject</button>
+                    <button className='btn accept' onClick={() => handelClickAccept(employee_id, order_id, {"task_acceptence": "1"})}>Accept</button>
+                    <button className='btn reject' onClick={() => handelClickAccept(employee_id, order_id, {"task_acceptence": "0"})}>Reject</button>
                 </div>
             </div>
             </div>
