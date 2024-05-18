@@ -41,20 +41,30 @@ const AssignEmployee = () => {
     }, [])
 
     const handleEmployeeChange = async(event) => {
-        setSelectedEmployee(event.target.value);
-        const data = {
-            order_id : order_id,
-            employee_id : selectedEmployee
-        }
-        try{
-            const response = await asignEmployee(data)
-            setAsignEmpRes(response)
-        }
-        catch(error){
-            console.log('assign employee error : ',error)
-        }
+            setSelectedEmployee(event.target.value);        
     };
-    console.log(employees)
+
+    useEffect(() => {
+        const fetchOrders = async(order_id,selectedEmployee) => {
+            if(!(selectedEmployee === '')){
+                const data = {
+                    order_id : order_id,
+                    employee_id : selectedEmployee
+                }
+                try{
+                    const response = await asignEmployee(data)
+                    setAsignEmpRes(response)
+                }
+                catch(error){
+                    if(error.response.status === 500){
+                        alert ('alredy asigned employee for this order')
+                    }
+                    console.log('assign employee error : ',error)
+                }
+            }
+        }
+        fetchOrders(order_id,selectedEmployee)
+    }, [selectedEmployee])
 
 
   return (

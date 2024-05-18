@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { dashboard } from '../Styles'
 import VerticalNavbar from './VerticalNavbar'
 import { Link, useNavigate } from 'react-router-dom'
-import { getEmployeeDetails } from '../../Services/EmployeeService'
+import { getEmployeeDetails, getOrders } from '../../Services/EmployeeService'
 import { retrieveToken } from '../../Services/JwtToken'
 
 const Dashboard = () => {
@@ -19,21 +19,6 @@ const Dashboard = () => {
             navigate('/signin')
         }
     }, [])
-
-    const pending_works = [
-        {order_id:'1123', status:'work started'},
-        {order_id:'1124', status:'work started'},
-        {order_id:'1125', status:'work started'}
-    ]
-    const order_req = [
-        {order_id:'1123', status:'work started'},
-        {order_id:'1123', status:'work started'},
-        {order_id:'1123', status:'work started'}
-    ]
-    const complete_works = [
-        {order_id:'1123', status:'work started'},
-        {order_id:'1123', status:'work started'}
-    ]
 
     const [pendingWorks, setPendingWorks] = useState([])
     const [orderReq, setOrderReq] = useState([])
@@ -54,17 +39,25 @@ const Dashboard = () => {
             }
         }
         fetchEmployeeDetails(user_Id)
-        setPendingWorks(pending_works)
-        setOrderReq(order_req)
-        setCompleteWorks(complete_works)
     },[user_Id])
 
     useEffect(() => {
+        const fetchEmployeeOrders = async(empId) => {
 
-    })
+            try{
+                const response = await getOrders(empId)
+                setOrderReq(response.data)
+
+            }
+            catch(error){
+                console.log('error fetching orders :', error.response.data)
+            }
+        }
+        fetchEmployeeOrders(empId)
+    },[empId])
 
      
-// console.log(' empid: ', empId)
+    const compeleted_works_count = orderReq.reduce((noOfCompleteWorks, work) => work.work_status === 'finished' ? noOfCompleteWorks + 1 : noOfCompleteWorks, 0)
 
 
   return (
@@ -75,8 +68,8 @@ const Dashboard = () => {
                 <div className="pending_works">
                     <h2>pending works</h2>
                         {
-                            pendingWorks.map((work, index) => (
-                                <div className="row work" key={index}>
+                            orderReq &&  orderReq.map((work, index) => (
+                                work.task_acceptence === 1 && work.work_status !== 'finished' ? (<div className="row work" key={index}>
                                     <div className="col-lg-8">
                                         <p className='p-0 m-0'>order_id : {work.order_id}</p>
                                         <p className='status'>{work.status}</p>
@@ -84,29 +77,31 @@ const Dashboard = () => {
                                     <div className="col-lg-4">
                                         <Link to={`/pending/${work.order_id}`} className='link'>View</Link>
                                     </div>
-                                </div>
+                                </div>):null
                             ))
                         }
                 </div>
                 <div className="order_req">
                     <h2>Order Requests</h2>
                     {
-                        orderReq.map((order,index) => (
-                            <div className="row work" key={index}>
+                        orderReq &&  orderReq.map((order,index) => (
+                             order.task_acceptence === 0 ? (<div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {order.order_id}</p>
                                 </div>
                                 <div className="col-lg-4">
                                     <Link to={`/orders/${order.order_id}`} className='link'>View</Link>
                                 </div>
-                            </div>
+                            </div>):null
+                        
                         ))
                     }
                 </div>
                 <div className="complete_works">
                     <h2>Completed Works</h2>
                     {
-                        completeWorks.map((work, index) => (
+                        orderReq &&  orderReq.map((work, index) => (
+                            work.work_status === 'finished' ? (
                             <div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {work.order_id}</p>
@@ -114,7 +109,7 @@ const Dashboard = () => {
                                 <div className="col-lg-4">
                                     <Link className='link'>View</Link>
                                 </div>
-                            </div>
+                            </div>):null
                         ))
                     }
                 </div>
@@ -126,7 +121,7 @@ const Dashboard = () => {
                 </div>
                 <div className='totalOrders'>
                     <h1>Total Completed Orders</h1>
-                    <p>45</p>
+                    <p>{compeleted_works_count}</p>
                 </div>
             </div>
         </div>

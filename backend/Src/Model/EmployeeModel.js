@@ -10,7 +10,6 @@ const employees = function(employee){
 
 
 employees.show_employee_details = (employee_id) => {
-    console.log(employee_id)
     return new Promise((resolve, reject) => {
         const sql = `select * from user u join employee a on u.user_Id = a.user_Id where u.user_Id = ?`
         dbConnection.execute(sql, [employee_id.employee_id], (err, res) => {
@@ -55,6 +54,21 @@ employees.status_update = (employee_id, order_id, data) => {
                         resolve(response)
                     }
                 })
+            }
+        })
+    })
+}
+
+employees.get_order_details = (employee_id) => {
+    console.log(employee_id)
+    return new Promise((resolve, reject) => {
+        const sql = `select * from emp_order e join order_table o on e.order_id = o.order_id where e.employee_id = ?`
+        dbConnection.execute(sql, [employee_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
             }
         })
     })

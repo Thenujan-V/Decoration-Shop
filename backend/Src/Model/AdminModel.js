@@ -185,7 +185,6 @@ admins.employee_asign = (data) => {
         const sql = `insert into emp_order (order_id, employee_id) values (?, ?)`
         dbConnection.execute(sql, [data.order_id, data.employee_id], (err, res) => {
             if(err){
-                
                 reject(err)
             }
             else{

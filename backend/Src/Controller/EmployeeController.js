@@ -38,3 +38,15 @@ exports.statusUpdate = (req, res) => {
             })
         })
 }
+exports.getOrderDetails = (req, res) => {
+    employeeModels.get_order_details(req.params.employee_id)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot get datas',
+                details: err.message
+            })
+        })
+}

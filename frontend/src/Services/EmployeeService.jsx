@@ -11,3 +11,13 @@ export const getEmployeeDetails = async(user_Id) => {
         throw error
     }
 }
+
+export const getOrders = async(employee_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/employee/getorderdetails/${employee_id}`, employee_id)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
