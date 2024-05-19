@@ -90,5 +90,40 @@ employees.show_order_details = (order_id) => {
     })
 }
 
+employees.allowance_details = (employee_id) => {
+    console.log(employee_id)
+    return new Promise((resolve, reject) => {
+        const sql = `select * from allowance a join employee e on a.employee_id = e.employee_id where a.employee_id = ?`
+        dbConnection.execute(sql, [employee_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
+
+
+employees.allowance_status_update = (allowance_id, data) => {
+    console.log(allowance_id, data)
+    return new Promise((resolve, reject) => {
+        const sql = `update allowance set allowance_status = ?, paid_amount = ?, balance_amount = ? where allowance_id = ?`
+        dbConnection.execute(sql, [data.allowance_status, data.paid_amount, data.balance_amount , allowance_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{   
+                resolve(res)
+            }
+        })
+    })
+}
+
+
+
+
+
 
 module.exports = employees

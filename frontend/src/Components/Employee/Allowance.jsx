@@ -4,32 +4,90 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { allowance } from '../Styles';
+import { useNavigate } from 'react-router-dom';
+import { retrieveToken } from '../../Services/JwtToken';
+import { getAllowanceDetails, getEmployeeDetails, getOrders, updateAllowanceStatus } from '../../Services/EmployeeService';
 
 const Allowance = () => {
-    const allowance = [
-        {order_id:'1123',status:'completed', allowance:'3000'},
-        {order_id:'1124',status:'completed', allowance:'3000'},
-        {order_id:'1125',status:'on progress', allowance:'9000'},
-        {order_id:'1126',status:'completed', allowance:'3000'},
-        {order_id:'1127',status:'on progress', allowance:'5000'}
-    ]
+    const [user_Id, setuser_Id] = useState('')
+    const navigate = useNavigate()
+    const decodedToken = retrieveToken()
 
-    const [apiReq, setApiReq] = useState([])
-    const [selectedOrderId, setSelectedOrderId] = useState(null);
+    useEffect(() => {
+        if(decodedToken){
+            const userId = decodedToken.id
+            setuser_Id(userId)
+        }
+        else{
+            navigate('/signin')
+        }
+    }, [])
+
+    const [empId, setEmpId] = useState('')
+    const [employee, setEmployee] = useState([])
 
 
     useEffect(() => {
-        setApiReq(allowance)
-    },[])
+        const fetchEmployeeDetails = async(user_Id) =>{
+            try{
+                const response = await getEmployeeDetails(user_Id)
+                setEmpId(response.data[0].employee_id)
+                setEmployee(response.data)
+            }
+            catch(error){
+                console.log('fetching employee error :', error)
+            }
+        }
+        fetchEmployeeDetails(user_Id)
+    },[user_Id])
 
-    const handleButtonClick = (orderId) => {
-        if (selectedOrderId === orderId) {
-            setSelectedOrderId(null); 
-        } else {
-            setSelectedOrderId(orderId);
+  
+    const [allowanceReq, setAllowanceReq] = useState([])
+    const [selectedOrderId, setSelectedOrderId] = useState(null);
+    const [orderReq, setOrderReq] = useState([])
+    const [updateReq, setUpdateReq] = useState('')
+
+
+    useEffect(() => {
+        const fetchAllowances = async(empId) => {
+            try{
+                const response = await getAllowanceDetails(empId)
+                setAllowanceReq(response.data)
+            }
+            catch(error){
+                console.log('fetch allowance details error:', error.response)
+            }
+        }
+        fetchAllowances(empId)
+
+        const fetchEmployeeOrders = async(empId) => {
+            try{
+                const response = await getOrders(empId)
+                console.log('res :', response.data)
+                setOrderReq(response.data)
+
+            }
+            catch(error){
+                console.log('error fetching orders :', error.response.data)
+            }
+        }
+        fetchEmployeeOrders(empId)
+
+    },[empId])
+
+    const handleButtonClick = (allowance_id, data) => {
+        console.log(data)
+        try{
+            const response = updateAllowanceStatus(allowance_id, data)
+            setUpdateReq(response.data)
+            window.location.reload();
+        }
+        catch(error){
+            console.log('update allowance status error :', error.response)
         }
     };
-console.log('soid : ',selectedOrderId)
+
+
   return (
     <div>
         <div style={{display:'flex'}}>
@@ -45,16 +103,21 @@ console.log('soid : ',selectedOrderId)
                     </div>
                     <div className="detail">
                         {
-                            apiReq.map((order, index) => (
+                            allowanceReq.map((allowance, index) => (
                                 <div className="row">
-                                    <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
-                                    <p className='col-lg-3'>{order.status}</p>
-                                    <p className='col-lg-3'>{order.allowance}</p>
-                                    {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
-                                    {selectedOrderId === order.order_id ? (
+                                    <p className='col-lg-3'>ORDER_ID {allowance.order_id}</p>
+                                    {
+                                        orderReq && orderReq.map((order) => (
+                                            order.order_id === allowance.order_id ? (
+                                                <p className='col-lg-3'>{order.status}</p>
+                                            ):null
+                                        ))
+                                    }
+                                    <p className='col-lg-3'>{allowance.total_amount}</p>
+                                    {allowance.allowance_status === '1' ? (
                                         <button
                                             className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(order.order_id)}
+                                            onClick={() => handleButtonClick(allowance.allowance_id, {allowance_status : '0', paid_amount: allowance.total_amount, balance_amount:0})}
                                         >
                                             <FontAwesomeIcon
                                                 icon={faCircleCheck}
@@ -65,7 +128,7 @@ console.log('soid : ',selectedOrderId)
                                     ) : (
                                         <button
                                             className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(order.order_id)}
+                                            onClick={() => handleButtonClick(allowance.allowance_id, {allowance_status : '1', paid_amount: allowance.total_amount, balance_amount:0})}
                                         >
                                             <FontAwesomeIcon
                                                 icon={faCircle}

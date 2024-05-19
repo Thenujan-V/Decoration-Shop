@@ -1,4 +1,5 @@
 import axios from "axios";
+import { allowance } from "../Components/Styles";
 
 const BASR_API_URL = `http://localhost:3500/api`
 
@@ -47,6 +48,26 @@ export const statusUpdate = async(employee_id, order_id, status) => {
 
     try{
         const response = await axios.put(`${BASR_API_URL}/employee/statusupdate/${employee_id}/${order_id}`, status)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const getAllowanceDetails = async(employee_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/employee/allowancedetails/${employee_id}`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const updateAllowanceStatus = async(allowance_id, data) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/employee/updateallowancestatus/${allowance_id}`, data)
         return response
     }
     catch(error){

@@ -69,7 +69,7 @@ const Dashboard = () => {
                     <h2>pending works</h2>
                         {
                             orderReq &&  orderReq.map((work, index) => (
-                                work.task_acceptence === 1 && work.work_status !== 'finished' ? (<div className="row work" key={index}>
+                                work.task_acceptence === 1 && (work.work_status !== 'finished' && work.work_status !== 'delivery processing' )? (<div className="row work" key={index}>
                                     <div className="col-lg-8">
                                         <p className='p-0 m-0'>order_id : {work.order_id}</p>
                                         <p className='status'>{work.status}</p>
@@ -101,7 +101,7 @@ const Dashboard = () => {
                     <h2>Completed Works</h2>
                     {
                         orderReq &&  orderReq.map((work, index) => (
-                            work.work_status === 'finished' ? (
+                            (work.work_status === 'finished' || work.work_status === 'delivery processing' )? (
                             <div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {work.order_id}</p>

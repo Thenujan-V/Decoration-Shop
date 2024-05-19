@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { pendingWorks } from '../Styles'
+import { pendingWorks } from '../../Components/Styles'
 import VerticalNavbar from './VerticalNavbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
@@ -32,8 +32,9 @@ const PendingWorks = () => {
     const handleStatus = async(status) => {
         try{
             const response = await statusUpdate(employee_id, order_id, status)
-            // console.log('res :', response.data)
             setApiResponse(response.data)
+            window.location.reload();
+
         }
         catch(error){
             console.log('error update status :',error.response)

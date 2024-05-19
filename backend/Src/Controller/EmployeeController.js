@@ -63,3 +63,28 @@ exports.showOrderDetails = (req, res) => {
             })
         })
 }
+exports.allowanceDetails = (req, res) => {
+    employeeModels.allowance_details(req.params.employee_id)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot get datas',
+                details: err.message
+            })
+        })
+}
+
+exports.allowanceStatusUpdate = (req, res) => {
+    employeeModels.allowance_status_update(req.params.allowance_id, req.body)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot update status',
+                details: err.message
+            })
+        })
+}

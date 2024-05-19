@@ -20,10 +20,15 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-decoration: none;
     color:var(--wheat);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
-    padding: 13px 0 13px 30px;
+    padding: 6px 0 13px 30px;
+    text-transform: uppercase;
     margin: 6px;
+    width: 17vw;
+}
+.verticalNav .navLinks{
+    margin-left: 20px;
 }
 .verticalNav .links .active-link{
     background-color: var(--wheat);

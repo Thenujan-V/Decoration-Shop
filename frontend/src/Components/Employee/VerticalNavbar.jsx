@@ -16,7 +16,7 @@ const VerticalNavbar = () => {
   return (
     <div className='verticalNav'>
         <div className='logo'><img src={logoPic} alt="" /></div>
-        <div className="">
+        <div className="navLinks">
           <div className='profile'>
             <Link to='' className={`link ${isActive('/employeeprofile')}`}><FontAwesomeIcon icon={faUser} /> Profile</Link>
           </div>

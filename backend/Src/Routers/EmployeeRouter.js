@@ -8,6 +8,8 @@ router.put('/taskacceptance/:employee_id/:order_id',employeeController.taskAccep
 router.put('/statusupdate/:employee_id/:order_id',employeeController.statusUpdate)
 router.get('/getorderdetails/:employee_id',employeeController.getOrderDetails)
 router.get('/showorderdetails/:order_id',employeeController.showOrderDetails)
+router.get('/allowancedetails/:employee_id',employeeController.allowanceDetails)
+router.put('/updateallowancestatus/:allowance_id',employeeController.allowanceStatusUpdate)
 
 
 module.exports = router
