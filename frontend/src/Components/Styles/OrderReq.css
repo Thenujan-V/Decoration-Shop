@@ -96,3 +96,25 @@
    font-weight: bold;
    color: var(--background_blue);
 }
+.orderWorks .details .buttons form{
+    border: 4px solid var(--headingGreen);
+    border-radius: 20px;
+}
+.orderWorks .details .buttons form .form-control{
+    background: none;
+    border: none;
+}
+.orderWorks .details .buttons form .form-control label{
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 15px;
+}
+.orderWorks .details .buttons form .form-control input{
+    border-radius: 50px;
+    height: 5vh;
+}
+.orderWorks .details .buttons form .form-control button{
+    color: var(--wheat);
+    background-color: var(--background_blue);
+}

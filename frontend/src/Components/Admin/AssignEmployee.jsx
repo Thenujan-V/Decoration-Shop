@@ -11,8 +11,8 @@ const AssignEmployee = () => {
     const [apiResponse,setApiResponse] = useState([])
     const [employees, setEmployees] = useState([])
     const [asignEmpRes, setAsignEmpRes] = useState('')
-
-    const [selectedEmployee, setSelectedEmployee] = useState('');
+    const [asignPayment, setAsignPayment] = useState('')
+    const [selectedEmployee, setSelectedEmployee] = useState();
 
     useEffect(() => {
         const fetchDatas = async (order_id) => {
@@ -40,36 +40,33 @@ const AssignEmployee = () => {
         fetchEmployees()
     }, [])
 
-    const handleEmployeeChange = async(event) => {
-            setSelectedEmployee(event.target.value);        
-    };
-
-    useEffect(() => {
-        const fetchOrders = async(order_id,selectedEmployee) => {
-            if(!(selectedEmployee === '')){
-                const data = {
-                    order_id : order_id,
-                    employee_id : selectedEmployee
+    const handleSubmit = async(e, order_id,selectedEmployee, asignPayment) => {
+        e.preventDefault()
+        if(!(selectedEmployee === '')){
+            const data = {
+                order_id : order_id,
+                employee_id : selectedEmployee,
+                cash_allowance : asignPayment
+            }
+            try{
+                const response = await asignEmployee(data)
+                setAsignEmpRes(response)
+            }
+            catch(error){
+                if(error.response.status === 500){
+                    alert ('alredy asigned employee for this order')
                 }
-                try{
-                    const response = await asignEmployee(data)
-                    setAsignEmpRes(response)
-                }
-                catch(error){
-                    if(error.response.status === 500){
-                        alert ('alredy asigned employee for this order')
-                    }
-                    console.log('assign employee error : ',error)
-                }
+                console.log('assign employee error : ',error)
             }
         }
-        fetchOrders(order_id,selectedEmployee)
-    }, [selectedEmployee])
 
+    };
+console.log('selected emp :', selectedEmployee)
+console.log('payment :', asignPayment)
 
   return (
     <div style={{display:'flex'}}>
-        <AdminVerticalNav />
+        <AdminVerticalNav />    
         <div style={{flex:1}}>
         <div className='container orderWorks ' style={{flex:1 }}>
             <h1>ORDER ID {order_id}</h1>
@@ -92,8 +89,8 @@ const AssignEmployee = () => {
                                 </div>
                             ))
                             }
-                            
-                            <div className="dates">
+                            <div className="row">
+                            <div className="dates col-lg-6">
                                 {
                                     apiResponse && apiResponse.length > 0 &&
                                     <div>
@@ -107,28 +104,38 @@ const AssignEmployee = () => {
                                 }   
                             </div>
                             
-                            <div className="buttons mt-5 p-0">
-                                        <button className='btn reject m-0' style={{ backgroundColor: 'var(--background_blue)', height:'6vh', width:'20vw' }}>ESTIMATE PAYMENT</button>
+                            <div className="buttons mt-5 p-0 col-lg-6">
+                                <form onSubmit={(e) => handleSubmit(e,order_id,selectedEmployee, asignPayment)}>
+                                    <div className='form-control'>
+                                        <label htmlFor="emp">Select Employee</label>
                                         <select 
                                             className='btn accept m-0' 
-                                            style={{ backgroundColor: 'var(--yellow)', height: '6vh', width: '10vw' }} 
+                                            name='emp'
+                                            style={{ backgroundColor: 'rgb(19, 185, 19)', height: '5vh', width: '12vw' }} 
                                             value={selectedEmployee}
-                                            onChange={handleEmployeeChange}
+                                            onChange={(e) => setSelectedEmployee(e.target.value)}
                                         >
-                                            <option value="" disabled> ASSIGN EMPLOYEE</option>
+                                            <option value=""> SELECT</option>
                                             {employees.map(employee => (
-                                                <option key={employee.id} value={employee.employee_id}>
+                                                <option key={employee.id} value={employee.employee_id} >
                                                     {employee.first_name}
                                                 </option>
                                             ))}
                                         </select>   
                                     </div>
-
+                                    <div className='form-control'>
+                                        <label htmlFor="payment">Estimate Payment</label>
+                                        <input type="text" name='payment' value={asignPayment} onChange={(e) => setAsignPayment(e.target.value)}/> 
+                                    </div> 
+                                    <div className='form-control'>
+                                        <button type='submit' className='btn'>Assing Employee</button>
+                                    </div>  
+                                </form>
+                            </div>
+                            </div>
                         </div>
-                </div>
-                
+                </div>             
             </div>
-            
         </div>
         </div>
     </div>

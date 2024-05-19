@@ -182,8 +182,9 @@ admins.employee_signup = (employee) => {
 
 admins.employee_asign = (data) => {    
     return new Promise((resolve, reject) => {
-        const sql = `insert into emp_order (order_id, employee_id) values (?, ?)`
-        dbConnection.execute(sql, [data.order_id, data.employee_id], (err, res) => {
+        console.log(data)
+        const sql = `insert into emp_order (order_id, employee_id, cash_allowance) values (?, ?, ?)`
+        dbConnection.execute(sql, [data.order_id, data.employee_id, data.cash_allowance], (err, res) => {
             if(err){
                 reject(err)
             }

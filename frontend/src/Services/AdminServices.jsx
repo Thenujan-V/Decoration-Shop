@@ -62,6 +62,7 @@ export const addNewEmp = async (employeeData) => {
 }
 
 export const asignEmployee = async (employeeData) => {
+    console.log('aes :', employeeData)
     try{
         const response = await axios.post(`${BASR_API_URL}/admin/asignemp`, employeeData)
         return response

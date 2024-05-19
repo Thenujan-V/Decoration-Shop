@@ -64,3 +64,25 @@
     font-weight: 600;
 }
 
+.pendingWorks .details{
+    background-color:var(--background_blue);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+}
+.pendingWorks .details .detail{
+    margin: 10px;
+}
+.pendingWorks .details h1{
+    color: var(--accepted);
+    text-decoration: underline;
+}
+.pendingWorks .details p{
+    color: var(--delivered);
+    text-align: left;
+}
+.pendingWorks .details h3{
+    text-align: left;
+    color: var(--wheat);
+}

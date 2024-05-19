@@ -20,6 +20,7 @@ const PendingWorks = () => {
         const fetchOrderStatus = async(order_id) => {
             try{
                 const response = await getOrderDetails(order_id)
+                // console.log('ordesworl : ',response.data)
                 setPendingWorks(response.data)
             }
             catch(error){
@@ -43,10 +44,23 @@ const PendingWorks = () => {
     console.log(pendingWorks)
   return (
     <div>
-        <div style={{display:'flex', height:'100vh'}}>
+        <div style={{display:'flex'}}>
             <VerticalNavbar />
             <div className='container pendingWorks' style={{flex:1}}>
-                <h1>ORDER ID {order_id}</h1>
+                <h1>PENDING ORDER ({order_id})</h1>
+                <div className='row'>
+                    <div className="col-12 details">
+                            {
+                                pendingWorks && pendingWorks.length > 0 && pendingWorks.map((detail) => (
+                                    <div className="detail" key={detail.service_id}>
+                                        <h3>{detail.service_name} - {detail.quantity}</h3>
+                                        <p>({detail.description})</p>
+                                    </div>
+                                ))
+                            }
+                            
+                    </div>
+                </div>
                 <div className='row'>
                     <div className="col-lg-6">
                         <div className="status">
@@ -94,7 +108,7 @@ const PendingWorks = () => {
                         pendingWorks.length > 0 && (
                             <>
                                 <p className='date'>DEADLINE - {new Date(pendingWorks[0].deadline).toLocaleDateString()}</p>
-                                <p className='allowance'>Approx. Allowance - {} LKR</p>
+                                <p className='allowance'>Approx. Allowance - {pendingWorks[0].cash_allowance} LKR</p>
                             </>
                         )
                     }

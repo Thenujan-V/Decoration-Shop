@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { allowance } from '../Styles';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../../Services/JwtToken';
 import { getAllowanceDetails, getEmployeeDetails, getOrders, updateAllowanceStatus } from '../../Services/EmployeeService';
 
@@ -105,7 +105,7 @@ const Allowance = () => {
                         {
                             allowanceReq.map((allowance, index) => (
                                 <div className="row">
-                                    <p className='col-lg-3'>ORDER_ID {allowance.order_id}</p>
+                                    <p className='col-lg-3'> <Link to={`/pending/${allowance.order_id}/${empId}`} style={{color:'var(--background_blue)'}}>{allowance.order_id}</Link> </p>
                                     {
                                         orderReq && orderReq.map((order) => (
                                             order.order_id === allowance.order_id ? (
