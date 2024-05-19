@@ -66,7 +66,7 @@ const ViewEmployee = () => {
                         </div> */}
                     </div>
                     <div className="buttons">
-                        <Link to={`/vieworders/${getEmployee.id}`} className='btn history'>VIEW ORDER HISTORY</Link>
+                        <Link to={`/vieworders/${getEmployee.user_Id}`} className='btn history'>VIEW ORDER HISTORY</Link>
                         <Link to='' className='btn delete'> DELETE PROFILE</Link>
                     </div>
                 </div>

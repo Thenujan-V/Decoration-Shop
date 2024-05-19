@@ -119,6 +119,8 @@ exports.getQuestions = (req, res) => {
         })
 }
 
+// SMS SEND USERS WITH Twilio
+
 exports.sendSMSToUsers = (req, res) => {
     adminModels.send_SMS(req.params.id, req.body)
         .then((signupRes) => {

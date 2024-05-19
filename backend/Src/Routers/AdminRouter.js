@@ -12,6 +12,8 @@ router.get('/showUserDetail/:user_Id',adminController.showUserDetails)
 router.post('/signupemp',adminController.empSignup)
 router.post('/asignemp',adminController.asignEmp)
 router.get('/getquestions',adminController.getQuestions)
+
+// SMS SEND USERS WITH Twilio
 router.post('/questions/:id/answer',adminController.sendSMSToUsers)
 
 

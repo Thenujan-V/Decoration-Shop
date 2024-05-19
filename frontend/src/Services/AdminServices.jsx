@@ -82,6 +82,8 @@ export const getQuestionsFromUsers = async () => {
     }
 }
 
+// SMS SEND USERS WITH Twilio
+
 export const sendSMS = async(id, datas) => {
     console.log('froeee',id, datas)
     try{

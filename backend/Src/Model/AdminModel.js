@@ -208,6 +208,9 @@ admins.get_questions = () => {
     })
 }
 
+
+// SMS SEND USERS WITH Twilio
+
 admins.send_SMS = (id, data) => {    
     console.log('data backend :', data)
     return new Promise((resolve, reject) => {

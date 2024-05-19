@@ -31,6 +31,9 @@ const Questions = () => {
     };
 
     const handleAnswerSubmit = async(id, userPhoneNumber) => {
+        
+// SMS SEND USERS WITH Twilio
+
         const answer = answers[id];
         const datas = {
             answer : answer,
