@@ -43,8 +43,10 @@ export const taskAcceptence = async(employee_id, order_id, data) => {
 }
 
 export const statusUpdate = async(employee_id, order_id, status) => {
+    console.log(employee_id, order_id ,status)
+
     try{
-        const response = await axios.put(`${BASR_API_URL}/employee/showorderdetails/${employee_id}/${order_id}`, status)
+        const response = await axios.put(`${BASR_API_URL}/employee/statusupdate/${employee_id}/${order_id}`, status)
         return response
     }
     catch(error){

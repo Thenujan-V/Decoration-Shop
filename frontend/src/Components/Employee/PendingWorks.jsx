@@ -5,51 +5,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { useParams } from 'react-router-dom'
+import { getOrderDetails, statusUpdate } from '../../Services/EmployeeService'
 
 
 const PendingWorks = () => {
     const params = useParams()
     const order_id = params.order_id
+    const employee_id = params.employee_id
 
-    const pending_works = [
-        {order_id:'1123', status:'work started'},
-        {order_id:'1124', status:'work started'},
-        {order_id:'1125', status:'work started'}
-    ]
-
-    const res = [
-        {deadLine:'22/2/2024', allowance:'2000'}
-    ]
     const [pendingWorks, setPendingWorks] = useState([])
     const [apiResponse,setApiResponse] = useState([])
 
     useEffect(() => {
-        setApiResponse(res)
-        setPendingWorks(pending_works)
+        const fetchOrderStatus = async(order_id) => {
+            try{
+                const response = await getOrderDetails(order_id)
+                setPendingWorks(response.data)
+            }
+            catch(error){
+                console.log('error fetching orders :', error.response)
+            }
+        }
+        fetchOrderStatus(order_id)
     },[])
 
-    const not_okey = document.getElementById('not_okey')
-    const okey = document.getElementById('okey')
-   if(not_okey && okey){
-            not_okey.style.display = 'block'
-            okey.style.display = 'none'
-   }
-    const circle = () => {
-        if(not_okey){
-            not_okey.style.display = 'none'
-            okey.style.display = 'block'
+    const handleStatus = async(status) => {
+        try{
+            const response = await statusUpdate(employee_id, order_id, status)
+            // console.log('res :', response.data)
+            setApiResponse(response.data)
+        }
+        catch(error){
+            console.log('error update status :',error.response)
         }
     }
-    const checkCircle = () => {
-        if(okey){
-            not_okey.style.display = 'block'
-            okey.style.display = 'none'
-        }
-    }
-
-    const work = pendingWorks.find((work) => work.order_id === order_id)
-    console.log('work : ',work)
-
+    console.log(pendingWorks)
   return (
     <div>
         <div style={{display:'flex', height:'100vh'}}>
@@ -60,42 +50,50 @@ const PendingWorks = () => {
                     <div className="col-lg-6">
                         <div className="status">
                             <div>
-                                <p>Accept Order</p>
-                                <div className="tick">
-                                    <button className='btn' onClick={circle} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>
-                                    <button className='btn' onClick={checkCircle} id="okey"><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823", }}/></button>
-                                </div>
-                            </div>
-                            <div>
                                 <p>Started Working</p>
                                 <div className="tick">
-                                    <button className='btn' onClick={circle} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>
-                                    <button className='btn' onClick={checkCircle} id="okey"><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
+                                    {
+                                        pendingWorks && pendingWorks.length > 0 && (
+                                            pendingWorks[0].status === "on going" || 
+                                            pendingWorks[0].status ===  "delivery processing" || 
+                                            pendingWorks[0].status === "finished") ? (
+                                            <button className='btn' id="okey"  onClick={() => handleStatus({work_status : " "})} ><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
+                                        ):(<button className='btn' onClick={() => handleStatus({work_status : "on going"})} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>)
+                                    }
+                                    
                                 </div>
                             </div>
                             <div>
                                 <p>Completed Order</p>
                                 <div className="tick">
-                                    <button className='btn' onClick={circle} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>
-                                    <button className='btn' onClick={checkCircle} id="okey"><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
+                                    {
+                                        pendingWorks && pendingWorks.length > 0 && (
+                                            pendingWorks[0].status === "finished" || 
+                                            pendingWorks[0].status === "delivery processing")  ? (
+                                            <button className='btn' id="okey"  onClick={() => handleStatus({work_status : "on going"})} ><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
+                                        ):(<button className='btn' onClick={() => handleStatus({work_status : "finished"})} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>)
+                                    }                                    
                                 </div>
                             </div>
                             <div>
                                 <p>Handed over</p>
-                                <div className="tick">
-                                    <button className='btn' onClick={circle} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>
-                                    <button className='btn' onClick={checkCircle} id="okey"><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
-                                </div>
+                                    <div className="tick">
+                                    {
+                                        pendingWorks && pendingWorks.length > 0 && pendingWorks[0].status === "delivery processing" ? (
+                                            <button className='btn' id="okey"  onClick={() => handleStatus({work_status : "finished"})} ><FontAwesomeIcon icon={faCircleCheck} size='xl' style={{color: "#34b823"}}/></button>
+                                        ):(<button className='btn' onClick={() => handleStatus({work_status : "delivery processing"})} id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button>)
+                                    }
+                                    </div>
                             </div>
                         </div>
                         
                     </div>
                     <div className="col-lg-6 info">
                     {
-                        apiResponse.length > 0 && (
+                        pendingWorks.length > 0 && (
                             <>
-                                <p className='date'>DEADLINE - {apiResponse[0].deadLine}</p>
-                                <p className='allowance'>Approx. Allowance - {apiResponse[0].allowance} LKR</p>
+                                <p className='date'>DEADLINE - {new Date(pendingWorks[0].deadline).toLocaleDateString()}</p>
+                                <p className='allowance'>Approx. Allowance - {} LKR</p>
                             </>
                         )
                     }
