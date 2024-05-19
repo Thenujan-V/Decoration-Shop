@@ -82,9 +82,10 @@ export const getQuestionsFromUsers = async () => {
     }
 }
 
-export const sendSMS = async() => {
+export const sendSMS = async(id, datas) => {
+    console.log('froeee',id, datas)
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/getquestions`)
+        const response = await axios.post(`${BASR_API_URL}/admin//questions/${id}/answer`, datas)
         return response
     }
     catch(error){

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
-import { getQuestionsFromUsers } from '../../Services/AdminServices';
+import { getQuestionsFromUsers, sendSMS } from '../../Services/AdminServices';
 import { question } from '../Styles';
 
 
 const Questions = () => {
     const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
+  const [sendSms, setSendSms] = useState('')
 
   useEffect(() => {
         const fetchQuestions = async() => {
@@ -29,8 +30,20 @@ const Questions = () => {
         });
     };
 
-    const handleAnswerSubmit = (id) => {
-        
+    const handleAnswerSubmit = async(id, userPhoneNumber) => {
+        const answer = answers[id];
+        const datas = {
+            answer : answer,
+            userPhoneNumber : userPhoneNumber
+        }
+        try{
+            const response = await sendSMS(id, datas)
+            console.log(response.data)
+            setSendSms(response.data)
+        }
+        catch(error){
+            console.log('sending messag faild :', error.response)
+        }
     };
 
   return (
@@ -41,24 +54,24 @@ const Questions = () => {
                 <h1 className="text-center">User Questions</h1>
                 <div className="questions-list">
                     {questions.map(question => (
-                    <div className="card mb-3" key={question.id}>
+                    <div className="card mb-3" key={question.user_Id}>
                         <div className="card-body">
                         <h5 className="card-title">Question from {question.user_name}</h5>
-                        <p className="card-text"> => {question.message}</p>
+                        <p className="card-text"> -- {question.message}</p>
                         <div className="form-group">
                             <label htmlFor={`answer-${question.id}`}>Your Answer</label>
                             <input
                             type="text"
                             id={`answer-${question.id}`}
                             className="form-control"
-                            value={answers[question.id] || ''}
-                            onChange={(e) => handleAnswerChange(e, question.id)}
+                            value={answers.value}
+                            onChange={(e) => handleAnswerChange(e, question.user_Id)}
                             required
                             />
                         </div>
                         <button
                             className="btn btn-primary mt-2"
-                            onClick={() => handleAnswerSubmit(question.id)}
+                            onClick={() => handleAnswerSubmit(question.user_Id, question.contact_no)}
                         >
                             Submit Answer
                         </button>

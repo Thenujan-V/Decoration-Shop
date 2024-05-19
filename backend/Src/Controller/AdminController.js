@@ -118,3 +118,14 @@ exports.getQuestions = (req, res) => {
             })
         })
 }
+
+exports.sendSMSToUsers = (req, res) => {
+    adminModels.send_SMS(req.params.id, req.body)
+        .then((signupRes) => {
+            return res.status(200).json({ success: true, message: signupRes.sid })
+        })
+        .catch((error) => {
+            console.error('Error sending SMS:', error)
+            return res.status(500).json({ success: false, error: error.message })
+        })
+}

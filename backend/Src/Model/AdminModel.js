@@ -208,7 +208,23 @@ admins.get_questions = () => {
     })
 }
 
-
+admins.send_SMS = (id, data) => {    
+    console.log('data backend :', data)
+    return new Promise((resolve, reject) => {
+        client.messages.create({
+            body: `Answer to your question: ${data.answer}`,
+            from: 'your_twilio_phone_number',
+            to: data.userPhoneNumber
+          }, (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+          })
+    })
+}
 
 
 
