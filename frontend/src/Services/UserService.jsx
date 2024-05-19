@@ -26,6 +26,15 @@ export const userSignin = async (formData) => {
     }
 }
 
+export const addQuestions = async (formData) => {
+    try{
+        const response = await axios.post(`${BASR_API_URL}/user/askquestions`,formData)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
 
 
 

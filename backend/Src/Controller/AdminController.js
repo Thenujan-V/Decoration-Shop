@@ -105,3 +105,16 @@ exports.asignEmp = (req, res) => {
             })
         })
 }
+
+exports.getQuestions = (req, res) => {
+    adminModels.get_questions()
+        .then((signupRes) => {
+            return res.status(200).json(signupRes)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error : 'fetching faild',
+                details : err.message
+            })
+        })
+}

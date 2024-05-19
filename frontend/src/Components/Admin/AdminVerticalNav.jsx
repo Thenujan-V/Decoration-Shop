@@ -23,7 +23,7 @@ const AdminVerticalNav = () => {
           <Link to='/addworkers' className={`link ${isActive('/addworkers')}`}><FontAwesomeIcon icon={faUserPlus} /> Add Workers</Link>
           <Link to='/booking' className={`link ${isActive('/booking')}`}><FontAwesomeIcon icon={faListCheck} /> BOOKING</Link>
           <Link to='/employeeManagement' className={`link ${isActive('/employeeManagement')}`}><FontAwesomeIcon icon={faUserTie} /> EMPLOYEE MGNT</Link>
-          <Link to='' className={`link ${isActive('')}`}><FontAwesomeIcon icon={faBell} /> NOTIFICATION MGNT</Link>
+          <Link to='/questions' className={`link ${isActive('')}`}><FontAwesomeIcon icon={faBell} /> USER QUESTIONS</Link>
           <Link to='/customerMgt' className={`link ${isActive('/customerMgt')}`}><FontAwesomeIcon icon={faUser} /> CUSTOMER MGNT</Link>
           <Link to='/reviewCheck' className={`link ${isActive('/reviewCheck')}`}><FontAwesomeIcon icon={faComment} /> FEEDBACK MGNT</Link>
         </div>

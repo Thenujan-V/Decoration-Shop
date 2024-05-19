@@ -71,3 +71,23 @@ export const asignEmployee = async (employeeData) => {
         throw error
     }
 }
+
+export const getQuestionsFromUsers = async () => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/getquestions`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const sendSMS = async() => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/getquestions`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

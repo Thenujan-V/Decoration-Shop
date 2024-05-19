@@ -11,6 +11,7 @@ router.get('/getusersdetails',adminController.showAllUsers)
 router.get('/showUserDetail/:user_Id',adminController.showUserDetails)
 router.post('/signupemp',adminController.empSignup)
 router.post('/asignemp',adminController.asignEmp)
+router.get('/getquestions',adminController.getQuestions)
 
 
 module.exports = router  

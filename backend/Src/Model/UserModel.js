@@ -71,6 +71,19 @@ users.show_user_details = (user_Id) => {
     })
 }
 
+users.ask_questions = (datas) => {
+    return new Promise((resolve, reject) => {
+        const sql = `insert into contactus (user_name, mail_id, message, user_Id) values (?, ?, ?, ?)`
+        dbConnection.execute(sql, [datas.user_name, datas.mail_id, datas.message, datas.user_Id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
 
 module.exports = users

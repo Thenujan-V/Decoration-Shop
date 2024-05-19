@@ -1,0 +1,61 @@
+/* Questions.css */
+
+.questions {
+    /* max-width: 60vw; */
+    margin: 0 auto;
+  }
+  
+  .questions .questions-list {
+    margin-top: 30px;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+ .questions .card {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+ .questions .card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+ .questions .card-text {
+    font-size: 16px;
+  }
+  
+ .questions .form-group {
+    margin-top: 10px;
+  }
+  
+ .questions .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+ .questions .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    width: 15vw;
+  }
+  
+ .questions .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+  .questions h1{
+    font-style: italic;
+    font-weight: bold;
+    color: var(--background_blue);
+    text-align: center;
+    margin: 0px 0 20px 0;
+
+  }

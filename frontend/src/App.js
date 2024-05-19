@@ -29,6 +29,8 @@ import ViewReview from './Components/Admin/ViewReview'
 import Signin from './Pages/Signin'
 import SelectPayment from './Pages/SelectPayment'
 import AddEmployee from './Components/Admin/AddEmployee'
+import Contact from './Pages/Contact'
+import Questions from './Components/Admin/Questions'
 
 
 const App = () => {
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/service" element={<Services />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/servicedetails/:key" element={<ServiceDetails />} />
         <Route path="/card" element={<Card />} />
         <Route path='/payment' element={<Payment />} />
@@ -65,6 +68,7 @@ const App = () => {
         <Route path='/viewReview/:cust_id' element={<ViewReview />} />
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />
+        <Route path='/questions' element={<Questions />} />
 
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
