@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import { retrieveToken } from '../Services/JwtToken'
 import { addPaymentMethod } from '../Services/PaymentsService'
-import { getLeastOrder, getOrders } from '../Services/OrderService'
+import { getLeastOrder, getOrders, updatePaymentStatus } from '../Services/OrderService'
 
 const SelectPayment = () => {
     const navigater = useNavigate()
@@ -23,6 +23,7 @@ const SelectPayment = () => {
     const [totalAmount, setTotalAmount] = useState(0)
     const [paymentMethod, setPaymentMethod] = useState('')
     const [orderId, setOrderId] = useState('')
+    const [paymentStatus, setPaymentStatus] = useState('')
 
 
     useEffect( () => {
@@ -58,53 +59,31 @@ const SelectPayment = () => {
             return acc
         }, 0)
     
-    const handleOnlinePayment = async (totalAmount, order_id) => {
-        try{
-            const paymentData = {
-                total_amount : totalAmount,
-                order_id : order_id,
-                method : 'online'
-            }
-            const response = await addPaymentMethod(paymentData)
-            setPaymentMethod(response.data)
-            navigater('/payment')
 
+    const handleSelectPaymentMethod = async (paymentDatas) => {
+        try{
+            const response = await addPaymentMethod(paymentDatas)
+            setPaymentMethod(response.data)
         }
         catch(error){
             console.log('error occur :',error)
         }
-    }
-    const handleOnHandPayment = async (totalAmount, order_id) => {
         try{
-            const paymentData = {
-                total_amount : totalAmount,
-                order_id : order_id,
-                method : 'onHand'
-            }
-            const response = await addPaymentMethod(paymentData)
-            setPaymentMethod(response.data)
-            navigater('/')
+            const statusRes = await updatePaymentStatus(paymentDatas)
+            setPaymentStatus(statusRes.data)
 
-        }
-        catch(error){
-            console.log('error occur :',error)
-        }
-    }
-    const handleCancelOrder = async (totalAmount, order_id) => {
-        try{
-            const paymentData = {
-                total_amount : totalAmount,
-                order_id : order_id,
-                method : 'Cancel'
+            if(paymentDatas.method === 'Online'){
+                navigater('/payment')
             }
-            const response = await addPaymentMethod(paymentData)
-            setPaymentMethod(response.data)
-            navigater('/')
+            else{
+                navigater('/')
+            }
         }
         catch(error){
-            console.log('error occur :',error)
+            console.log('status update error occur :',error)
         }
     }
+    
 
   return (
     <div className='paymentMethod'>
@@ -114,9 +93,9 @@ const SelectPayment = () => {
                 <div className="col-lg-4 method">
                     <h2>SELECT PAYMENT METHOD</h2>
                     <div>
-                        <Link onClick={() => handleOnlinePayment(totalOrderAmount, orderId.order_id)} className='link'>Online Payment</Link>
-                        <Link onClick={() => handleOnHandPayment(totalOrderAmount, orderId.order_id)} className='link'>Cash Payment (On Hand)</Link>
-                        <Link onClick={() => handleCancelOrder(totalOrderAmount, orderId.order_id)} className='link mt-5' style={{backgroundColor:'red'}}>Cancel Order</Link>
+                        <Link onClick={() => handleSelectPaymentMethod({total_amount : totalOrderAmount, order_id : orderId.order_id, method : 'Online', payment_status : 'payment pending'})} className='link'>Online Payment</Link>
+                        <Link onClick={() => handleSelectPaymentMethod({total_amount : totalOrderAmount, order_id : orderId.order_id, method : 'OnHand', payment_status : 'payment pending'})} className='link'>Cash Payment (On Hand)</Link>
+                        <Link onClick={() => handleSelectPaymentMethod({total_amount : totalOrderAmount, order_id : orderId.order_id, method : 'Cancel', payment_status : 'Cancel'})} className='link mt-5' style={{backgroundColor:'red'}}>Cancel Order</Link>
                     </div>
                 </div>
                 <div className="col-lg-8 totalAmount">

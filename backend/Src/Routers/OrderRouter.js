@@ -8,6 +8,7 @@ router.get('/vieworders/:user_Id',orderController.viewOrders)
 router.get('/viewallorders',orderController.viewAllOrders)
 router.get('/getleastorder/:user_Id',orderController.getLeastOrder)
 router.get('/getorderdetails/:order_id',orderController.viewOrdersDetails)
+router.put('/updatepaymentstatus/:order_id',orderController.updatePaymentStatus)
 
 
 

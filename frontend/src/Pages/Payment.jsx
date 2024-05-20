@@ -5,7 +5,7 @@ import Navbar from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
 import { viewCartItems } from '../Services/CardServices';
-import { getLeastOrder, getOrders } from '../Services/OrderService';
+import { getLeastOrder, getOrders, updatePaymentStatus } from '../Services/OrderService';
 import { addPayment } from '../Services/PaymentsService';
 
 
@@ -16,6 +16,7 @@ const Payment = () => {
     const [cardType, setCardType] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [orderId, setOrderId] = useState('')
+    const [paymentStatus, setPaymentStatus] = useState('')
 
     const navigater = useNavigate()
     const decodedToken = retrieveToken()
@@ -104,12 +105,15 @@ const Payment = () => {
             try{
                 const paymentData = {
                     paid_amount : paidAmount,
-                    order_id : order_id
+                    order_id : order_id,
+                    payment_status : 'completed'
                 }
-                console.log('pd  :',paymentData)
                 const response = await addPayment(paymentData)
-                console.log('ppp :',response.data)
                 setPaymentRes(response.data)
+
+                const statusRes = await updatePaymentStatus(paymentData)
+                setPaymentStatus(statusRes.data)
+                navigater('/')
 
             }
             catch(error){

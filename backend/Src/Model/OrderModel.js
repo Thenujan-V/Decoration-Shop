@@ -148,6 +148,25 @@ order.view_order_details = (order_id) => {
     })
 }
 
+order.update_payment_status = (order_id, datas) => {
+    console.log(order_id)
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `update order_table set payment_status = ? where order_id = ?`
+            dbConnection.execute(sql, [datas.payment_status, order_id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    resolve(res)
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
 
 
 

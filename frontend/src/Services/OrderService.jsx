@@ -48,7 +48,17 @@ export const getAllOrders = async () => {
 export const getOrdersDetails = async (order_id) => {
     try{
         const response = await axios.get(`${BASR_API_URL}/order/getorderdetails/${order_id}`,order_id)
-        console.log('response : ', response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const updatePaymentStatus = async (data) => {
+    console.log(data.order_id, data)
+    try{
+        const response = await axios.put(`${BASR_API_URL}/order/updatepaymentstatus/${data.order_id}`,data)
         return response
     }
     catch(error){

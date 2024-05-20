@@ -93,7 +93,7 @@ const Card = () => {
     const handleOrder = async(user_id) => {
         try{
             const formData = {
-                status : 'payment pending',
+                status : 'waiting',
                 deadline : sevenDaysLater,
                 user_Id : user_id   
             }

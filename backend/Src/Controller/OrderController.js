@@ -63,4 +63,16 @@ exports.viewOrdersDetails = (req, res) => {
                 dettails : err.message
             })
         })      
+} 
+exports.updatePaymentStatus = (req, res) => {
+    orderModel.update_payment_status(req.params.order_id, req.body)
+     .then((orderRes) => {
+        return res.status(200).send(orderRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'update order status faild',
+                dettails : err.message
+            })
+        })      
 }
