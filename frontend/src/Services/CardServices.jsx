@@ -34,3 +34,12 @@ export const updateQuantity = async (service_id,quantity) => {
         throw error
     }
 }
+export const deleteCardItem = async (card_id) => {
+    try{
+        const response = await axios.delete(`${BASR_API_URL}/card/removeitem/${card_id}`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

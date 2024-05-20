@@ -13,7 +13,13 @@
     margin: 20px 0 20px 0;
     
 }
-
+#card p{
+    background-color: var(--wheat);
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--background_blue);
+}
 #cart-items #cardHead{
     margin-top: 50px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -40,6 +46,11 @@
     width: 10vw;
     height: 7vh;
     border-radius: 50px;
+    
+}
+#cart-items #item .delete{
+    border: none;
+    background: none;
 }
 #cart-items #item img{
     width: 10vw;

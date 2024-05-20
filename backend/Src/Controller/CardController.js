@@ -43,3 +43,16 @@ exports.showCard = (req, res) => {
         })
     })
 }
+
+exports.removeFromCard = (req, res) => {
+    cardModel.remove_from_card(req.params.card_id)
+        .then((cardRes) => {
+            return res.status(200).send(cardRes)
+        })
+        .catch((err) => {
+        return res.status(501).json({
+            error : 'remove card items faild',
+            details : err.message
+        })
+    })
+}

@@ -86,6 +86,25 @@ cardTable.show_card_items = (user_Id) => {
     })
 }
 
+cardTable.remove_from_card = (card_id) => {
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `delete from card where card_id = ?`
+            dbConnection.execute(sql, [card_id], 
+                (err, res) => {
+                    if(err){
+                        reject(err)
+                    }
+                    else{
+                        resolve(res)
+                    }
+                })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
 
 
 

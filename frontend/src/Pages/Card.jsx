@@ -3,11 +3,13 @@ import Navbar from '../Components/Navbar'
 import { Link } from 'react-router-dom'
 import { card } from '../Components/Styles'
 import { useNavigate } from 'react-router-dom'
-import { updateQuantity, viewCartItems } from '../Services/CardServices'
+import { deleteCardItem, updateQuantity, viewCartItems } from '../Services/CardServices'
 import { retrieveToken } from '../Services/JwtToken'
 import { aboutback } from '../Components/Assets'
 import axios from 'axios'
 import { addToOrder } from '../Services/OrderService'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBicycle, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 const Card = () => {
     const navigater = useNavigate()
@@ -29,6 +31,7 @@ const Card = () => {
     const [orderRes, setOrderRes] = useState('')
     const [sevenDaysLater, setSevenDaysLater] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0)
+    const [deleteItem, setDeleteItem] = useState('')
 
     useEffect(() => {
       const today = new Date();
@@ -75,20 +78,26 @@ const Card = () => {
         }
     }
 
-    const handleDelete = (key) => {
-        console.log('key : ',key)
+    const handleDelete = async(card_id) => {
+        try{
+            const response = await deleteCardItem(card_id)
+            setDeleteItem(response.data)
+            window.location.reload();
+
+        }
+        catch(error){
+            console.log('cannot detele this item: ', error.response)
+        }
     }
+
     const handleOrder = async(user_id) => {
-        console.log('oooo')
         try{
             const formData = {
                 status : 'payment pending',
                 deadline : sevenDaysLater,
                 user_Id : user_id   
             }
-            console.log('ok')
             const response = await addToOrder(formData)
-            console.log('orderres',response)
             setOrderRes(response)
             navigater('/selectpayment')
         }
@@ -104,6 +113,7 @@ const Card = () => {
         <Navbar />
         <div className="container" >
             <h1>Card</h1>
+            { cardRes && cardRes.length !== 0 ?
             <table className="table" id='cart-items' style={{ backgroundColor: 'red' }}>
                 <thead>
                     <tr id='cardHead'>
@@ -115,7 +125,7 @@ const Card = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {cardRes && cardRes.length !== 0 ? cardRes.map((item, index) => (
+                    {cardRes && cardRes.length !== 0 && cardRes.map((item, index) => (
                         <tr key={index} id='item' className='mb-5'>
                             <td className='col-3'>{item.service_name}</td>
                             <td className='col-2'>
@@ -131,14 +141,22 @@ const Card = () => {
                                 </form> 
                             </td>
                             <td className='col-2'>
-                                <button onClick={() => handleDelete(index)} className='btn btn-danger' id='link' >Cancel</button>
+                                <button onClick={() => handleDelete(item.card_id)} className='delete' id='link' >
+                                <FontAwesomeIcon
+                                    icon={faTrashCan}
+                                    style={{ color:'red' }}
+                                    size='x'
+                                />
+                                </button>
                             </td>
                         </tr>
-                    )) : <p style={{fontSize:'22px', fontWeight:'bold', color:'red', backgroundColor:'white'}}>There is no items in your card</p>
+                    ))
                     }
                 </tbody>
-            </table>    
+            </table>  : <p>There is no items in your card</p>
+            }  
 
+            { cardRes && cardRes.length !== 0 ?
             <div className="totalAmount">
                 <h1>Your Card Items Prices</h1>
                 <div className="head row">
@@ -160,7 +178,7 @@ const Card = () => {
                     <button className='btn btn-warning m-3' onClick={() => handleOrder(user_id)}>Place Order</button>
                     <button className='btn btn-warning m-3' onClick={handleClose}>Close</button>
                 </div>
-            </div>
+            </div> : null}
 
         
         </div>
