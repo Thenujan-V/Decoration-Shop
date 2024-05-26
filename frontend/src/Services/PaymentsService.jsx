@@ -1,10 +1,17 @@
 import axios from "axios";
+import { getToken } from "./JwtToken";
 
 const BASR_API_URL = `http://localhost:3500/api`
 
+const jwtToken = getToken()
+
 export const addPaymentMethod = async (paymentData) => {
     try{
-        const response = await axios.post(`${BASR_API_URL}/payment/addpaymentmethod`, paymentData)
+        const response = await axios.post(`${BASR_API_URL}/payment/addpaymentmethod`, paymentData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         console.log(response)
         return response
     }
@@ -15,7 +22,11 @@ export const addPaymentMethod = async (paymentData) => {
 
 export const addPayment = async (paymentData) => {
     try{
-        const response = await axios.put(`${BASR_API_URL}/payment/addpayment`, paymentData)
+        const response = await axios.put(`${BASR_API_URL}/payment/addpayment`, paymentData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         console.log('res :',response)
         return response
     }

@@ -1,10 +1,17 @@
 import axios from "axios";
+import { getToken } from "./JwtToken";
 
 const BASR_API_URL = `http://localhost:3500/api`
 
+const jwtToken = getToken()
+
 export const getAllEmployees = async() => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/showAllEmployees`)
+        const response = await axios.get(`${BASR_API_URL}/admin/showAllEmployees`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -15,7 +22,11 @@ export const getAllEmployees = async() => {
 
 export const getAllAdmins = async() => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/showAllAdmins`)
+        const response = await axios.get(`${BASR_API_URL}/admin/showAllAdmins`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -25,7 +36,11 @@ export const getAllAdmins = async() => {
 
 export const showEmployeeDetail = async(user_Id) => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/showEmployeeDetail/${user_Id}`, user_Id)
+        const response = await axios.get(`${BASR_API_URL}/admin/showEmployeeDetail/${user_Id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -35,7 +50,11 @@ export const showEmployeeDetail = async(user_Id) => {
 
 export const getAllCustomers = async() => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/getusersdetails`)
+        const response = await axios.get(`${BASR_API_URL}/admin/getusersdetails`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -45,7 +64,11 @@ export const getAllCustomers = async() => {
 
 export const showUserDetail = async(user_Id) => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/showUserDetail/${user_Id}`, user_Id)
+        const response = await axios.get(`${BASR_API_URL}/admin/showUserDetail/${user_Id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -54,7 +77,11 @@ export const showUserDetail = async(user_Id) => {
 }
 export const addNewAdmin = async (adminData) => {
     try{
-        const response = await axios.post(`${BASR_API_URL}/admin/signup`, adminData)
+        const response = await axios.post(`${BASR_API_URL}/admin/signup`, adminData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -64,7 +91,11 @@ export const addNewAdmin = async (adminData) => {
 
 export const addNewEmp = async (employeeData) => {
     try{
-        const response = await axios.post(`${BASR_API_URL}/admin/signupemp`, employeeData)
+        const response = await axios.post(`${BASR_API_URL}/admin/signupemp`, employeeData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -75,7 +106,11 @@ export const addNewEmp = async (employeeData) => {
 export const asignEmployee = async (employeeData) => {
     console.log('aes :', employeeData)
     try{
-        const response = await axios.post(`${BASR_API_URL}/admin/asignemp`, employeeData)
+        const response = await axios.post(`${BASR_API_URL}/admin/asignemp`, employeeData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -85,7 +120,11 @@ export const asignEmployee = async (employeeData) => {
 
 export const getQuestionsFromUsers = async () => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/admin/getquestions`)
+        const response = await axios.get(`${BASR_API_URL}/admin/getquestions`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){
@@ -98,7 +137,11 @@ export const getQuestionsFromUsers = async () => {
 export const sendSMS = async(id, datas) => {
     console.log('froeee',id, datas)
     try{
-        const response = await axios.post(`${BASR_API_URL}/admin//questions/${id}/answer`, datas)
+        const response = await axios.post(`${BASR_API_URL}/admin//questions/${id}/answer`, datas, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){

@@ -22,7 +22,7 @@ const Card = () => {
             setUser_id(id)
         }
         else{
-            navigater('/signin')
+            setUser_id('')
         }
     }, [])
 
@@ -41,7 +41,7 @@ const Card = () => {
 
       setSevenDaysLater(formattedDate);
     }, []);
-
+console.log('usss :', user_id)
     useEffect( () => {
         const fetchCardItems = async (user_id) => {
             try{

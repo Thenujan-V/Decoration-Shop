@@ -28,7 +28,7 @@ const Payment = () => {
             setUser_id(id)
         }
         else{
-            navigater('/signin')
+            setUser_id('')
         }
     }, [])
     const [orderRes, setorderRes] = useState('')

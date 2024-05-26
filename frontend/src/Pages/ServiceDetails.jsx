@@ -21,7 +21,7 @@ const ServiceDetails = () => {
             setUser_id(id)
         }
         else{
-            navigate('/signin')
+            setUser_id('')
         }
     }, [])
 

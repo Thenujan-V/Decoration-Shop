@@ -16,7 +16,7 @@ const Contact = () => {
           setUser_Id(id)
       }
       else{
-          navigater('/signin')
+        setUser_Id('')
       }
   }, [])
 

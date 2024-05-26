@@ -17,7 +17,7 @@ const Navbar = () => {
             setUser_id(id)
         }
         else{
-            navigater('/signin')
+            setUser_id('')
         }
     }, [])
 

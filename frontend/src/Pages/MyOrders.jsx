@@ -16,7 +16,7 @@ const MyOrders = () => {
             setUser_id(id)
         }
         else{
-            navigater('/signin')
+            setUser_id('')
         }
     }, [])
     const [orders, setOrders] = useState([])

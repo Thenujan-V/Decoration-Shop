@@ -21,6 +21,7 @@ const Services = () => {
     fetchData()
 
     },[])
+    console.log('sr :', serviceRes)
   return (
     <>
         <Navbar />
