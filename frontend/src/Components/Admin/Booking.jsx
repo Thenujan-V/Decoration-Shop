@@ -57,7 +57,7 @@ console.log('soid : ',selectedOrderId)
                                         <Link to={`/employeeassign/${order.order_id}`} className='btn button' >View</Link>
                                     </div>
                                     {/* <button className='btn col-lg-3'  id="not_okey"><FontAwesomeIcon icon={faCircle} size='xl' style={{color: "#34b823"}}/></button> */}
-                                    { order.payment_status === 'complete' ? <button className="btn col-lg-3">
+                                    { order.payment_status === 'completed' ? <button className="btn col-lg-3">
                                         <FontAwesomeIcon
                                                     icon={faCircleCheck}
                                                     size="2xl" 
@@ -65,7 +65,7 @@ console.log('soid : ',selectedOrderId)
                                                 />
                                         </button>:
                                         selectedOrderId === order.order_id ? (
-                                            <button
+                                            <button 
                                                 className="btn col-lg-3"
                                                 onClick={() => handleButtonClick(order.order_id)}
                                             >

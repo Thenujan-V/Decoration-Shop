@@ -37,20 +37,26 @@ const MyOrders = () => {
     console.log('order : ', orders)
 
     const addClassName = (status) => {
-        if(status == 'accepted'){
-            return 'accepted'
+        if(status == 'completed'){
+            return 'completed'
         }
         else if(status == 'payment pending'){
             return 'pending'
         }
-        else if(status == 'cancelled'){
+        else if(status == 'cancel'){
             return 'cancelled'
         }
-        else if(status == 'finished'){
+        else if(status == 'delivery processing'){
             return 'finished'
         }
         else if(status == 'on going'){
             return 'onGoing'
+        }
+        else if(status == 'finished'){
+            return 'finished'
+        }
+        else if(status == 'waiting'){
+            return 'waiting'
         }
         else if(status == 'delivered'){
             return 'devlivered'
@@ -92,7 +98,7 @@ const MyOrders = () => {
                                 {groupedOrders[orderId].orders.map((order, subIndex) => (
                                 <div key={subIndex} className="details m-2">
                                     <h4>{order.service_name} ({order.quantity} * {order.price}) = {order.quantity * order.price}</h4>
-                                    {/* <p>Price: {order.price} LKR</p> */}
+                                    
                                 </div>
                                 ))} 
                             </div>

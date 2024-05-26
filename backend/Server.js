@@ -4,6 +4,9 @@ const cors = require('cors')
 
 const Server = express()
 
+const { verifyToken, checkRole } = require('./Src/Middlewares/authMiddleware');
+
+
 Server.use(cors())
 Server.use(express.json())
 Server.use(bodyParser.json())
@@ -19,10 +22,10 @@ const paymentRouter = require('./Src/Routers/PaymentRouter')
 
 
 Server.use('/api/user', userRouter)
-Server.use('/api/admin', adminRouter)
+Server.use('/api/admin', verifyToken, checkRole('admin'), adminRouter)
 Server.use('/api/employee', employeeRouter)
 Server.use('/api/services', servicesRouter)
-Server.use('/api/card', cardRouter)
+Server.use('/api/card', verifyToken, checkRole('user'), cardRouter)
 Server.use('/api/order', orderRouter)
 Server.use('/api/review', reviewRouter)
 Server.use('/api/payment', paymentRouter)

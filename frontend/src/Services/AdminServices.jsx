@@ -12,6 +12,17 @@ export const getAllEmployees = async() => {
     }
 }
 
+
+export const getAllAdmins = async() => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/showAllAdmins`)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
 export const showEmployeeDetail = async(user_Id) => {
     try{
         const response = await axios.get(`${BASR_API_URL}/admin/showEmployeeDetail/${user_Id}`, user_Id)

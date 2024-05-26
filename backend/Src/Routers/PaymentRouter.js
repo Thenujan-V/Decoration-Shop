@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const { verifyToken, checkRole } = require('../Middlewares/authMiddleware');
 
 const paymentController = require('../Controller/PaymentController')
 
-router.post('/addpaymentmethod',paymentController.addPaymentMethod)
-router.put('/addpayment',paymentController.addPayment)
+router.post('/addpaymentmethod', verifyToken, checkRole(['user']), paymentController.addPaymentMethod)
+router.put('/addpayment', verifyToken, checkRole(['user']), paymentController.addPayment)
 
 
 

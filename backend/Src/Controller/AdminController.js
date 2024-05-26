@@ -40,6 +40,19 @@ exports.showAllEmployees = (req, res) => {
         })
 }
 
+exports.showAllAdmins = (req, res) => {
+    adminModels.get_all_admin_details()
+        .then((response) => {
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: 'connot fetching data',
+                details: err.message
+            })
+        })
+}
+
 exports.showAllUsers = (req,res) => {
     adminModels.get_all_users_details()
         .then((response) => {

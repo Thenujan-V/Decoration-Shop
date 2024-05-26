@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faUser, faHouse, faBell, faMoneyBill, faGear, faRightFromBracket, faCircleInfo, faGauge, faListCheck, faUserTie, faComment, faFileWaveform, faUserPlus  } from '@fortawesome/free-solid-svg-icons'
 import { retrieveToken } from '../../Services/JwtToken'
-import { getAllCustomers, getAllEmployees } from '../../Services/AdminServices'
+import { getAllAdmins, getAllCustomers, getAllEmployees } from '../../Services/AdminServices'
 
 
 const AdminVerticalNav = () => {
@@ -28,7 +28,7 @@ const AdminVerticalNav = () => {
   useEffect(() => {
     const fetchEmployees = async(user_id) => {
       try{
-        const response = await getAllEmployees()
+        const response = await getAllAdmins()
         console.log('emp :', response.data)
         const foundEmployee = response.data.find((employee) => employee.user_Id === user_id)
         setEmployeeDetails(foundEmployee)

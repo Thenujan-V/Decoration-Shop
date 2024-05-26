@@ -33,9 +33,7 @@ order.place_order = (orders) => {
                                                 reject(err)
                                             }
                                             else{
-                                                console.log('oooddd : ',res[0].max_order_id)
                                                 const oId = res[0].max_order_id
-
                                                 const addOrderServiceSql = `insert into order_service (order_id, service_id, quantity) values (?, ?, ?)`
                                                 const deleteFromCart = `delete from card where service_id = ?`
                                                 response.map((items) => {
@@ -149,7 +147,6 @@ order.view_order_details = (order_id) => {
 }
 
 order.update_payment_status = (order_id, datas) => {
-    console.log(order_id)
     return new Promise((resolve, reject) => {
         try{
             const sql = `update order_table set payment_status = ? where order_id = ?`

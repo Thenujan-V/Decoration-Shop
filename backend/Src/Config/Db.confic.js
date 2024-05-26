@@ -6,7 +6,7 @@ var connection = mysql.createPool({
     port:'3306',
     user: 'root',
     password: 'Thenu2000@',
-    database: 'sara_decorations',
+    database: 'sara_flower_decorations',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0

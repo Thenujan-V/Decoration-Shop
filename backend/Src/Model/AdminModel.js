@@ -88,6 +88,24 @@ admins.get_all_employees_details = () => {
                 reject(err)
             }
             else{
+    console.log(res.body)
+
+                resolve(res)
+            }
+        })
+    })
+}
+
+admins.get_all_admin_details = () => {
+    return new Promise((resolve, reject) => {
+        const sql = `select * from user u join admin a on u.user_Id = a.user_Id`
+        dbConnection.execute(sql, (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+    console.log(res.body)
+
                 resolve(res)
             }
         })

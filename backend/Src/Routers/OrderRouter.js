@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const { verifyToken, checkRole } = require('../Middlewares/authMiddleware');
 
 const orderController = require('../Controller/OrderController')
 
-router.post('/placeorder',orderController.placeOrder)
-router.get('/vieworders/:user_Id',orderController.viewOrders)
-router.get('/viewallorders',orderController.viewAllOrders)
-router.get('/getleastorder/:user_Id',orderController.getLeastOrder)
-router.get('/getorderdetails/:order_id',orderController.viewOrdersDetails)
-router.put('/updatepaymentstatus/:order_id',orderController.updatePaymentStatus)
+router.post('/placeorder', verifyToken, checkRole('user'), orderController.placeOrder)
+router.get('/vieworders/:user_Id', verifyToken, checkRole(['user', 'admin']), orderController.viewOrders)
+router.get('/viewallorders', verifyToken, checkRole(['user', 'admin']), orderController.viewAllOrders)
+router.get('/getleastorder/:user_Id', verifyToken, checkRole(['user', 'admin']), orderController.getLeastOrder)
+router.get('/getorderdetails/:order_id', verifyToken, checkRole(['user', 'admin']), orderController.viewOrdersDetails)
+router.put('/updatepaymentstatus/:order_id', verifyToken, checkRole(['user', 'admin']), orderController.updatePaymentStatus)
 
 
 
