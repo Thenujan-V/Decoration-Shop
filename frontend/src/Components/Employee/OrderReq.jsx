@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import VerticalNavbar from './VerticalNavbar'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getOrderDetails, taskAcceptence } from '../../Services/EmployeeService'
+import { retrieveToken } from '../../Services/JwtToken'
 
 const OrderReq = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'admin'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const params = useParams()
     const order_id = params.order_id
     const employee_id = params.employee_id

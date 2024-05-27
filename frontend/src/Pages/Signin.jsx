@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from '../Components/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { signin } from '../Components/Styles';
 import { userSignin } from '../Services/UserService';
+import { retrieveToken } from '../Services/JwtToken';
+
 
 const Signin = () => {
     const navigate = useNavigate()
@@ -40,7 +42,16 @@ const Signin = () => {
                     alert('you are login successfully')
                     const token = response.data.jwtToken
                     localStorage.setItem('token' , token)
-                    navigate('/')
+                    const decodedToken = retrieveToken()
+                    if(decodedToken.role === 'user'){
+                        navigate('/')
+                    }
+                    else if(decodedToken.role === 'admin'){
+                        navigate('/admindashboard')
+                    }
+                    else if(decodedToken.role === 'employee'){
+                        navigate('/empdashboard')
+                    }
                 }
                 else{
                     alert('wrong datas please try again...!')

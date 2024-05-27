@@ -19,6 +19,11 @@ const AdminVerticalNav = () => {
       if(decodedToken){
           const id = decodedToken.id
           setUser_id(id)
+
+          const userRole = decodedToken.role
+          if(userRole === 'user' || userRole === 'employee'){
+              navigater('/unauthorized')
+          }
       }
       else{
           navigater('/signin')

@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AdminVerticalNav from './AdminVerticalNav'
+import { retrieveToken } from '../../Services/JwtToken'
 
 const ViewReview = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const cust_id = useParams()
     
     const [getReview, setGetReview] = useState([])

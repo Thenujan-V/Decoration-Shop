@@ -14,6 +14,11 @@ const Dashboard = () => {
         if(decodedToken){
             const userId = decodedToken.id
             setuser_Id(userId)
+
+            const userRole = decodedToken.role
+            if(userRole === 'user' || userRole === 'admin'){
+                navigate('/unauthorized')
+            }
         }
         else{
             navigate('/signin')

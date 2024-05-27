@@ -4,11 +4,24 @@ import VerticalNavbar from './VerticalNavbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getOrderDetails, statusUpdate } from '../../Services/EmployeeService'
+import { retrieveToken } from '../../Services/JwtToken'
 
 
 const PendingWorks = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const params = useParams()
     const order_id = params.order_id
     const employee_id = params.employee_id

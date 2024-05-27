@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import {home} from '../Components/Styles'
+import { useNavigate } from 'react-router-dom'
+import { retrieveToken } from '../Services/JwtToken'
 const Home = () => {
+  const navigate = useNavigate()
+  const decoded = retrieveToken()
+
+  useEffect(() => {
+    if(decoded){
+      const userRole = decoded.role
+      if(userRole === 'admin' || userRole === 'employee'){
+        navigate('/unauthorized')
+      }
+    }
+  }, [decoded]) 
+
   return (
     <>
         <Navbar />

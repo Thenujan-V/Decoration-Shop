@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { showUserDetail } from '../../Services/AdminServices';
+import { retrieveToken } from '../../Services/JwtToken';
 
 const ViewCustomer = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const Id = useParams()
     const user_Id = Id.user_Id
     

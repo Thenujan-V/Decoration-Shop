@@ -4,11 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import AdminVerticalNav from './AdminVerticalNav'
 import { allowance } from '../Styles'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getAllOrders } from '../../Services/OrderService'
+import { retrieveToken } from '../../Services/JwtToken'
 
 const Booking = () => {
-   
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const [apiReq, setApiReq] = useState([])
     const [selectedOrderId, setSelectedOrderId] = useState(null);
 

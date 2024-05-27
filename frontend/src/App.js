@@ -31,6 +31,7 @@ import SelectPayment from './Pages/SelectPayment'
 import AddEmployee from './Components/Admin/AddEmployee'
 import Contact from './Pages/Contact'
 import Questions from './Components/Admin/Questions'
+import Unauthorized from './Components/Unauthorized'
 
 
 const App = () => {
@@ -48,12 +49,12 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/selectpayment' element={<SelectPayment />} />
         <Route path='/orders' element={<MyOrders />} />
-        <Route path='/ver' element={<VerticalNavbar />} />
+        {/* <Route path='/ver' element={<VerticalNavbar />} /> */}
         <Route path='/empdashboard' element={<Dashboard />} />
         <Route path='/pending/:order_id/:employee_id' element={<PendingWorks />} />
         <Route path='/orders/:order_id/:employee_id' element={<OrderReq />} />
         <Route path='/empallowance' element={<Allowance />} />
-        <Route path='/adminpanel' element={<AdminVerticalNav />} />
+        {/* <Route path='/adminpanel' element={<AdminVerticalNav />} /> */}
         <Route path='/admindashboard' element={<Admindashboard />} />
         <Route path='/booking' element={<Booking />} />
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
@@ -69,6 +70,7 @@ const App = () => {
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />
         <Route path='/questions' element={<Questions />} />
+        <Route path='/unauthorized' element={<Unauthorized />} />
 
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}

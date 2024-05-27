@@ -14,6 +14,11 @@ const Contact = () => {
       if(decodedToken){
           const id = decodedToken.id
           setUser_Id(id)
+          
+          const userRole = decodedToken.role
+          if(userRole === 'admin' || userRole === 'employee'){
+              navigater('/unauthorized')
+            }
       }
       else{
         setUser_Id('')

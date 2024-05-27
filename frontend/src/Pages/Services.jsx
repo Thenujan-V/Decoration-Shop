@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { aboutback } from '../Components/Assets'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { fetchServices } from '../Services/ProductsService'
+import { retrieveToken } from '../Services/JwtToken'
 
 const Services = () => {
+    const navigate = useNavigate()
+  const decoded = retrieveToken()
+  
+  useEffect(() => {
+    if(decoded){
+      const userRole = decoded.role
+      if(userRole === 'admin' || userRole === 'employee'){
+        navigate('/unauthorized')
+      }
+    }
+  }, [decoded])
+
     const [serviceRes, setServiceRes] = useState([])
 
     useEffect(() => {

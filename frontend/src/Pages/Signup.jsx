@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Components/Styles';
 import Navbar from '../Components/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import Signin from './Signin';
 import { userSignup } from '../Services/UserService';
+import { retrieveToken } from '../Services/JwtToken';
 
 const Signup = () => {
     const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'admin' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
     // State variables for form data and errors
     const [formData, setFormData] = useState({
         first_name: '',

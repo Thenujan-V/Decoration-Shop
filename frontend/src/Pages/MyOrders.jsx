@@ -14,6 +14,12 @@ const MyOrders = () => {
         if(decodedToken){
             const id = decodedToken.id
             setUser_id(id)
+
+            
+            const userRole = decodedToken.role
+            if(userRole === 'admin' || userRole === 'employee'){
+                navigater('/unauthorized')
+              }
         }
         else{
             setUser_id('')

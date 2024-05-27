@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { addEmployee } from '../Styles';
 import { addNewAdmin, addNewEmp } from '../../Services/AdminServices';
+import { retrieveToken } from '../../Services/JwtToken';
 const AddEmployee = () => {
+
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const [adminRes, setAdminRes] = useState('')
     const [adminData, setAdminData] = useState({ user_Id: '' });
     const [employeeData, setEmployeeData] = useState({

@@ -28,9 +28,10 @@ import method from './PaymentMethod.css'
 import addEmployee from './AddEmployee.css'
 import contact from './Contact.css'
 import question from './Question.css'
+import unauthorized from './Unauthorized.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails, customerMgt,
-     review, reviewCheck, method, addEmployee, contact, question
+     review, reviewCheck, method, addEmployee, contact, question, unauthorized
      
      }    

@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
 import { fetchServiceDetails, fetchServices } from '../../Services/ProductsService'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { retrieveToken } from '../../Services/JwtToken'
 
 const Dashboard = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const [fetchAllServices, setFetchAllServices] = useState([])
 
     useEffect(() => {

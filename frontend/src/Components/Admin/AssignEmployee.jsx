@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AdminVerticalNav from './AdminVerticalNav'
 import { getOrdersDetails } from '../../Services/OrderService'
 import { asignEmployee, getAllEmployees } from '../../Services/AdminServices'
+import { retrieveToken } from '../../Services/JwtToken'
 
 const AssignEmployee = () => {
     const params = useParams()
     const order_id = params.order_id
+
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
 
     const [apiResponse,setApiResponse] = useState([])
     const [employees, setEmployees] = useState([])

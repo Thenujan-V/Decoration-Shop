@@ -2,9 +2,23 @@ import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
 import { getQuestionsFromUsers, sendSMS } from '../../Services/AdminServices';
 import { question } from '../Styles';
+import { useNavigate } from 'react-router-dom';
+import { retrieveToken } from '../../Services/JwtToken';
 
 
 const Questions = () => {
+    const navigate = useNavigate()
+    const decoded = retrieveToken()
+    
+    useEffect(() => {
+        if(decoded){
+        const userRole = decoded.role
+        if(userRole === 'user' || userRole === 'employee'){
+            navigate('/unauthorized')
+        }
+        }
+    }, [decoded])
+
     const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [sendSms, setSendSms] = useState('')

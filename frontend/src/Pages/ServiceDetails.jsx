@@ -7,8 +7,6 @@ import { retrieveToken } from '../Services/JwtToken'
 import { addToCard } from '../Services/CardServices'
 
 const ServiceDetails = () => {    
-
-
     const navigate = useNavigate()
     const params = useParams();
     const decodedToken = retrieveToken();
@@ -19,6 +17,11 @@ const ServiceDetails = () => {
         if(decodedToken){
             const id = decodedToken.id
             setUser_id(id)
+            
+            const userRole = decodedToken.role
+            if(userRole === 'admin' || userRole === 'employee'){
+                navigate('/unauthorized')
+              }
         }
         else{
             setUser_id('')
