@@ -94,10 +94,11 @@ const Signin = () => {
                 />
                 <p className='p-0 m-0'>{password.Error && <span className="error-message">{password.Error}</span>}</p>
             </div>
-            <div className="forgot-password">
+            <div className="forgot-password d-flex" style={{gap:'7vw'}}>
+                <Link className='link' to="/signup">Register?</Link>
                 <Link className='link' to="/forgot-password">Forgot Password?</Link>
             </div>
-            <button className='btn signin' type="submit">Sign In</button>
+            <button className='btn signin mt-4' type="submit">Sign In</button>
         </form>
     </div>
     </>

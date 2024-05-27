@@ -64,8 +64,8 @@ const UserProfile = () => {
   };
 
   const handleLogout = () => {
-    // Logic to log out the user
-    console.log('Logout clicked');
+        localStorage.removeItem('token')
+        navigater('/signin')
   };
 
   const handleDeleteAccount = () => {

@@ -38,9 +38,9 @@ const Navbar = () => {
                         <Link to='/signup' class="nav-link p-3 Link">Signup/Signin</Link>
                     </div>
                     <div id='userIcon'>                        
-                        <Link to={user_id ? '/card' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faCartArrowDown} size='xl'/> </Link>
-                        <Link to={user_id ? '/orders' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faBagShopping} size='xl'/> </Link>
-                        <Link to={user_id ? '/userprofile' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='xl'/> </Link>
+                        <Link to={user_id ? '/card' : '/signin'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faCartArrowDown} size='xl'/> </Link>
+                        <Link to={user_id ? '/orders' : '/signin'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faBagShopping} size='xl'/> </Link>
+                        <Link to={user_id ? '/userprofile' : '/signin'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='xl'/> </Link>
                     </div>
                 </div>
             </div>

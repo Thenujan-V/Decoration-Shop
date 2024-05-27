@@ -58,6 +58,7 @@ const Dashboard = () => {
                             <tr>
                                 <td>Service Id</td>
                                 <td>Service Name</td>
+                                <td>Price</td>
                                 <td>Description</td>
                                 <td>Edit</td>
                             </tr>
@@ -68,6 +69,7 @@ const Dashboard = () => {
                                     <tr key={service.service_id}>
                                         <td>id:{service.service_id}</td>
                                         <td>{service.service_name}</td>
+                                        <td>{service.price} LKR</td>
                                         <td>{service.description}</td>
                                         <Link className='btn btn-warning mt-1'>Edit</Link>
                                     </tr>
