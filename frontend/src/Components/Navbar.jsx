@@ -40,7 +40,7 @@ const Navbar = () => {
                     <div id='userIcon'>                        
                         <Link to={user_id ? '/card' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faCartArrowDown} size='xl'/> </Link>
                         <Link to={user_id ? '/orders' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faBagShopping} size='xl'/> </Link>
-                        <Link to={user_id ? '/userIndex' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='xl'/> </Link>
+                        <Link to={user_id ? '/userprofile' : '/signup'} class="nav-link p-3 Link"> <FontAwesomeIcon icon={faUser} size='xl'/> </Link>
                     </div>
                 </div>
             </div>

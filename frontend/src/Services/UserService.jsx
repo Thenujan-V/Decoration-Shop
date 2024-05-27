@@ -3,7 +3,7 @@ import { getToken } from './JwtToken'
 
 const BASR_API_URL = `http://localhost:3500/api`
 
-const jwtToken = getToken
+const jwtToken = getToken()
 
 export const userSignup = async (formData) => {
     try{
@@ -43,6 +43,21 @@ export const addQuestions = async (formData) => {
     }
 }
 
+export const getUserDetails = async (user_Id) => {
+    console.log('uuu :',user_Id)
+
+    try{
+        const response = await axios.get(`${BASR_API_URL}/user/getdetails/${user_Id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
 
 
 

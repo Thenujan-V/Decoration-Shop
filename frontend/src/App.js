@@ -32,6 +32,7 @@ import AddEmployee from './Components/Admin/AddEmployee'
 import Contact from './Pages/Contact'
 import Questions from './Components/Admin/Questions'
 import Unauthorized from './Components/Unauthorized'
+import UserProfile from './Pages/UserProfile'
 
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />
         <Route path='/questions' element={<Questions />} />
+        <Route path='/userprofile' element={<UserProfile />} />
         <Route path='/unauthorized' element={<Unauthorized />} />
 
         
