@@ -80,7 +80,8 @@ export const getOrdersDetails = async (order_id) => {
 
 export const updatePaymentStatus = async (data) => {
     try{
-        const response = await axios.put(`${BASR_API_URL}/order/updatepaymentstatus/${data.order_id}`, {
+        console.log('data :',data)
+        const response = await axios.put(`${BASR_API_URL}/order/updatepaymentstatus/${data.order_id}`, data, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
               },

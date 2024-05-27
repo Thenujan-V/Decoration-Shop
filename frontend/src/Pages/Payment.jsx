@@ -113,7 +113,7 @@ const Payment = () => {
 
                 const statusRes = await updatePaymentStatus(paymentData)
                 setPaymentStatus(statusRes.data)
-                navigater('/')
+                navigater('/review')
 
             }
             catch(error){

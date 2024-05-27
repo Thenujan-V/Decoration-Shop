@@ -42,6 +42,7 @@ const Review = () => {
         alert('review add successfully')
       }
       setApiResponse(response)
+      navigater('/')
     }
     catch(error){
       console.log('error occur :',error)
