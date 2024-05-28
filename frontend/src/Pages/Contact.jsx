@@ -41,7 +41,7 @@ const Contact = () => {
 
     try{
       const response = await addQuestions(formData)
-      console.log('resss :', response.data)
+      console.log('contact :', response.data)
       setApiResponse(response.data)
 
     }

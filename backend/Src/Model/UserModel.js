@@ -73,13 +73,31 @@ users.show_user_details = (user_Id) => {
 
 users.ask_questions = (datas) => {
     return new Promise((resolve, reject) => {
-        const sql = `insert into contactus (user_name, mail_id, message, user_Id) values (?, ?, ?, ?)`
-        dbConnection.execute(sql, [datas.user_name, datas.mail_id, datas.message, datas.user_Id], (err, res) => {
+        const sql = `insert into notification (notification_type, recipien, content) values (?, ?, ?)`
+        const [result] = dbConnection.execute(sql, ['', 'admin', datas.message], (err, res) => {
             if(err){
                 reject(err)
             }
             else{
-                resolve(res)
+                const sqlSelect = `SELECT notification_id FROM notification ORDER BY notification_id DESC LIMIT 1`
+                dbConnection.execute(sqlSelect, (error, response) => {
+                    if(error){
+                        reject(error)
+                    }
+                    else{
+                        console.log(response[0].notification_id)
+                        const sql2 = `insert into user_notification (notification_id, user_Id) values (?, ?)`
+                        dbConnection.execute(sql2, [response[0].notification_id, datas.user_Id], (err, res) => {
+                            if(err){
+                                reject(err)
+                            }
+                            else{
+                                resolve(res)                        
+                            }
+                    })                    
+                    }
+                })
+                
             }
         })
     })

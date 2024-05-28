@@ -35,7 +35,11 @@ export const userSignin = async (formData) => {
 
 export const addQuestions = async (formData) => {
     try{
-        const response = await axios.post(`${BASR_API_URL}/user/askquestions`,formData)
+        const response = await axios.post(`${BASR_API_URL}/user/askquestions`,formData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+    })
         return response
     }
     catch(error){
