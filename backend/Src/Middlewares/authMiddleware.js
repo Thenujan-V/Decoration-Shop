@@ -4,6 +4,8 @@ const secret_key = 'sdfghgfdasdfghjhtrewqwertyuytrewqaxcvbhuytrewsxcvhytrewasxcv
 
 
 function verifyToken(req, res, next) {
+  console.log(req.headers['authorization'])
+
   const token = req.headers['authorization'];
   if (!token) {
     return res.status(403).send('A token is required for authentication');
@@ -20,6 +22,8 @@ function verifyToken(req, res, next) {
 
 function checkRole(roles) {
   return function (req, res, next) {
+  console.log(req.user.role)
+
     if (!roles.includes(req.user.role)) {
       return res.status(403).send('You do not have the required permissions');
     }

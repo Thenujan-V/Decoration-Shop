@@ -65,6 +65,7 @@ const AdminVerticalNav = () => {
         </div>
         <div className='links'>
           <Link to='/admindashboard' className={`link ${isActive('/admindashboard')}`}><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
+          <Link to='/addServices' className={`link ${isActive('/addServices')}`}><FontAwesomeIcon icon={faUserPlus} /> Add Services</Link>
           <Link to='/addworkers' className={`link ${isActive('/addworkers')}`}><FontAwesomeIcon icon={faUserPlus} /> Add Workers</Link>
           <Link to='/booking' className={`link ${isActive('/booking')}`}><FontAwesomeIcon icon={faListCheck} /> BOOKING</Link>
           <Link to='/employeeManagement' className={`link ${isActive('/employeeManagement')}`}><FontAwesomeIcon icon={faUserTie} /> EMPLOYEE MGNT</Link>

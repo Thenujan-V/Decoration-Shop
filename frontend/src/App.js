@@ -33,6 +33,7 @@ import Contact from './Pages/Contact'
 import Questions from './Components/Admin/Questions'
 import Unauthorized from './Components/Unauthorized'
 import UserProfile from './Pages/UserProfile'
+import AddServices from './Components/Admin/AddServices'
 
 
 const App = () => {
@@ -57,6 +58,7 @@ const App = () => {
         <Route path='/empallowance' element={<Allowance />} />
         {/* <Route path='/adminpanel' element={<AdminVerticalNav />} /> */}
         <Route path='/admindashboard' element={<Admindashboard />} />
+        <Route path='/addServices' element={<AddServices />} />
         <Route path='/booking' element={<Booking />} />
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
         <Route path='/employeeManagement' element={<EmployeeManagement />} />

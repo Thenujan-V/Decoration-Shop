@@ -8,6 +8,8 @@ const services = function(service){
 }
 
 services.add_service = (serviceDetails, image) => {
+    // console.log('sd :', serviceDetails)
+    // console.log('img :', image)
     return new Promise((resolve, reject) => {
         try{
             const sql = `insert into service (description, service_name, availability, price, photo) values (?, ?, ?, ?, ?)`
