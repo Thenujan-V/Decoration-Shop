@@ -20,8 +20,6 @@ function verifyToken(req, res, next) {
 
 function checkRole(roles) {
   return function (req, res, next) {
-  console.log(req.user.role)
-
     if (!roles.includes(req.user.role)) {
       return res.status(403).send('You do not have the required permissions');
     }

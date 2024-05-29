@@ -1,8 +1,10 @@
 const servicesModel = require('../Model/ServicesModel')
 
 exports.addServices = (req, res) => {
-    servicesModel.add_service(req.body)
+    servicesModel.add_service(req.body, req.file)
         .then((serviceRes) => {
+            const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+            serviceRes.photoUrl = fullUrl;
             return res.status(201).send(serviceRes)
         })
         .catch((err) => {
@@ -16,6 +18,12 @@ exports.addServices = (req, res) => {
 exports.viewServices = (req, res) => {
     servicesModel.view_services()
         .then((serviceRes) => {
+            const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+            serviceRes = serviceRes.map(service => ({
+                ...service,
+                photoUrl: fullUrl + service.photo
+            }));
+
             return res.status(200).send(serviceRes)
         })
         .catch((err) => {
@@ -29,6 +37,11 @@ exports.viewServices = (req, res) => {
 exports.viewServiceDetails = (req, res) => {
     servicesModel.view_service_details(req.params.service_id)
         .then((serviceRes) => {
+            const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+            serviceRes = serviceRes.map(service => ({
+                ...service,
+                photoUrl: fullUrl + service.photo
+            }));
             return res.status(200).send(serviceRes)
         })
         .catch((err) => {

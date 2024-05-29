@@ -7,11 +7,11 @@ const services = function(service){
     this.price = service.price
 }
 
-services.add_service = (service) => {
+services.add_service = (serviceDetails, image) => {
     return new Promise((resolve, reject) => {
         try{
-            const sql = `insert into service (description, service_name, availability, price) values (?, ?, ?, ?)`
-            dbConnection.execute(sql, [service.description, service.service_name, service.availability, service.price], 
+            const sql = `insert into service (description, service_name, availability, price, photo) values (?, ?, ?, ?, ?)`
+            dbConnection.execute(sql, [serviceDetails.description, serviceDetails.service_name, serviceDetails.availability, serviceDetails.price, image.filename], 
                 (err, res) => {
 
                 if(err){
@@ -31,7 +31,7 @@ services.add_service = (service) => {
 services.view_services = (services) => {
     return new Promise((resolve, reject) => {
         try{
-            sql = `select * from service`
+            sql = `select * from service where availability = 'available'`
             dbConnection.execute(sql, (err, res) => {
                 if(err){
                     reject(err)

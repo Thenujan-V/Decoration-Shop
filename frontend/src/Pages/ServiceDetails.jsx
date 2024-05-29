@@ -44,7 +44,7 @@ const ServiceDetails = () => {
             }
         }
         fetchData(service_id)
-    }, [user_id])
+    }, [service_id])
 
     const inputCard = async(service_id, user_id) => {
         if(user_id === null){
@@ -78,7 +78,7 @@ const ServiceDetails = () => {
     <>
         <Navbar />
         <div id='serviceDetails'>
-            <div className="container">
+            <div className="container pb-5">
             <div className="row">
                 {service && 
                     <div className="col-lg-6" id='serviceContent'>
@@ -90,7 +90,10 @@ const ServiceDetails = () => {
                     <button className='btn' onClick={() => inputCard(service[0].service_id, user_id?user_id : null)}>Add to Card</button>
                 </div>
                 }
-                <div className="col-lg-6" id='serviceImg' style={{backgroundImage:`url('https://www.wishque.com/data/images/products/8931/18259175_722703353812_0.98404200-1646116247.jpg')`}}></div>
+                {
+                    service && 
+                    <div className="col-lg-6" id='serviceImg' style={{backgroundImage:`url(${service[0].photoUrl})`}}></div>
+                }
             </div>
             </div>
         </div>

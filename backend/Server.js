@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const Server = express()
+const path = require('path');
 
 const { verifyToken, checkRole } = require('./Src/Middlewares/authMiddleware');
 
@@ -30,6 +31,7 @@ Server.use('/api/order', orderRouter)
 Server.use('/api/review', reviewRouter)
 Server.use('/api/payment', paymentRouter)
 
+Server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 module.exports = Server

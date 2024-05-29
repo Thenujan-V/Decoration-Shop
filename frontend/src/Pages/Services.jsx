@@ -24,7 +24,6 @@ const Services = () => {
         const fetchData = async () => {
             try{
                 const response = await fetchServices()
-                console.log('response : ', response)
                 setServiceRes(response)
             }
             catch(error){
@@ -34,7 +33,6 @@ const Services = () => {
     fetchData()
 
     },[])
-    console.log('sr :', serviceRes)
   return (
     <>
         <Navbar />
@@ -45,11 +43,11 @@ const Services = () => {
                     {
                         serviceRes && serviceRes.map((service) => (
                             <div class="card col-lg-3 m-3" style={{width: '18rem'}} key={service.service_id}>
-                                <img src={aboutback} class="card-img-top" alt="" />
+                                <img src={service.photoUrl} class="card-img-top" alt="image" />
                                 <div class="card-body ">
                                     <h5 class="card-title">{service.service_name}</h5>
                                     <p class="card-title" style={{fontWeight:'bold'}}>{service.price}LKR</p>
-                                    <p class="card-text">{service.description}</p>
+                                    {/* <p class="card-text">{service.description}</p> */}
                                     <Link to={`/servicedetails/${service.service_id}`} class="btn" >LEARN MORE</Link>
                                 </div>
                             </div>
