@@ -3,6 +3,7 @@ import AdminVerticalNav from './AdminVerticalNav'
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllCustomers } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
+import { deleteAccount } from '../../../../backend/Src/Controller/UserController';
 
 const CustomerMgt = () => {
     const navigate = useNavigate()
@@ -23,6 +24,7 @@ const CustomerMgt = () => {
         const fetchCust = async() => {
             try{
                 const response =await getAllCustomers()
+                console.log('cusr :', response.data)
                 setGetCustomers(response.data)
             }
             catch(error){
@@ -31,6 +33,18 @@ const CustomerMgt = () => {
         }
         fetchCust()
     },[])
+
+    const handleDeleteAccount = (user_Id) => {
+        try{
+          const response = deleteAccount(user_Id)
+          setApiResponse(response.data)
+          window.location.reload()
+        }
+        catch(error){
+          console.log('error occur :', error)
+        }
+      };
+
 
   return (
     <div style={{display:'flex'}}>
@@ -47,7 +61,10 @@ const CustomerMgt = () => {
                                 <p className='col-lg-3 col-md-3 col-3'>{customer.user_Id}</p>
                                 <p className='col-lg-3 col-md-3 col-3 name'>{customer.first_name}</p>
                                 <Link to={`/viewCustomer/${customer.user_Id}`} className='btn col-lg-3 col-md-3 col-3 view'>View</Link>
-                                <Link className='btn col-lg-3 col-md-3 col-3 delete'>delete</Link>
+                                {
+                                customer.active === 1 ? <Link className='btn col-lg-3 col-md-3 col-3 delete' onClick={(e) => handleDeleteAccount(customer.user_Id)}>delete</Link> :
+                                    <Link className='btn col-lg-3 col-md-3 col-3 delete' style={{backgroundColor:'darkRed'}}>Deactive</Link>
+                                }
                             </div>
                         ))
                     }

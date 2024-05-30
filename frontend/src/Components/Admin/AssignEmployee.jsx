@@ -4,6 +4,7 @@ import AdminVerticalNav from './AdminVerticalNav'
 import { getOrdersDetails } from '../../Services/OrderService'
 import { asignEmployee, getAllEmployees } from '../../Services/AdminServices'
 import { retrieveToken } from '../../Services/JwtToken'
+import { getUserDetails } from '../../Services/UserService'
 
 const AssignEmployee = () => {
     const params = useParams()
@@ -26,6 +27,8 @@ const AssignEmployee = () => {
     const [asignEmpRes, setAsignEmpRes] = useState('')
     const [asignPayment, setAsignPayment] = useState('')
     const [selectedEmployee, setSelectedEmployee] = useState();
+    const [customer, setCustomer] = useState()
+
 
     useEffect(() => {
         const fetchDatas = async (order_id) => {
@@ -51,6 +54,19 @@ const AssignEmployee = () => {
             }
         }
         fetchEmployees()
+
+        const fetchUserDetails = async () => {
+            try{
+                const userId = apiResponse[0].user_Id
+
+                const response = await getUserDetails(userId)
+                setCustomer(response.data)
+            }
+            catch(error){
+                console.log('Employees fetching error : ', error)
+            }
+        }
+        fetchUserDetails()
     }, [])
 
     const handleSubmit = async(e, order_id,selectedEmployee, asignPayment) => {
@@ -74,8 +90,7 @@ const AssignEmployee = () => {
         }
 
     };
-console.log('selected emp :', selectedEmployee)
-console.log('payment :', asignPayment)
+console.log('selected emp :', customer)
 
   return (
     <div style={{display:'flex'}}>
@@ -93,6 +108,8 @@ console.log('payment :', asignPayment)
                             <h2 className='col-lg-3'>Total price</h2>
                         </div>
                         <div className="w-100 m-0 p-0" >
+                        {console.log('details :', )}
+
                             {apiResponse &&  apiResponse.map((detail) => (
                                 <div className="row p-2" key={detail.service_id}>
                                     <h5 className='col-lg-3'>{detail.service_id}</h5>
@@ -102,6 +119,18 @@ console.log('payment :', asignPayment)
                                 </div>
                             ))
                             }
+                            <div className="dates col-lg-4">
+                                {
+                                    customer && customer.length > 0 &&
+                                    <div>
+                                        <p>User Id : {customer[0].user_Id}</p>
+                                        <p>User Name : {customer[0].first_name} {customer[0].last_name}</p>
+                                        <p>Phone Number : {customer[0].contact_no}</p>
+                                        <p>Address : {customer[0].adress}</p>
+                                        
+                                    </div>  
+                                }   
+                            </div>
                             <div className="row">
                             <div className="dates col-lg-6">
                                 {
