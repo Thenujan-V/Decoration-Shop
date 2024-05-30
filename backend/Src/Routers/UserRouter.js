@@ -8,7 +8,8 @@ router.post('/signup',userController.signup)
 router.post('/signin',userController.signin)
 router.post('/askquestions', verifyToken, checkRole(['user']), userController.askQuestions)
 router.get('/getdetails/:user_Id', verifyToken, userController.showDetails)
-// router.get('/getdetails/:user_Id',userController.showDetails)
+router.put('/deleteaccount/:user_Id', userController.deleteAccount)
+
 
 
 module.exports = router

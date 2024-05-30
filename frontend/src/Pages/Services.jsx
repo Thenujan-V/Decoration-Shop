@@ -42,15 +42,15 @@ const Services = () => {
                 <div className="row justify-content-center">
                     {
                         serviceRes && serviceRes.map((service) => (
-                            <div class="card col-lg-3 m-3" style={{width: '18rem'}} key={service.service_id}>
-                                <img src={service.photoUrl} class="card-img-top" alt="image" />
-                                <div class="card-body ">
-                                    <h5 class="card-title">{service.service_name}</h5>
-                                    <p class="card-title" style={{fontWeight:'bold'}}>{service.price}LKR</p>
-                                    {/* <p class="card-text">{service.description}</p> */}
-                                    <Link to={`/servicedetails/${service.service_id}`} class="btn" >LEARN MORE</Link>
-                                </div>
-                            </div>
+                            service.availability === 'available' ? 
+                                <div class="card col-lg-3 m-3" style={{width: '18rem'}} key={service.service_id}>
+                                    <img src={service.photoUrl} class="card-img-top" alt="image" />
+                                    <div class="card-body ">
+                                        <h5 class="card-title">{service.service_name}</h5>
+                                        <p class="card-title" style={{fontWeight:'bold'}}>{service.price}LKR</p>
+                                        <Link to={`/servicedetails/${service.service_id}`} class="btn" >LEARN MORE</Link>
+                                    </div>
+                                </div> : null
                         ))
                     }
                 </div>

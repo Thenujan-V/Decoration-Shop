@@ -103,5 +103,24 @@ users.ask_questions = (datas) => {
     })
 }
 
+users.delete_account = (user_Id) => {
+    return new Promise((reslove, reject) => {
+        try{
+            const sql = `update user set active = 0 where user_Id = ?`
+            dbConnection.execute(sql, [user_Id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    reslove(res)
+                }
+            }) 
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
 
 module.exports = users

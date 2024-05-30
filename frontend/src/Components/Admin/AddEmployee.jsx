@@ -36,20 +36,6 @@ const AddEmployee = () => {
         setEmployeeData({ ...employeeData, [name]: value });
     };
 
-    const handleAdminSubmit = async(e, adminData) => {
-        e.preventDefault();
-        try{
-            const response = await addNewAdmin(adminData)
-            if(response.status === 201){
-                alert('admin signup successful')
-                setAdminRes(response.status)
-            }
-        }
-        catch(error){
-            console.log('admin add fail :', error)
-        }
-    };
-
     const handleEmployeeSubmit = async (e, employeeData) => {
         e.preventDefault();
         try{
@@ -69,28 +55,9 @@ const AddEmployee = () => {
             <div style={{ display: 'flex' }}>
                 <AdminVerticalNav />
                 <div style={{ flex: 1 }} className='container addEmp'>
-                    <h1>Add New Employee / Admin</h1>
+                    <h1>Add New Employee</h1>
                     <div className="row">
-                        <div className="col-lg-6 admin">
-                            <form onSubmit={(e) => handleAdminSubmit(e,adminData)}>
-                                <h3>Add Admin</h3>
-                                <div className="form-group">
-                                    <label htmlFor="admin_user_Id">USER ID</label>
-                                    <input
-                                        type="text"
-                                        id="admin_user_Id"
-                                        name="user_Id"
-                                        value={adminData.user_Id}
-                                        onChange={handleAdminChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="button">
-                                    <button type="submit" className='btn'>Add Admin</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="col-lg-6 employee">
+                        <div className=" employee">
                             <form onSubmit={(e) => handleEmployeeSubmit(e, employeeData)}>
                                 <h3>Add Employee</h3>
                                 <div className="form-group">

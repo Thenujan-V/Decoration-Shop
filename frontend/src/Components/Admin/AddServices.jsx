@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { addServices } from '../../Services/ProductsService';
+import AdminVerticalNav from './AdminVerticalNav';
 
 const AddServices = () => {
     const[apiResponse, setApiResponse] = useState([])
@@ -51,7 +52,11 @@ const AddServices = () => {
   
 
   return (
-    <div className='addServices'>
+    <div style={{ display: 'flex' }}>
+                <AdminVerticalNav />
+                <div style={{ flex: 1 }} className='container addEmp'>
+                    <h1>Add New Services</h1>
+                    <div className='addServices'>
       <h2>Add Services</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {services.map((service, index) => (
@@ -95,6 +100,8 @@ const AddServices = () => {
         <button type="button" onClick={handleAddService}>Add Service</button>
         <button type="submit">Submit</button>
       </form>
+    </div>
+                </div>
     </div>
   );
 };

@@ -30,7 +30,7 @@ exports.signin = (req, res) => {
 
             const passwordMatch = await bcrypt.compare(req.body.password, signinRes[0].password)
 
-            if(passwordMatch){
+            if(passwordMatch && signinRes[0].active === 1 ){
                 const token = jwt.sign({"id":signinRes[0].user_Id, "role":signinRes[0].role}, secret_key, { expiresIn: '24h' });
                 return res.status(200).json({
                     jwtToken:token,
@@ -76,4 +76,17 @@ exports.askQuestions = (req, res) => {
             })
         })
 
+}
+
+exports.deleteAccount = (req, res) => {
+    userModels.delete_account(req.params.user_Id)
+        .then((Res) => {
+            return res.status(200).send(Res)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error: 'changa availability error',
+                details: err.message
+            })
+        })
 }

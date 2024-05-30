@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { userProfile } from '../Components/Styles';
 import Navbar from '../Components/Navbar';
-import { getUserDetails } from '../Services/UserService';
+import { deleteAccount, getUserDetails } from '../Services/UserService';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
 
@@ -25,6 +25,7 @@ const UserProfile = () => {
         }
     }, [])
 
+  const [apiResponse, setApiResponse] = useState([])
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -38,15 +39,15 @@ const UserProfile = () => {
       try{
         const response = await getUserDetails(user_Id);
         console.log('res :', response.data)
-        setUser(response.data[0]);
+        setUser(response.data[0])
       }
       catch(error){
         console.log('error occur :', error)
       }
     };
 
-    fetchUserDetails(user_Id);
-  }, [user_Id]);
+    fetchUserDetails(user_Id)
+  }, [user_Id])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,11 +69,16 @@ const UserProfile = () => {
         navigater('/signin')
   };
 
-  const handleDeleteAccount = () => {
-    // Logic to delete the account
-    console.log('Delete account clicked');
+  const handleDeleteAccount = (user_Id) => {
+    try{
+      const response = deleteAccount(user_Id)
+      setApiResponse(response.data)
+      navigater('/signin')
+    }
+    catch(error){
+      console.log('error occur :', error)
+    }
   };
-  console.log('uuuuuu :', user)
 
   return (
     <>
@@ -83,6 +89,7 @@ const UserProfile = () => {
             {user.first_name.charAt(0).toLocaleUpperCase()}
             </div>
             <h1>{user.first_name} {user.last_name}</h1>
+            <h3>USER ID - {user.user_Id}</h3>
         </div>
         <div className="profile-details">
             <label>
@@ -107,7 +114,7 @@ const UserProfile = () => {
             </label>
             <button onClick={handleSave}>Save Changes</button>
             <button className='logout' onClick={handleLogout}>Log Out</button>
-            <button style={{backgroundColor:'red'}} onClick={handleDeleteAccount}>Delete Account</button>
+            <button style={{backgroundColor:'red'}} onClick={() => handleDeleteAccount(user_Id)}>Delete Account</button>
         </div>
         <div className="profile-links">
             <a href="/privacy-policy">Privacy Policy</a>

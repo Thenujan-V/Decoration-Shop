@@ -52,3 +52,17 @@ exports.viewServiceDetails = (req, res) => {
         })
 
 }
+
+exports.updateAvailability = (req, res) => {
+    servicesModel.update_availability(req.params.service_id)
+        .then((serviceRes) => {
+            return res.status(200).send(serviceRes)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error: 'changa availability error',
+                details: err.message
+            })
+        })
+} 
+

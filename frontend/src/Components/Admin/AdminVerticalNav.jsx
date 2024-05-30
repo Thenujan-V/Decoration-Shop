@@ -45,7 +45,6 @@ const AdminVerticalNav = () => {
     fetchEmployees(user_id)
   }, [user_id])
 
-  console.log('employee ',employeeDetails)
 
   const isActive = (path) => {
     return location.pathname === path ? 'active-link' : '';

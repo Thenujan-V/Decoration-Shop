@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 router.post('/addservice', verifyToken, checkRole(['admin']), upload.single('photo'), servicesController.addServices)
 router.get('/viewservice', servicesController.viewServices)
 router.get('/viewservicedetails/:service_id', servicesController.viewServiceDetails)
-
+router.put('/changeavailability/:service_id', servicesController.updateAvailability)
 
 
 module.exports = router

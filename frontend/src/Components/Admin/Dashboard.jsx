@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AdminVerticalNav from './AdminVerticalNav'
-import { fetchServiceDetails, fetchServices } from '../../Services/ProductsService'
+import { changeAvailability, fetchServiceDetails, fetchServices } from '../../Services/ProductsService'
 import { Link, useNavigate } from 'react-router-dom'
 import { retrieveToken } from '../../Services/JwtToken'
 
@@ -18,6 +18,7 @@ const Dashboard = () => {
     }, [decoded])
 
     const [fetchAllServices, setFetchAllServices] = useState([])
+    const [apiResponse, setApiResponse] = useState([])
 
     useEffect(() => {
        const fetchAllServices = async() => {
@@ -31,6 +32,18 @@ const Dashboard = () => {
        }
        fetchAllServices()
     }, [])
+
+    const handleAvailablity = async (serviceId) => {
+        try{
+            const response = await changeAvailability(serviceId)
+            console.log('respo :', response.data)
+            setApiResponse(response.data)
+            window.location.reload()
+        }
+        catch(error){
+            console.log('error occur when change availability: ', error)
+        }
+    }
     
   return (
     <div style={{display:'flex'}}>
@@ -60,7 +73,7 @@ const Dashboard = () => {
                                 <td>Service Name</td>
                                 <td>Price</td>
                                 <td>Description</td>
-                                <td>Edit</td>
+                                <td>Status</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +84,7 @@ const Dashboard = () => {
                                         <td>{service.service_name}</td>
                                         <td>{service.price} LKR</td>
                                         <td>{service.description}</td>
-                                        <Link className='btn btn-warning mt-1'>Edit</Link>
+                                        <Link className='btn btn-warning m-3' onClick={() => handleAvailablity(service.service_id)}>{service.availability}</Link>
                                     </tr>
                                 ))
                             }
