@@ -78,7 +78,8 @@ const MyOrders = () => {
               totalPrice: 0,
               order_date: order.order_date,
               deadline: order.deadline,
-              status:order.status
+              status:order.status,
+              payment_status:order.payment_status
             };
           }
           groups[order_id].orders.push(order);
@@ -100,16 +101,31 @@ const MyOrders = () => {
                     <div key={index} id={`order-group-${orderId}`} className="card m-2" >
                         <h2>Order ID :  {orderId}</h2>
                         <div className="row">
-                            <div className='col-lg-7 details'>
-                                {groupedOrders[orderId].orders.map((order, subIndex) => (
-                                <div key={subIndex} className="details m-2">
-                                    <h4>{order.service_name} ({order.quantity} * {order.price}) = {order.quantity * order.price}</h4>
-                                    
-                                </div>
-                                ))} 
+                            <div className="col-lg-7 details">
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {groupedOrders[orderId].orders.map((order, subIndex) => (
+                                            <tr key={subIndex}>
+                                                <td>{order.service_name}</td>
+                                                <td>{order.quantity}</td>
+                                                <td>{order.price}</td>
+                                                <td>{order.quantity * order.price}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                             <div className='dates col-lg-5'>
                                 <p className={`${addClassName(groupedOrders[orderId].status)}`}>Status - {groupedOrders[orderId].status}</p>
+                                <p className={`${addClassName(groupedOrders[orderId].payment_status)}`}>Payment - {groupedOrders[orderId].payment_status}</p>
                                 <p>Total Amount - {groupedOrders[orderId].totalPrice} LKR</p>
                                 <p>Ordered Date - {new Date(groupedOrders[orderId].order_date).toLocaleDateString('en-US')}</p>
                                 <p>Delivery Date - {new Date(groupedOrders[orderId].deadline).toLocaleDateString('en-US')}</p>       

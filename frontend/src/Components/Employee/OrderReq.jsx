@@ -75,6 +75,7 @@ console.log('res :',apiResponse)
                                 apiResponse && apiResponse.length > 0 && apiResponse.map((detail) => (
                                     <div className="detail" key={detail.service_id}>
                                         <h3>{detail.service_name} - {detail.quantity}</h3>
+                                        <img src={detail.photoUrl} alt="image" />
                                         <p>({detail.description})</p>
                                     </div>
                                 ))

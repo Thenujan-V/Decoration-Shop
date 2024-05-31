@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { showUserDetail } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
+import { deleteAccount } from '../../Services/UserService';
 
 const ViewCustomer = () => {
     const navigate = useNavigate()
@@ -21,6 +22,7 @@ const ViewCustomer = () => {
     const user_Id = Id.user_Id
     
     const [getCustomers, setGetCustomers] = useState([])
+    const [apiResponse, setApiResponse] = useState([])
 
     useEffect(() => {
         const fetchUser = async(user_Id) => {
@@ -35,6 +37,19 @@ const ViewCustomer = () => {
         fetchUser(user_Id)
     },[])
     console.log('ok :',getCustomers)
+
+
+    const handleDeleteAccount = (user_Id) => {
+        try{
+          const response = deleteAccount(user_Id)
+          setApiResponse(response.data)
+          alert('deleted employee')
+            window.location.reload()
+        }
+        catch(error){
+          console.log('error occur :', error)
+        }
+      };
 
   return (
     <div style={{display:'flex'}}>
@@ -68,7 +83,7 @@ const ViewCustomer = () => {
                     </div>
                     <div className="buttons">
                         <Link to={`/vieworders/${getCustomers.user_Id}`} className='btn history'>VIEW ORDER HISTORY</Link>
-                        <Link to='' className='btn delete'> DELETE PROFILE</Link>
+                        <Link onClick={() => handleDeleteAccount(user_Id)} className='btn delete'> DELETE PROFILE</Link>
                     </div>
                 </div>
                 

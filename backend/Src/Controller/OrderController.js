@@ -55,6 +55,11 @@ exports.viewAllOrders = (req, res) => {
 exports.viewOrdersDetails = (req, res) => {
     orderModel.view_order_details(req.params.order_id)
      .then((orderRes) => {
+        const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+        orderRes = orderRes.map(service => ({
+                ...service,
+                photoUrl: fullUrl + service.photo
+            }));
         return res.status(200).send(orderRes)
         })
         .catch((err) => {

@@ -59,7 +59,6 @@ const AddEmployee = () => {
                     <div className="row">
                         <div className=" employee">
                             <form onSubmit={(e) => handleEmployeeSubmit(e, employeeData)}>
-                                <h3>Add Employee</h3>
                                 <div className="form-group">
                                     <label htmlFor="employee_user_Id">USER ID</label>
                                     <input

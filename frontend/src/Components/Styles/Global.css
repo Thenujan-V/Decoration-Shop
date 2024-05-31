@@ -12,6 +12,8 @@
     --delivered :#bee5eb;
     --onGoing : #f6e2a8;
     --finished : #d4edda;
+    --completed :rgb(212, 237, 235);
+    --waiting :rgb(230, 237, 212);
     --pending : #ecd4ed;
     --yellow: #e6e607;
 }

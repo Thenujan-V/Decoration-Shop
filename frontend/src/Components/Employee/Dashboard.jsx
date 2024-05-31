@@ -49,9 +49,10 @@ console.log('user_Id :', user_Id)
 
     useEffect(() => {
         const fetchEmployeeOrders = async(empId) => {
-console.log('emp :', empId)
             try{
                 const response = await getOrders(empId)
+        console.log('emp :', response.data)
+
                 setOrderReq(response.data)
 
             }
@@ -91,7 +92,7 @@ console.log('emp :', empId)
                     <h2>Order Requests</h2>
                     {
                         orderReq &&  orderReq.map((order,index) => (
-                             order.task_acceptence === 0 ? (<div className="row work" key={index}>
+                             order.task_acceptence === null ? (<div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {order.order_id}</p>
                                 </div>

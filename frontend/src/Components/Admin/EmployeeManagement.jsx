@@ -48,7 +48,7 @@ const EmployeeManagement = () => {
                                 </div>
                             </div>
                             <p>Employee Id - {employee.user_Id}</p>
-                            <p>Employee Name - {employee.user_name}</p>
+                            <p>Employee Name - {employee.first_name}</p>
                             <p>Contact No - {employee.contact_no}</p>
                             <div className="btnn">
                                 <Link to={`/viewemployee/${employee.user_Id}`} className='btn'>View</Link>

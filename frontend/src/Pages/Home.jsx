@@ -16,6 +16,10 @@ const Home = () => {
     }
   }, [decoded]) 
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate('/service')
+  }
   return (
     <>
         <Navbar />
@@ -32,7 +36,7 @@ const Home = () => {
                     pride in bringing your celebrations to life 
                     with our unique and artistic creations
                     </p>
-                    <button className='btn'>Book now</button>
+                    <button onClick={(e) => handleClick(e)} className='btn'>Book now</button>
                 </div>
             </div>
             </div>

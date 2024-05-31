@@ -71,6 +71,7 @@ const Dashboard = () => {
                             <tr>
                                 <td>Service Id</td>
                                 <td>Service Name</td>
+                                <td>Image</td>
                                 <td>Price</td>
                                 <td>Description</td>
                                 <td>Status</td>
@@ -82,6 +83,7 @@ const Dashboard = () => {
                                     <tr key={service.service_id}>
                                         <td>id:{service.service_id}</td>
                                         <td>{service.service_name}</td>
+                                        <td><img src={service.photoUrl} alt="image" width={'200px'} /></td>
                                         <td>{service.price} LKR</td>
                                         <td>{service.description}</td>
                                         <Link className='btn btn-warning m-3' onClick={() => handleAvailablity(service.service_id)}>{service.availability}</Link>

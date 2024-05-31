@@ -47,6 +47,14 @@
     background-color: var(--pending);
     width: 14vw;
 }
+#myOrders #orders .card .row .dates .completed{
+    background-color: var(--completed);
+    width: 14vw;
+}
+#myOrders #orders .card .row .dates .waiting{
+    background-color: var(--waiting);
+    width: 14vw;
+}
 #myOrders #orders .card{
     background-color: rgb(250, 246, 246);
     

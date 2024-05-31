@@ -31,9 +31,10 @@ import question from './Question.css'
 import unauthorized from './Unauthorized.css'
 import userProfile from './UserProfile.css'
 import addServices from './AddServices.css'
+import assingEmployee from './AssignEmployee.css'
 
 export {navbar, global, home, about, service, sign, signin, dashboard, pendingWorks, orderReq, allowance, adminVerticalNav, adminDashboard, 
      serviceDetails, card, myOrders, payment, verticalNavbar, booking, employeeManagement, viewEmployee, allowanceDetails, customerMgt,
-     review, reviewCheck, method, addEmployee, contact, question, unauthorized, userProfile, addServices
+     review, reviewCheck, method, addEmployee, contact, question, unauthorized, userProfile, addServices, assingEmployee
      
      }    

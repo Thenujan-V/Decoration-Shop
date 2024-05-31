@@ -1,0 +1,94 @@
+.assignEmp .container {
+    padding: 20px;
+}
+
+.assignEmp .orderWorks {
+    background-color: var(--signin_back);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assignEmp .details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assignEmp .details h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--background_blue);
+}
+
+.assignEmp .details .row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--headingGreen);
+    padding: 10px 0;
+    background-color: var(--wheat);
+}
+
+.assignEmp .details .row h2 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    color: var(--headingGreen);
+    /* background-color: var(--background_blue); */
+    color: var(--background_blue);
+    font-weight: bold ;
+    padding: 10px 0;
+    border-radius: 5px;
+}
+
+.assignEmp .details .row h5 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    color: var(--background_blue);
+}
+
+.assignEmp .dates {
+    margin-top: 20px;
+}
+
+.assignEmp .dates p {
+    margin: 5px 0;
+    color: var(--background_blue);
+}
+
+.assignEmp .buttons {
+    margin-top: 30px;
+}
+
+.assignEmp .form-control {
+    margin-bottom: 15px;
+}
+
+.assignEmp .form-control label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--background_blue);
+}
+
+.assignEmp .form-control select, .form-control input, .form-control button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.assignEmp .form-control button {
+    background-color: var(--headingGreen);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.assignEmp  .form-control button:hover {
+    background-color: #218838;
+}

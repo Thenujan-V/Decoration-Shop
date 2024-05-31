@@ -44,6 +44,8 @@ const AddServices = () => {
 
             const response = await addServices(formData);
             setApiResponse(response.body);
+            alert('product add successfully')
+            window.location.reload()
         }
     } catch (error) {
         console.log('Adding services error:', error);
