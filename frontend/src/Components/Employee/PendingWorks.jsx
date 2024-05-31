@@ -16,7 +16,7 @@ const PendingWorks = () => {
     useEffect(() => {
         if(decoded){
         const userRole = decoded.role
-        if(userRole === 'user' || userRole === 'employee'){
+        if(userRole === 'user' || userRole === 'admin'){
             navigate('/unauthorized')
         }
         }

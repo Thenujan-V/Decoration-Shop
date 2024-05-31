@@ -34,6 +34,11 @@ exports.updateQuantity = (req, res) => {
 exports.showCard = (req, res) => {
     cardModel.show_card_items(req.params.user_Id)
         .then((cardRes) => {
+            const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+            cardRes = cardRes.map(service => ({
+                ...service,
+                photoUrl: fullUrl + service.photo
+            }));
             return res.status(200).send(cardRes)
         })
         .catch((err) => {

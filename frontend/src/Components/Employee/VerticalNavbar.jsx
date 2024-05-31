@@ -22,7 +22,7 @@ const VerticalNavbar = () => {
           setUser_id(id)
 
           const userRole = decodedToken.role
-          if(userRole === 'user' || userRole === 'employee'){
+          if(userRole === 'user' || userRole === 'admin'){
               navigater('/unauthorized')
           }
       }
@@ -52,6 +52,12 @@ const VerticalNavbar = () => {
     return location.pathname === path ? 'active-link' : '';
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem('token')
+    window.location.reload()
+  }
+
   return (
     <div className='verticalNav'>
         <div className='logo'><img src={logoPic} alt="" /></div>
@@ -73,7 +79,7 @@ const VerticalNavbar = () => {
           </div>
           <div className='otherLinks'>
             <Link to='/setting' className={`link ${isActive('/setting')}`}><FontAwesomeIcon icon={faGear} /> Settings</Link>
-            <Link to='/logout' className={`link ${isActive('/logout')}`}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</Link>
+            <Link onClick={(e) => handleLogout(e)} className={`link`}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</Link>
             <Link to='/help' className={`link ${isActive('/help')}`}><FontAwesomeIcon icon={faCircleInfo} /> help</Link>
           </div>
         </div>

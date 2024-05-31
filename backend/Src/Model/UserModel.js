@@ -74,7 +74,7 @@ users.show_user_details = (user_Id) => {
 users.ask_questions = (datas) => {
     return new Promise((resolve, reject) => {
         const sql = `insert into notification (notification_type, recipien, content) values (?, ?, ?)`
-        const [result] = dbConnection.execute(sql, ['', 'admin', datas.message], (err, res) => {
+        const [result] = dbConnection.execute(sql, ['message', 'admin', datas.message], (err, res) => {
             if(err){
                 reject(err)
             }

@@ -41,8 +41,10 @@ const Contact = () => {
 
     try{
       const response = await addQuestions(formData)
-      console.log('contact :', response.data)
+      console.log('contact ')
       setApiResponse(response.data)
+      alert('your message send')
+      window.location.reload()
 
     }
     catch(error){

@@ -26,3 +26,16 @@ exports.getReview = (req, res) => {
             })
         })
 }
+
+exports.deleteReview = (req, res) => {
+    reviewModel.delete_review()
+        .then((reviewRes) => {
+            return res.status(200).send(reviewRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'getting review is failed',
+                details : err.message
+            })
+        })
+}

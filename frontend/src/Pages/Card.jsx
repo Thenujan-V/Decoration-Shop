@@ -134,7 +134,7 @@ console.log('usss :', user_id)
                         <tr key={index} id='item' className='mb-5'>
                             <td className='col-3'>{item.service_name}</td>
                             <td className='col-2'>
-                                <img src={aboutback} alt={item.title} style={{ width: '100px', height: '100px' }} />
+                                <img src={item.photoUrl} alt={item.title} style={{ width: '100px', height: '100px' }} />
                             </td>
                             <td className='col-2'>{item.price}</td>
                             <td>

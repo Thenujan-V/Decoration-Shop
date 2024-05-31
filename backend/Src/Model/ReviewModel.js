@@ -49,7 +49,26 @@ reviews.get_review = (reviews) => {
     })
 }
 
-
+reviews.delete_review = (reviews) => {
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `delete * from rate r join user u on r.user_Id = u.user_Id`
+            dbConnection.execute(sql,
+                    (err, res) => {
+                        if(err){
+                            reject(err)
+                        }
+                        else{
+                            resolve(res)
+                        }
+                    }
+            )
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
 
 
 

@@ -4,15 +4,15 @@ export const getToken = () => {
     try{
         const token = localStorage.getItem('token')
         const decodedToken = jwtDecode(token)
+        console.log('role :', decodedToken.role)
 
         const currentTime = Math.floor(Date.now() / 1000);
-        console.log(currentTime)
-        console.log(decodedToken.exp)
         if (decodedToken.exp && currentTime > decodedToken.exp) {
             localStorage.removeItem("token"); 
             return null
         } 
         else {
+            console.log('toke :', token)
             return token
         }
     }
@@ -20,6 +20,7 @@ export const getToken = () => {
         console.log('error get token : ',error)
         return null
     }
+
 }
 export const retrieveToken = () => {
     try{

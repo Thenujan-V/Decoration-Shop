@@ -46,6 +46,12 @@ const AdminVerticalNav = () => {
   }, [user_id])
 
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem('token')
+    window.location.reload()
+  }
+
   const isActive = (path) => {
     return location.pathname === path ? 'active-link' : '';
   };
@@ -76,6 +82,7 @@ const AdminVerticalNav = () => {
           <Link to='' className={`link ${isActive('')}`}><FontAwesomeIcon icon={faFileWaveform} /> REPORT</Link>
           <Link to='' className={`link ${isActive('')}`}><FontAwesomeIcon icon={faGear} /> Settings</Link>
           <Link to='' className={`link ${isActive('')}`}><FontAwesomeIcon icon={faCircleInfo} /> help</Link>
+          <Link className={`link`} onClick={(e) => handleLogout(e)} ><FontAwesomeIcon icon={faRightFromBracket} /> Logout</Link>
         </div>
       </div>
     </div>

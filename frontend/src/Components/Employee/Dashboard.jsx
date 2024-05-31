@@ -6,14 +6,14 @@ import { getEmployeeDetails, getOrders } from '../../Services/EmployeeService'
 import { retrieveToken } from '../../Services/JwtToken'
 
 const Dashboard = () => {
-    const [user_Id, setuser_Id] = useState('')
+    const [user_Id, setuser_Id] = useState('') 
     const navigate = useNavigate()
     const decodedToken = retrieveToken()
 
     useEffect(() => {
         if(decodedToken){
-            const userId = decodedToken.id
-            setuser_Id(userId)
+            const id = decodedToken.id
+            setuser_Id(id)
 
             const userRole = decodedToken.role
             if(userRole === 'user' || userRole === 'admin'){
@@ -34,6 +34,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchEmployeeDetails = async(user_Id) =>{
+console.log('user_Id :', user_Id)
             try{
                 const response = await getEmployeeDetails(user_Id)
                 setEmpId(response.data[0].employee_id)
@@ -48,7 +49,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchEmployeeOrders = async(empId) => {
-
+console.log('emp :', empId)
             try{
                 const response = await getOrders(empId)
                 setOrderReq(response.data)
@@ -82,7 +83,7 @@ const Dashboard = () => {
                                     <div className="col-lg-4">
                                         <Link to={`/pending/${work.order_id}/${empId}`} className='link'>View</Link>
                                     </div>
-                                </div>):null
+                                </div>):<p>No orders</p>
                             ))
                         }
                 </div>
@@ -97,8 +98,8 @@ const Dashboard = () => {
                                 <div className="col-lg-4">
                                     <Link to={`/orders/${order.order_id}/${empId}`} className='link'>View</Link>
                                 </div>
-                            </div>):null
-                        
+                            </div>):<p>No orders</p>
+                            
                         ))
                     }
                 </div>
@@ -114,7 +115,7 @@ const Dashboard = () => {
                                 <div className="col-lg-4">
                                     <Link className='link'>View</Link>
                                 </div>
-                            </div>):null
+                            </div>):<p>No orders</p>
                         ))
                     }
                 </div>

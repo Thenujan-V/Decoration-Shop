@@ -67,7 +67,6 @@ const ReviewCheck = () => {
                                         </span>
                                     ))}
                                 </div>  
-                                <Link to={`/viewReview/${review.user_Id}`} className='btn col-lg-2 col-md-3 col-3 view'>View</Link>
                                 <Link className='btn col-lg-2 col-md-3 col-3 delete'>delete</Link>
                             </div>
                         ))

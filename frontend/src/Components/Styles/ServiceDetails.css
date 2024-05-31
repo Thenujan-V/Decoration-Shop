@@ -18,7 +18,7 @@
     height: 400px;
     position: relative;
     bottom: 50px;
-    background-size: cover;
+    background-size: contain;
     box-shadow:2px 2px 5px black;
     border-radius: 20px;
     width: 40%;

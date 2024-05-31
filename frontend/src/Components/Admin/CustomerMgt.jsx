@@ -3,7 +3,7 @@ import AdminVerticalNav from './AdminVerticalNav'
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllCustomers } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
-import { deleteAccount } from '../../../../backend/Src/Controller/UserController';
+import { deleteAccount } from '../../Services/UserService';
 
 const CustomerMgt = () => {
     const navigate = useNavigate()
@@ -19,7 +19,8 @@ const CustomerMgt = () => {
     }, [decoded])
 
     const [getCustomers, setGetCustomers] = useState([])
-
+    const [apiResponse, setApiResponse] = useState([])
+    
     useEffect(() => {
         const fetchCust = async() => {
             try{
