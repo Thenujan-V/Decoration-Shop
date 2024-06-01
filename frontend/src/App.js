@@ -34,6 +34,7 @@ import Questions from './Components/Admin/Questions'
 import Unauthorized from './Components/Unauthorized'
 import UserProfile from './Pages/UserProfile'
 import AddServices from './Components/Admin/AddServices'
+import ViewEmpOrders from './Components/Admin/ViewEmpOrders'
 
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
         <Route path='/employeeManagement' element={<EmployeeManagement />} />
         <Route path='/viewemployee/:user_Id' element={<ViewEmployee />} />
         <Route path='/vieworders/:user_Id' element={<ViewOrders />} />
+        <Route path='/viewemporders/:emp_id' element={<ViewEmpOrders />} />
         <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
         <Route path='/customerMgt' element={<CustomerMgt />} />
         <Route path='/viewCustomer/:user_Id' element={<ViewCustomer />} />

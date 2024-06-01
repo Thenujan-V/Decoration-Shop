@@ -60,9 +60,13 @@ const ViewEmployee = () => {
                 <div>
                     <h2>{getEmployee.id}</h2>
                     <div className="details">
-                        <div className='detail'>
+                    <div className='detail'>
                             <p className='qes'>NAME</p>
                             <p className='ans'>- {getEmployee.first_name}</p>
+                        </div>
+                        <div className='detail'>
+                            <p className='qes'>Emoloyee Id</p>
+                            <p className='ans'>- {getEmployee.employee_id}</p>
                         </div>
                         <div className='detail'>
                             <p className='qes'>NIC NO</p>
@@ -94,7 +98,7 @@ const ViewEmployee = () => {
                         </div> */}
                     </div>
                     <div className="buttons">
-                        <Link to={`/vieworders/${getEmployee.user_Id}`} className='btn history'>VIEW ORDER HISTORY</Link>
+                        <Link to={`/viewemporders/${getEmployee.employee_id}`} className='btn history'>VIEW ORDER HISTORY</Link>
                         <Link onClick={() => handleDeleteAccount(user_Id)} className='btn delete'> DELETE PROFILE</Link>
                     </div>
                 </div>

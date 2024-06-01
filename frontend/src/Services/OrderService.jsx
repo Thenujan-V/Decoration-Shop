@@ -28,7 +28,6 @@ export const getOrders = async (user_id) => {
                 Authorization: `Bearer ${jwtToken}`,
               },
         })
-        console.log('response : ', response)
         return response
     }
     catch(error){

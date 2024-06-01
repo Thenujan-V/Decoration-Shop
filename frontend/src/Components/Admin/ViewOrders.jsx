@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {useNavigate, useParams } from 'react-router-dom'
 import AdminVerticalNav from './AdminVerticalNav'
-import { getOrders } from '../../Services/OrderService'
 import { myOrders } from '../Styles'
 import { retrieveToken } from '../../Services/JwtToken'
+import { getOrders } from '../../Services/OrderService'
 
 const ViewOrders = () => {
     const navigate = useNavigate()
@@ -20,13 +20,14 @@ const ViewOrders = () => {
 
     const Id = useParams()
     const user_id = Id.user_Id
-
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
         const fetchOrders = async (user_id) => {
             try{
                 const response = await getOrders(user_id)
+        console.log(response.data)
+
                 setOrders(response.data)
             }
             catch(error){
@@ -34,7 +35,7 @@ const ViewOrders = () => {
             }
         }
         fetchOrders(user_id)
-    }, [])
+    }, [user_id])
     console.log('order : ', orders)
 
     const addClassName = (status) => {
@@ -64,7 +65,7 @@ const ViewOrders = () => {
         }
     
     }
-    
+
     const groupOrdersById = (orders) => {
         return orders.reduce((groups, order) => {
           const { order_id } = order;

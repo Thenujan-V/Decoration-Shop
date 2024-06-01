@@ -51,8 +51,6 @@ console.log('user_Id :', user_Id)
         const fetchEmployeeOrders = async(empId) => {
             try{
                 const response = await getOrders(empId)
-        console.log('emp :', response.data)
-
                 setOrderReq(response.data)
 
             }
