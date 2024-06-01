@@ -257,6 +257,24 @@ admins.send_SMS = (id, data) => {
     })
 }
 
+admins.allowance_details = (order_id) => {    
+    console.log('od : ', order_id)
+    return new Promise((resolve, reject) => {
+        const sql = `select * from allowance a join emp_order e on a.order_id = e.order_id where a.order_id = ?`
+        dbConnection.execute(sql, [order_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                console.log('resp :', res)
+                resolve(res)
+            }
+        })
+    })
+}
+
+
+
 
 
 module.exports = admins

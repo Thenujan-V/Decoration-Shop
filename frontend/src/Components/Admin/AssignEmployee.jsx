@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { getOrdersDetails } from '../../Services/OrderService';
-import { asignEmployee, getAllEmployees } from '../../Services/AdminServices';
+import { asignEmployee, getAllEmployees, getAllowance } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
 import { getUserDetails } from '../../Services/UserService';
 import { assingEmployee } from '../Styles'; 
+import { all } from 'axios';
 
 const AssignEmployee = () => {
     const params = useParams();
@@ -28,6 +29,7 @@ const AssignEmployee = () => {
     const [asignPayment, setAsignPayment] = useState('');
     const [selectedEmployee, setSelectedEmployee] = useState('');
     const [customer, setCustomer] = useState();
+    const [allowance, setAllowance] = useState('')
 
     useEffect(() => {
         const fetchDatas = async (order_id) => {
@@ -39,6 +41,18 @@ const AssignEmployee = () => {
             }
         };
         fetchDatas(order_id);
+
+        const getEmpAllowance = async (order_id) => {
+            try {
+                const response = await getAllowance(order_id);
+                console.log('allowa :', response.data)
+                setAllowance(response.data);
+            } catch (error) {
+                console.log('allowance details fetching error:', error);
+            }
+        };
+        getEmpAllowance(order_id);
+
     }, [order_id]);
 
     useEffect(() => {
@@ -65,6 +79,8 @@ const AssignEmployee = () => {
         };
         fetchUserDetails();
     }, [apiResponse]);
+
+
 
 
     const handleSubmit = async (e) => {
@@ -124,10 +140,13 @@ const AssignEmployee = () => {
                             </div>
                             <div className="row">
                                 <div className="dates col-lg-6">
-                                    {apiResponse && apiResponse.length > 0 && (
+                                    {apiResponse && apiResponse.length > 0 && allowance && allowance.length > 0 && (
                                         <div>
-                                            <p>Working Employee: {selectedEmployee}</p>
-                                            <p>Payment Status: {apiResponse[0].payment_status}</p>
+                                            <p>Working Employee: {allowance[0].employee_id}</p>
+                                            <p>Task Acceptance: {allowance[0].task_acceptence === 1 ? 'Accept' : allowance[0].task_acceptence === 0 ? 'Not Accept' : 'Waiting'}</p>
+                                            <p>Allowance: {allowance[0].total_amount} LKR</p>
+                                            <p>Allowance Status: {allowance[0].allowance_status === '1' ? 'completed' : 'Not Completed'}</p>
+                                            <p>Customer Payment Status: {apiResponse[0].payment_status}</p>
                                             <p>Working Status: {apiResponse[0].status}</p>
                                             <p>Ordered Date: {new Date(apiResponse[0].order_date).toLocaleDateString()}</p>
                                             <p>Delivery Date: {new Date(apiResponse[0].deadline).toLocaleDateString()}</p>
@@ -135,35 +154,39 @@ const AssignEmployee = () => {
                                     )}
                                 </div>
                                 <div className="buttons col-lg-6">
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="form-control">
-                                            <label htmlFor="emp">Select Employee</label>
-                                            <select
-                                                name="emp"
-                                                value={selectedEmployee}
-                                                onChange={(e) => setSelectedEmployee(e.target.value)}
-                                            >
-                                                <option value="">SELECT</option>
-                                                {employees.map(employee => (
-                                                    <option key={employee.id} value={employee.employee_id}>
-                                                        {employee.first_name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        <div className="form-control">
-                                            <label htmlFor="payment">Estimate Payment</label>
-                                            <input
-                                                type="text"
-                                                name="payment"
-                                                value={asignPayment}
-                                                onChange={(e) => setAsignPayment(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className="form-control">
-                                            <button type="submit">Assign Employee</button>
-                                        </div>
-                                    </form>
+                                    {
+                                        allowance.length > 0 && allowance[0].task_acceptence === 0 ? (
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="form-control">
+                                                    <label htmlFor="emp">Select Employee</label>
+                                                    <select
+                                                        name="emp"
+                                                        value={selectedEmployee}
+                                                        onChange={(e) => setSelectedEmployee(e.target.value)}
+                                                    >
+                                                        <option value="">SELECT</option>
+                                                        {employees.map(employee => (
+                                                            <option key={employee.id} value={employee.employee_id}>
+                                                                {employee.first_name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="form-control">
+                                                    <label htmlFor="payment">Estimate Payment</label>
+                                                    <input
+                                                        type="text"
+                                                        name="payment"
+                                                        value={asignPayment}
+                                                        onChange={(e) => setAsignPayment(e.target.value)}
+                                                    />
+                                                </div>
+                                                <div className="form-control">
+                                                    <button type="submit">Assign Employee</button>
+                                                </div>
+                                            </form> 
+                                        ): null
+                                    }
                                 </div>
                             </div>
                         </div>

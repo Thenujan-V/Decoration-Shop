@@ -144,3 +144,16 @@ exports.sendSMSToUsers = (req, res) => {
             return res.status(500).json({ success: false, error: error.message })
         })
 }
+
+exports.allowanceDetails = (req, res) => {
+    adminModels.allowance_details(req.params.order_id)
+        .then((allowance) => {
+            return res.status(200).json(allowance)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error : 'fetching faild',
+                details : err.message
+            })
+        })
+}

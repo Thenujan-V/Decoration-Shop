@@ -148,3 +148,17 @@ export const sendSMS = async(id, datas) => {
         throw error
     }
 }
+
+export const getAllowance = async (order_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/getallowancedetails/${order_id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
