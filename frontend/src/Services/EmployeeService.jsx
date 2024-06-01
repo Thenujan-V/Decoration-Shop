@@ -78,13 +78,31 @@ export const statusUpdate = async(employee_id, order_id, status) => {
     }
 }
 
-export const getAllowanceDetails = async(employee_id) => {
+export const getAllowanceDetails = async(employee_id, order_id) => {
     try{
-        const response = await axios.get(`${BASR_API_URL}/employee/allowancedetails/${employee_id}`, {
+        const response = await axios.get(`${BASR_API_URL}/employee/allowancedetails/${employee_id}/${order_id}`, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
               },
         })
+    console.log('emp ;', response)
+
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const getAllAllowanceDetails = async(employee_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/employee/allallowancedetails/${employee_id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+    console.log('emp ;', response)
+
         return response
     }
     catch(error){

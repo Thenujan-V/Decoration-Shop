@@ -54,6 +54,11 @@ exports.getOrderDetails = (req, res) => {
 exports.showOrderDetails = (req, res) => {
     employeeModels.show_order_details(req.params.order_id)
         .then((detailsRes) => {
+            const fullUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+            detailsRes = detailsRes.map(service => ({
+                ...service,
+                photoUrl: fullUrl + service.photo
+            }));
             res.status(200).json(detailsRes)
         })
         .catch(err => {
@@ -64,7 +69,7 @@ exports.showOrderDetails = (req, res) => {
         })
 }
 exports.allowanceDetails = (req, res) => {
-    employeeModels.allowance_details(req.params.employee_id)
+    employeeModels.allowance_details(req.params.employee_id, req.params.order_id)
         .then((detailsRes) => {
             res.status(200).json(detailsRes)
         })
@@ -84,6 +89,19 @@ exports.allowanceStatusUpdate = (req, res) => {
         .catch(err => {
             res.status(500).json({
                 error: 'connot update status',
+                details: err.message
+            })
+        })
+}
+
+exports.allallowancesDetails = (req, res) => {
+    employeeModels.all_allowances_details(req.params.employee_id)
+        .then((detailsRes) => {
+            res.status(200).json(detailsRes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'connot get datas',
                 details: err.message
             })
         })

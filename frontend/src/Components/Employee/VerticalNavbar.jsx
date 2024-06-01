@@ -72,9 +72,7 @@ const VerticalNavbar = () => {
           </Link>
         </div>
           <div className='links'>
-            {/* <Link to='' className={`link ${isActive('/emphome')}`}><FontAwesomeIcon icon={faHouse} /> Home</Link> */}
             <Link to='/empdashboard' className={`link ${isActive('/empdashboard')}`}><FontAwesomeIcon icon={faGauge} /> Dashboard</Link>
-            {/* <Link to='' className={`link ${isActive('/empnotification')}`}><FontAwesomeIcon icon={faBell} /> Notifications</Link> */}
             <Link to='/empallowance' className={`link ${isActive('/empallowance')}`}><FontAwesomeIcon icon={faMoneyBill} /> Allowance</Link>
           </div>
           <div className='otherLinks'>

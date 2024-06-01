@@ -6,7 +6,7 @@ import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { allowance } from '../Styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../../Services/JwtToken';
-import { getAllowanceDetails, getEmployeeDetails, getOrders, updateAllowanceStatus } from '../../Services/EmployeeService';
+import { getAllAllowanceDetails, getAllowanceDetails, getEmployeeDetails, getOrders, updateAllowanceStatus } from '../../Services/EmployeeService';
 
 const Allowance = () => {
     const [user_Id, setuser_Id] = useState('')
@@ -56,7 +56,8 @@ const Allowance = () => {
     useEffect(() => {
         const fetchAllowances = async(empId) => {
             try{
-                const response = await getAllowanceDetails(empId)
+                const response = await getAllAllowanceDetails(empId)
+                console.log('allowance :', response.data)
                 setAllowanceReq(response.data)
             }
             catch(error){
@@ -122,7 +123,6 @@ const Allowance = () => {
                                     {allowance.allowance_status === '1' ? (
                                         <button
                                             className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(allowance.allowance_id, {allowance_status : '0', paid_amount: allowance.total_amount, balance_amount:0})}
                                         >
                                             <FontAwesomeIcon
                                                 icon={faCircleCheck}
@@ -133,7 +133,6 @@ const Allowance = () => {
                                     ) : (
                                         <button
                                             className="btn col-lg-3"
-                                            onClick={() => handleButtonClick(allowance.allowance_id, {allowance_status : '1', paid_amount: allowance.total_amount, balance_amount:0})}
                                         >
                                             <FontAwesomeIcon
                                                 icon={faCircle}

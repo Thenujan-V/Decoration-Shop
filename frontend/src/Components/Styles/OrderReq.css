@@ -17,7 +17,7 @@
     background-color: var(--delivered);
     margin: 0;
     padding: 20px;
-    width: 30vw;
+    /* width: 30vw; */
     border-radius: 40px;
     box-shadow: 3px 3px 10px black;
 }
@@ -37,7 +37,7 @@
 }
 .orderWorks .info{
     margin-top: 30px;
-    width: 30vw;
+    /* width: 30vw; */
     padding: 20px;
     border-radius: 30px;
 }
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction:row-reverse;
     gap: 40px;
-    padding-right: 20vw;
+    margin-top: 40px;
 }
 .orderWorks .buttons button{
     width: 13vw;
@@ -100,7 +100,7 @@
     border: 4px solid var(--headingGreen);
     border-radius: 20px;
 }
-.orderWorks .details .buttons form .form-control{
+/* .orderWorks .details .buttons form .form-control{
     background: none;
     border: none;
 }
@@ -117,4 +117,4 @@
 .orderWorks .details .buttons form .form-control button{
     color: var(--wheat);
     background-color: var(--background_blue);
-}
+} */

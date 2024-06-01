@@ -64,7 +64,7 @@ console.log('user_Id :', user_Id)
     },[empId])
 
      
-    const compeleted_works_count = orderReq.reduce((noOfCompleteWorks, work) => work.work_status === 'finished' ? noOfCompleteWorks + 1 : noOfCompleteWorks, 0)
+    const compeleted_works_count = orderReq.reduce((noOfCompleteWorks, work) => work.work_status === 'delivery processing' ? noOfCompleteWorks + 1 : noOfCompleteWorks, 0)
 
 
   return (
@@ -75,8 +75,8 @@ console.log('user_Id :', user_Id)
                 <div className="pending_works">
                     <h2>pending works</h2>
                         {
-                            orderReq &&  orderReq.map((work, index) => (
-                                work.task_acceptence === 1 && (work.work_status !== 'finished' && work.work_status !== 'delivery processing' )? (<div className="row work" key={index}>
+                            orderReq.length > 0 ?  orderReq.map((work, index) => (
+                                work.task_acceptence === 1 && (work.work_status !== 'delivery processing' ) && (<div className="row work" key={index}>
                                     <div className="col-lg-8">
                                         <p className='p-0 m-0'>order_id : {work.order_id}</p>
                                         <p className='status'>{work.status}</p>
@@ -84,22 +84,22 @@ console.log('user_Id :', user_Id)
                                     <div className="col-lg-4">
                                         <Link to={`/pending/${work.order_id}/${empId}`} className='link'>View</Link>
                                     </div>
-                                </div>):<p>No orders</p>
-                            ))
+                                </div>)
+                            )):<p>No orders</p>
                         }
                 </div>
                 <div className="order_req">
                     <h2>Order Requests</h2>
                     {
-                        orderReq &&  orderReq.map((order,index) => (
-                             order.task_acceptence === null ? (<div className="row work" key={index}>
+                        orderReq.length > 0 && orderReq.map((order,index) => (
+                             order.task_acceptence === null && (<div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {order.order_id}</p>
                                 </div>
                                 <div className="col-lg-4">
                                     <Link to={`/orders/${order.order_id}/${empId}`} className='link'>View</Link>
                                 </div>
-                            </div>):<p>No orders</p>
+                            </div>)
                             
                         ))
                     }
@@ -108,7 +108,7 @@ console.log('user_Id :', user_Id)
                     <h2>Completed Works</h2>
                     {
                         orderReq &&  orderReq.map((work, index) => (
-                            (work.work_status === 'finished' || work.work_status === 'delivery processing' )? (
+                            (work.work_status === 'delivery processing' ) && (
                             <div className="row work" key={index}>
                                 <div className="col-lg-8">
                                     <p className='p-0 m-0'>order_id : {work.order_id}</p>
@@ -116,7 +116,7 @@ console.log('user_Id :', user_Id)
                                 <div className="col-lg-4">
                                     <Link className='link'>View</Link>
                                 </div>
-                            </div>):<p>No orders</p>
+                            </div>)
                         ))
                     }
                 </div>
