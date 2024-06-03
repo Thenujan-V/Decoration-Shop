@@ -104,6 +104,8 @@ const AssignEmployee = () => {
             }
         }
     };
+    console.log('api :', apiResponse)
+    console.log('allo :', allowance)
 
     return (
         <div style={{ display: 'flex' }}>
@@ -140,12 +142,31 @@ const AssignEmployee = () => {
                             </div>
                             <div className="row">
                                 <div className="dates col-lg-6">
-                                    {apiResponse && apiResponse.length > 0 && allowance && allowance.length > 0 && (
+                                    {(apiResponse && apiResponse.length > 0) && (
                                         <div>
-                                            <p>Working Employee: {allowance[0].employee_id}</p>
-                                            <p>Task Acceptance: {allowance[0].task_acceptence === 1 ? 'Accept' : allowance[0].task_acceptence === 0 ? 'Not Accept' : 'Waiting'}</p>
-                                            <p>Allowance: {allowance[0].total_amount} LKR</p>
-                                            <p>Allowance Status: {allowance[0].allowance_status === '1' ? 'completed' : 'Not Completed'}</p>
+                                            <p>Working Employee: 
+                                                {   allowance && allowance.length > 0  ? 
+                                                        <Link to={`/viewemployee/${allowance[0].employee_id}`}> {allowance[0].employee_id}</Link>: ' Not Assignd Employee'
+                                                }
+                                            </p>
+                                            <p>Task Acceptance:
+                                                {
+                                                    allowance && allowance.length > 0 ?
+                                                    (allowance[0].task_acceptence === 1 ? ' Accept' : allowance[0].task_acceptence === 0 ? ' Not Accept' : ' Waiting') : ' Not Assignd Employee'
+
+                                                }
+                                            </p>
+                                            <p>Allowance: 
+                                                {
+                                                    allowance && allowance.length > 0 ? ` ${allowance[0].total_amount} LKR` : ' Not Allocate Allowance'
+                                                }
+                                            </p>
+                                            <p>Allowance Status: 
+                                                {
+                                                    allowance && allowance.length > 0 ?
+                                                    (allowance[0].allowance_status === '1' ? ' completed' : ' Not Completed'): ' Not Allocate Allowance'
+                                                }
+                                            </p>
                                             <p>Customer Payment Status: {apiResponse[0].payment_status}</p>
                                             <p>Working Status: {apiResponse[0].status}</p>
                                             <p>Ordered Date: {new Date(apiResponse[0].order_date).toLocaleDateString()}</p>
@@ -155,7 +176,7 @@ const AssignEmployee = () => {
                                 </div>
                                 <div className="buttons col-lg-6">
                                     {
-                                        allowance.length > 0 && allowance[0].task_acceptence === 0 ? (
+                                        allowance.length === 0 ? (
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-control">
                                                     <label htmlFor="emp">Select Employee</label>

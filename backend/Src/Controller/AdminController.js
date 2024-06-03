@@ -67,7 +67,7 @@ exports.showAllUsers = (req,res) => {
 }
 
 exports.showEmployeeDetails = (req,res) => {
-    adminModels.get_employee_details(req.params.user_Id)
+    adminModels.get_employee_details(req.params.employee_id)
         .then((response) => {
             res.status(200).json(response)
         })
@@ -147,6 +147,19 @@ exports.sendSMSToUsers = (req, res) => {
 
 exports.allowanceDetails = (req, res) => {
     adminModels.allowance_details(req.params.order_id)
+        .then((allowance) => {
+            return res.status(200).json(allowance)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error : 'fetching faild',
+                details : err.message
+            })
+        })
+}
+
+exports.assignedOrders = (req, res) => {
+    adminModels.assigned_orders()
         .then((allowance) => {
             return res.status(200).json(allowance)
         })

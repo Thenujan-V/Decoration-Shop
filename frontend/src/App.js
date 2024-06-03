@@ -25,7 +25,6 @@ import CustomerMgt from './Components/Admin/CustomerMgt'
 import ViewCustomer from './Components/Admin/ViewCustomer'
 import Review from './Pages/Review'
 import ReviewCheck from './Components/Admin/ReviewCheck'
-import ViewReview from './Components/Admin/ViewReview'
 import Signin from './Pages/Signin'
 import SelectPayment from './Pages/SelectPayment'
 import AddEmployee from './Components/Admin/AddEmployee'
@@ -71,7 +70,6 @@ const App = () => {
         <Route path='/viewCustomer/:user_Id' element={<ViewCustomer />} />
         <Route path='/review' element={<Review />} />
         <Route path='/reviewCheck' element={<ReviewCheck />} />
-        <Route path='/viewReview/:cust_id' element={<ViewReview />} />
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />
         <Route path='/questions' element={<Questions />} />

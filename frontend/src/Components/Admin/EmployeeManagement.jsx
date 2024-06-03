@@ -47,11 +47,11 @@ const EmployeeManagement = () => {
                                     <p>{employee.user_name.charAt(0).toUpperCase()}</p>
                                 </div>
                             </div>
-                            <p>Employee Id - {employee.user_Id}</p>
+                            <p>Employee Id - {employee.employee_id}</p>
                             <p>Employee Name - {employee.first_name}</p>
                             <p>Contact No - {employee.contact_no}</p>
                             <div className="btnn">
-                                <Link to={`/viewemployee/${employee.user_Id}`} className='btn'>View</Link>
+                                <Link to={`/viewemployee/${employee.employee_id}`} className='btn'>View</Link>
                             </div>
                         </div>
                     ))

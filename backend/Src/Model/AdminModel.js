@@ -128,10 +128,10 @@ admins.get_all_users_details = () => {
     })
 }
 
-admins.get_employee_details = (user_Id) => {    
+admins.get_employee_details = (employee_id) => {    
     return new Promise((resolve, reject) => {
-        const sql = `select * from user join employee on user.user_Id = employee.user_Id where user.user_Id = ?`
-        dbConnection.execute(sql, [user_Id], (err, res) => {
+        const sql = `select * from user join employee on user.user_Id = employee.user_Id where employee.employee_id = ?`
+        dbConnection.execute(sql, [employee_id], (err, res) => {
             if(err){
                 
                 reject(err)
@@ -272,6 +272,22 @@ admins.allowance_details = (order_id) => {
         })
     })
 }
+
+admins.assigned_orders = () => {    
+    return new Promise((resolve, reject) => {
+        const sql = `select * from emp_order`
+        dbConnection.execute(sql, (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
+
+
 
 
 

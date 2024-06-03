@@ -162,3 +162,17 @@ export const getAllowance = async (order_id) => {
         throw error
     }
 }
+
+export const showAssignedOrders = async () => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/admin/showassignedorders`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

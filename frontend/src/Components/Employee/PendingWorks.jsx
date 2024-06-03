@@ -74,7 +74,7 @@ const PendingWorks = () => {
         <div style={{display:'flex'}}>
             <VerticalNavbar />
             <div className='container pendingWorks' style={{flex:1}}>
-                <h1>PENDING ORDERS ({order_id})</h1>
+                <h1>PENDING ORDERS (ORDER_ID: {order_id})</h1>
                 <div className='row'>
                     <div className="col-7 details">
                             {
@@ -135,7 +135,10 @@ const PendingWorks = () => {
                         {
                             allowance.length > 0 && (
                                 <>
-                                    <p className='date'>DEADLINE - {new Date(pendingWorks[0].deadline).toLocaleDateString()}</p>
+                                    <p className='date'>DEADLINE - 
+                                        {   pendingWorks && pendingWorks.length > 0 &&
+                                            new Date(pendingWorks[0].deadline).toLocaleDateString()
+                                        }</p>
                                     <p className='allowance'>Allowance - {allowance[0].total_amount} LKR</p>
                                 </>
                             )

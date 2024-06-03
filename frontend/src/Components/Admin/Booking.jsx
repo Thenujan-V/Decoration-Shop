@@ -63,7 +63,7 @@ console.log('soid : ',selectedOrderId)
                         {
                             apiReq && apiReq.map((order, index) => (
                                 <div className="row">
-                                    <p className='col-lg-3'>ORDER_ID {order.order_id}</p>
+                                    <p className='col-lg-3'>ORDER_ID {order.order_id}</p>   
                                     <p className='col-lg-3'>{order.status}</p>
                                     <div className='col-lg-3 text-center'>
                                         <Link to={`/employeeassign/${order.order_id}`} className='btn button' >View</Link>

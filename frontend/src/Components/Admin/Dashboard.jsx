@@ -3,6 +3,8 @@ import AdminVerticalNav from './AdminVerticalNav'
 import { changeAvailability, fetchServiceDetails, fetchServices } from '../../Services/ProductsService'
 import { Link, useNavigate } from 'react-router-dom'
 import { retrieveToken } from '../../Services/JwtToken'
+import { getAllOrders } from '../../Services/OrderService'
+import { showAssignedOrders } from '../../Services/AdminServices'
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -19,7 +21,10 @@ const Dashboard = () => {
 
     const [fetchAllServices, setFetchAllServices] = useState([])
     const [apiResponse, setApiResponse] = useState([])
-
+    const [deliveryNos, setDeliveryNos] = useState([])
+    const [noOfOrders, setNoOfOrders] = useState([])
+    const [noOfAssignedOrders, setNoOfAssignedOrders] = useState([])
+    
     useEffect(() => {
        const fetchAllServices = async() => {
             try{
@@ -31,12 +36,39 @@ const Dashboard = () => {
             }               
        }
        fetchAllServices()
+
+       const getOrders = async () => {
+            try{
+                const response = await getAllOrders()
+                setNoOfOrders(response.data.length)
+            }
+            catch(error){
+                console.log('fetch services error :', error)
+            }  
+       }
+       getOrders()
+
+
+       const assignedOrders = async () => {
+        try{
+            const response = await showAssignedOrders()
+            setNoOfAssignedOrders(response.data.length)
+
+            const noOfToDeliver = response.data.reduce((acc, order) => order.work_status === 'delivery processing' ? acc + 1 : acc, 0)
+            console.log('noonf :', noOfToDeliver)
+            setDeliveryNos(noOfToDeliver)
+        }
+            catch(error){
+                console.log('fetch services error :', error)
+            }  
+        }
+        assignedOrders()
+
     }, [])
 
     const handleAvailablity = async (serviceId) => {
         try{
             const response = await changeAvailability(serviceId)
-            console.log('respo :', response.data)
             setApiResponse(response.data)
             window.location.reload()
         }
@@ -44,6 +76,7 @@ const Dashboard = () => {
             console.log('error occur when change availability: ', error)
         }
     }
+
     
   return (
     <div style={{display:'flex'}}>
@@ -54,13 +87,13 @@ const Dashboard = () => {
                     <div className="col-lg-6">
                         <div className='orders'>
                             <p>new orders</p>
-                            <p>07</p>
+                            <p>{noOfOrders - noOfAssignedOrders}</p>
                         </div>
                     </div>
                     <div className="col-lg-6">
                         <div className='delivery'>
                             <p>to deliver</p>
-                            <p>05</p>
+                            <p>{deliveryNos}</p>
                         </div>
                     </div>
                 </div>

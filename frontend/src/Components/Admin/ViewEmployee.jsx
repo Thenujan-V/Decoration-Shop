@@ -19,7 +19,7 @@ const ViewEmployee = () => {
     }, [decoded])
 
     const Id = useParams()
-    const user_Id = Id.user_Id
+    const user_Id = Id.employee_id
     
     const [getEmployee, setGetEmployee] = useState([])
     const [apiResponse, setApiResponse] = useState([])

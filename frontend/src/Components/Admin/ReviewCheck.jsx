@@ -55,7 +55,6 @@ const ReviewCheck = () => {
                                         <span
                                             key={star}
                                             style={{
-                                                cursor: 'pointer',
                                                 fontSize: '24px',
                                             }}
                                         >   
@@ -66,7 +65,8 @@ const ReviewCheck = () => {
                                             />
                                         </span>
                                     ))}
-                                </div>  
+                                </div>
+                                <p className='col-lg-3 col-md-3 col-3' style={{fontSize:'16px', fontWeight:'normal'}}>{review.review ? review.review : 'No Reviews'}</p>
                                 <Link className='btn col-lg-2 col-md-3 col-3 delete'>delete</Link>
                             </div>
                         ))
