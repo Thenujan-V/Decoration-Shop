@@ -55,8 +55,9 @@ const OrderReq = () => {
         console.log(employee_id,  order_id, data)
         try{
             const response = await taskAcceptence(employee_id, order_id, data)
-            console.log('update res :', response)
             setAcceptRes(response.data)
+            alert(`${data.task_acceptence === '1' ? 'Accept Order' : 'Reject Order'}`)
+            navigate('/empdashboard')
         }
         catch(error){
             console.log('error update :',error.response.data)
