@@ -7,6 +7,7 @@ import { retrieveToken } from '../../Services/JwtToken';
 import { getUserDetails } from '../../Services/UserService';
 import { assingEmployee } from '../Styles'; 
 import { all } from 'axios';
+import { toast } from 'react-toastify';
 
 const AssignEmployee = () => {
     const params = useParams();
@@ -94,18 +95,31 @@ const AssignEmployee = () => {
             try {
                 const response = await asignEmployee(data);
                 setAsignEmpRes(response);
-                alert('Successfully assigned employee for this order');
+                toast.success('Successfully assigned employee for this order', {
+                     autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
 
             } catch (error) {
                 if (error.response.status === 500) {
-                    alert('Already assigned employee for this order');
+                    toast.error('Already assigned employee for this order', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
                 }
                 console.log('Assign employee error:', error);
             }
         }
     };
-    console.log('api :', apiResponse)
-    console.log('allo :', allowance)
+   
 
     return (
         <div style={{ display: 'flex' }}>

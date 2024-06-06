@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addServices } from '../../Services/ProductsService';
 import AdminVerticalNav from './AdminVerticalNav';
+import { toast } from 'react-toastify';
 
 const AddServices = () => {
     const[apiResponse, setApiResponse] = useState([])
@@ -44,11 +45,26 @@ const AddServices = () => {
 
             const response = await addServices(formData);
             setApiResponse(response.body);
-            alert('product add successfully')
+            toast.success('product add successfully', {
+               autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            })
             window.location.reload()
         }
     } catch (error) {
         console.log('Adding services error:', error);
+        toast.error('Service adding failed. ', {
+           autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
     }
 };
   

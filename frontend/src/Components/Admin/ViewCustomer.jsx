@@ -4,6 +4,7 @@ import AdminVerticalNav from './AdminVerticalNav';
 import { showUserDetail } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
 import { deleteAccount } from '../../Services/UserService';
+import { toast } from 'react-toastify';
 
 const ViewCustomer = () => {
     const navigate = useNavigate()
@@ -43,11 +44,26 @@ const ViewCustomer = () => {
         try{
           const response = deleteAccount(user_Id)
           setApiResponse(response.data)
-          alert('deleted employee')
+          toast.success('deleted employee', {
+             autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
             window.location.reload()
         }
         catch(error){
           console.log('error occur :', error)
+          toast.error('user delete failed.', {
+             autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         }
       };
 

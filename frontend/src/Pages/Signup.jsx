@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { userSignup } from '../Services/UserService';
 import { retrieveToken } from '../Services/JwtToken';
 import { sign } from '../Components/Styles';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -80,14 +82,39 @@ const Signup = () => {
             try {
                 const response = await userSignup(formData);
                 if (response === 201) {
-                    alert('You are registered successfully');
+                    toast.success('You are registered successfully', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
                     navigate('/signin');
                 } else {
-                    alert('Wrong data, please try again.');
+                    toast.error('Wrong data, please try again.', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
                 }
             } catch (error) {
+                toast.error('Error occurred, please try again later.', {
+                     autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
                 console.log('Error occurred:', error);
             }
+        }
+        else {
+            toast.error('Validation failed, please check your input.');
         }
     };
 

@@ -6,6 +6,7 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { addReview } from '../Services/ReviewService';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
+import { toast } from 'react-toastify';
 
 
 const Review = () => {
@@ -44,7 +45,14 @@ const Review = () => {
       }
       const response = await addReview(reviewData)
       if(response === 201){
-        alert('review add successfully')
+        toast.success('review add successfully', {
+           autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       }
       setApiResponse(response)
       navigater('/')

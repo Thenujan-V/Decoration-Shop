@@ -55,7 +55,6 @@ const Dashboard = () => {
             setNoOfAssignedOrders(response.data.length)
 
             const noOfToDeliver = response.data.reduce((acc, order) => order.work_status === 'delivery processing' ? acc + 1 : acc, 0)
-            console.log('noonf :', noOfToDeliver)
             setDeliveryNos(noOfToDeliver)
         }
             catch(error){

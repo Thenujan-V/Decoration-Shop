@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getAllowanceDetails, getOrderDetails, taskAcceptence } from '../../Services/EmployeeService'
 import { retrieveToken } from '../../Services/JwtToken'
 import { all } from 'axios'
+import { toast } from 'react-toastify'
 
 const OrderReq = () => {
     const navigate = useNavigate()
@@ -56,11 +57,26 @@ const OrderReq = () => {
         try{
             const response = await taskAcceptence(employee_id, order_id, data)
             setAcceptRes(response.data)
-            alert(`${data.task_acceptence === '1' ? 'Accept Order' : 'Reject Order'}`)
+            toast.success(`${data.task_acceptence === '1' ? 'Accept Order' : 'Reject Order'}`, {
+                 autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
             navigate('/empdashboard')
         }
         catch(error){
             console.log('error update :',error.response.data)
+            toast.error('update error', {
+                 autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
         }
     }
 

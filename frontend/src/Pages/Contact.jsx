@@ -4,6 +4,8 @@ import Navbar from '../Components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../Services/JwtToken';
 import {addQuestions} from '../Services/UserService'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
   const navigater = useNavigate()
@@ -43,7 +45,14 @@ const Contact = () => {
       const response = await addQuestions(formData)
       console.log('contact ')
       setApiResponse(response.data)
-      alert('your message send')
+      toast.success('your message send', {
+         autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
       window.location.reload()
 
     }

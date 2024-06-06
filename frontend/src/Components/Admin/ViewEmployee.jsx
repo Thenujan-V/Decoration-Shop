@@ -4,6 +4,7 @@ import AdminVerticalNav from './AdminVerticalNav';
 import { showEmployeeDetail } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
 import { deleteAccount } from '../../Services/UserService';
+import { toast } from 'react-toastify';
 
 const ViewEmployee = () => {
     const navigate = useNavigate()
@@ -18,8 +19,14 @@ const ViewEmployee = () => {
         }
     }, [decoded])
 
+    const[user_Id, setUser_Id] = useState('')
     const Id = useParams()
-    const user_Id = Id.employee_id
+    useEffect(() => {
+        if(Id.employee_id){
+            setUser_Id(Id.employee_id)
+        }
+    },[Id])
+
     
     const [getEmployee, setGetEmployee] = useState([])
     const [apiResponse, setApiResponse] = useState([])
@@ -35,19 +42,33 @@ const ViewEmployee = () => {
             }
         }
         fetchEmployee(user_Id)
-    },[])
-    console.log('ok :',getEmployee)
+    },[user_Id])
 
 
     const handleDeleteAccount = (user_Id) => {
         try{
           const response = deleteAccount(user_Id)
           setApiResponse(response.data)
-          alert('deleted employee')
+          toast.success('deleted employee', {
+             autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
             window.location.reload()
         }
         catch(error){
           console.log('error occur :', error)
+          toast.error('user delete failed.', {
+             autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         }
       };
 

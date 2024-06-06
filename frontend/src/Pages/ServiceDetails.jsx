@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { fetchServiceDetails } from '../Services/ProductsService'
 import { retrieveToken } from '../Services/JwtToken'
 import { addToCard } from '../Services/CardServices'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const ServiceDetails = () => {    
     const navigate = useNavigate()
@@ -58,16 +60,37 @@ const ServiceDetails = () => {
                 }
                 const response = await addToCard(formData)
                 if(response.status === 201){
-                    alert('item successfully added to card')
+                    toast.success('item successfully added to card', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                     setCardResponse(response)
                 }
                 else{
-                    alert('some error try again')
+                    toast.error('some error try again', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                 }
             }
             catch(error){
                 if(error.response.status === 409){
-                    alert('item already added to card')
+                    toast.error('item already added to card', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                 }
                 console.log('error occur',error)
             }

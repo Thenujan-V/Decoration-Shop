@@ -34,12 +34,14 @@ import Unauthorized from './Components/Unauthorized'
 import UserProfile from './Pages/UserProfile'
 import AddServices from './Components/Admin/AddServices'
 import ViewEmpOrders from './Components/Admin/ViewEmpOrders'
+import { ToastContainer } from 'react-toastify';
 
 
 const App = () => {
   return (
     <>
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/service" element={<Services />} />
@@ -62,7 +64,7 @@ const App = () => {
         <Route path='/booking' element={<Booking />} />
         <Route path='/employeeassign/:order_id' element={<AssignEmployee />} />
         <Route path='/employeeManagement' element={<EmployeeManagement />} />
-        <Route path='/viewemployee/:user_Id' element={<ViewEmployee />} />
+        <Route path='/viewemployee/:employee_id' element={<ViewEmployee />} />
         <Route path='/vieworders/:user_Id' element={<ViewOrders />} />
         <Route path='/viewemporders/:emp_id' element={<ViewEmpOrders />} />
         <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
@@ -79,6 +81,8 @@ const App = () => {
         
         {/* <Route path="/contact" element={<ContactPage />} /> */}
       </Routes>
+      <ToastContainer />
+
     </>
   )
 }

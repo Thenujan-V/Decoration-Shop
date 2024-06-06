@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signin } from '../Components/Styles';
 import { userSignin } from '../Services/UserService';
 import { retrieveToken } from '../Services/JwtToken';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Signin = () => {
@@ -39,7 +41,14 @@ const Signin = () => {
                 const response  = await userSignin(formData)
                 
                 if(response.status === 200){
-                    alert('you are login successfully')
+                    toast.success('you are login successfully', {
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                     const token = response.data.jwtToken
                     localStorage.setItem('token' , token)
                     const decodedToken = retrieveToken()
@@ -54,13 +63,27 @@ const Signin = () => {
                     }
                 }
                 else{
-                    alert('wrong datas please try again...!')
+                    toast.error('wrong datas please try again...!', {
+                        autoClose: 5000, 
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                 }
             }
             catch(error){
                 console.log('error occur : ',error)
                 if(error.response.status === 401 || error.response.status === 404){
-                    alert('wrong email or password try again')
+                    toast.error('wrong datas please try again...!', {
+                        autoClose: 5000, 
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      })
                 }
             }
         }
@@ -101,6 +124,7 @@ const Signin = () => {
             <button className='btn signin mt-4' type="submit">Sign In</button>
         </form>
     </div>
+
     </>
     
   )

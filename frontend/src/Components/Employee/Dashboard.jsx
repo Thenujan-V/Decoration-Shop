@@ -23,7 +23,7 @@ const Dashboard = () => {
         else{
             navigate('/signin')
         }
-    }, [])
+    }, [decodedToken])
 
     const [pendingWorks, setPendingWorks] = useState([])
     const [orderReq, setOrderReq] = useState([])
