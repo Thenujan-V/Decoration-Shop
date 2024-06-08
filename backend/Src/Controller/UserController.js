@@ -64,12 +64,15 @@ exports.showDetails = (req, res) => {
 
 }
 
-exports.askQuestions = (req, res) => {
+exports.askQuestions = (req, res) => {    
     userModels.ask_questions(req.body)
         .then((detailsRes) => {
+            console.log('res :',detailsRes)
             return res.status(201).json(detailsRes)
         })
         .catch(err => {
+            console.log('err :',err)
+
             return res.status(500).json({
                 error: 'connot add data',
                 details: err.message

@@ -34,7 +34,7 @@ const Navbar = () => {
                         <Link to='/' class="nav-link p-3 Link" >Home</Link>
                         <Link to='/about' class="nav-link p-3 Link" >About</Link>
                         <Link to='/service' class="nav-link p-3 Link">Services</Link>
-                        <Link to='/contact' class="nav-link p-3 Link">Contact us</Link>
+                        <Link to={user_id ? '/contact' : '/signin'} class="nav-link p-3 Link">Contact us</Link>
                         <Link to='/signup' class="nav-link p-3 Link">Signup/Signin</Link>
                     </div>
                     <div id='userIcon'>                        

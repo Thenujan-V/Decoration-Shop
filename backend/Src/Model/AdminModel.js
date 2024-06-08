@@ -224,8 +224,8 @@ admins.employee_asign = (data) => {
 
 admins.get_questions = () => {    
     return new Promise((resolve, reject) => {
-        const sql = `select * from contactus c join user u on c.user_Id = u.user_Id`
-        dbConnection.execute(sql, (err, res) => {
+        const sql = `select * from notification n join user_notification u on u.notification_id = n.notification_id where n.reply_send = ?`
+        dbConnection.execute(sql, [0], (err, res) => {
             if(err){
                 reject(err)
             }

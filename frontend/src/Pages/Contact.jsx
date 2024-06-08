@@ -32,6 +32,12 @@ const Contact = () => {
   const [message, setMessage] = useState('');
   const [apiResponse, setApiResponse] = useState('')
 
+  const handleClear = () => {
+    setuser_name('');
+    setmail_id('');
+    setMessage('');
+  }
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = {
@@ -53,7 +59,7 @@ const Contact = () => {
         draggable: true,
         progress: undefined,
       })
-      window.location.reload()
+      handleClear()
 
     }
     catch(error){

@@ -27,7 +27,7 @@ const Questions = () => {
         const fetchQuestions = async() => {
             try{
                 const response = await getQuestionsFromUsers();
-                console.log(response.data)
+                console.log('que :',response.data)
                 setQuestions(response.data)
             }
             catch(error){
@@ -74,7 +74,8 @@ const Questions = () => {
                     <div className="card mb-3" key={question.user_Id}>
                         <div className="card-body">
                         <h5 className="card-title">Question from {question.user_name}</h5>
-                        <p className="card-text"> -- {question.message}</p>
+                        <h5 className="card-title">{question.email}</h5>
+                        <p className="card-text"> Message -- {question.content}</p>
                         <div className="form-group">
                             <label htmlFor={`answer-${question.id}`}>Your Answer</label>
                             <input

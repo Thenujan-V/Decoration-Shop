@@ -73,8 +73,8 @@ users.show_user_details = (user_Id) => {
 
 users.ask_questions = (datas) => {
     return new Promise((resolve, reject) => {
-        const sql = `insert into notification (notification_type, recipien, content) values (?, ?, ?)`
-        const [result] = dbConnection.execute(sql, ['message', 'admin', datas.message], (err, res) => {
+        const sql = `insert into notification (notification_type, recipien, content, email, user_name) values (?, ?, ?, ?, ?)`
+        dbConnection.execute(sql, ['message', 'admin', datas.message, datas.mail_id, datas.user_name], (err, res) => {
             if(err){
                 reject(err)
             }
@@ -85,7 +85,6 @@ users.ask_questions = (datas) => {
                         reject(error)
                     }
                     else{
-                        console.log(response[0].notification_id)
                         const sql2 = `insert into user_notification (notification_id, user_Id) values (?, ?)`
                         dbConnection.execute(sql2, [response[0].notification_id, datas.user_Id], (err, res) => {
                             if(err){
