@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
 import { getOrdersDetails } from '../../Services/OrderService';
-import { asignEmployee, getAllEmployees, getAllowance } from '../../Services/AdminServices';
+import { asignEmployee, getAllEmployees, getAllowance, updateDeliveryStatus } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
 import { getUserDetails } from '../../Services/UserService';
 import { assingEmployee } from '../Styles'; 
@@ -120,6 +120,17 @@ const AssignEmployee = () => {
         }
     };
    
+    const handleDelivery = async() => {
+        const data = {
+            status : 'delivered'
+        }
+        try{
+            await updateDeliveryStatus(data, order_id)
+        }
+        catch(error){
+            console.log('error :', error)
+        }
+    }
 
     return (
         <div style={{ display: 'flex' }}>
@@ -221,6 +232,11 @@ const AssignEmployee = () => {
                                                 </div>
                                             </form> 
                                         ): null
+                                    }
+                                </div>
+                                <div>
+                                    { apiResponse && apiResponse.length > 0 && apiResponse[0].status === 'delivery processing' &&
+                                        <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'#03044F'}}>if complte delivery process click this <button className='btn btn-success' onClick={handleDelivery}>Delivery Completed</button></p>
                                     }
                                 </div>
                             </div>

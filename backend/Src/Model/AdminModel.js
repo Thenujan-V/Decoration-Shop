@@ -287,6 +287,19 @@ admins.assigned_orders = () => {
     })
 }
 
+admins.delivery_update = (data, order_id) => {    
+    return new Promise((resolve, reject) => {
+        const sql = `update order_table set status = ? where order_id = ?`
+        dbConnection.execute(sql,[data.status, order_id], (err, res) => {
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+}
 
 
 

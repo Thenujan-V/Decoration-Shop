@@ -15,6 +15,7 @@ router.post('/asignemp',adminController.asignEmp)
 router.get('/getallowancedetails/:order_id',adminController.allowanceDetails)
 router.get('/getquestions',adminController.getQuestions)
 router.get('/showassignedorders',adminController.assignedOrders)
+router.put('/deliveryupdate/:order_id',adminController.deliveryUpdate)
 
 // SMS SEND USERS WITH Twilio
 router.post('/questions/:id/answer',adminController.sendSMSToUsers)

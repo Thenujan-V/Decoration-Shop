@@ -171,3 +171,16 @@ exports.assignedOrders = (req, res) => {
             })
         })
 }
+
+exports.deliveryUpdate = (req, res) => {
+    adminModels.delivery_update(req.body, req.params.order_id)
+        .then((allowance) => {
+            return res.status(200).json(allowance)
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                error : 'update faild',
+                details : err.message
+            })
+        })
+}

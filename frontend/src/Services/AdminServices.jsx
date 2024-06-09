@@ -176,3 +176,18 @@ export const showAssignedOrders = async () => {
         throw error
     }
 }
+
+
+export const updateDeliveryStatus = async (data, order_id) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/admin/deliveryupdate/${order_id}`, data, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
