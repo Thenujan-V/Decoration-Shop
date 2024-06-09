@@ -9,7 +9,7 @@ router.get('/vieworders/:user_Id', verifyToken, checkRole(['user', 'admin']), or
 router.get('/viewallorders', verifyToken, checkRole(['user', 'admin']), orderController.viewAllOrders)
 router.get('/getleastorder/:user_Id', verifyToken, checkRole(['user', 'admin']), orderController.getLeastOrder)
 router.get('/getorderdetails/:order_id', verifyToken, checkRole(['user', 'admin', 'employee']), orderController.viewOrdersDetails)
-router.put('/updatepaymentstatus/:order_id', verifyToken, checkRole(['user']), orderController.updatePaymentStatus)
+router.put('/updatepaymentstatus/:order_id', verifyToken, checkRole(['user', 'admin']), orderController.updatePaymentStatus)
 
 
 

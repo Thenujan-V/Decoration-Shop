@@ -6,7 +6,6 @@ const BASR_API_URL = `http://localhost:3500/api`
 const jwtToken = getToken()
 
 export const addToOrder = async (formData) => {
-    console.log('fd :',formData)
     try{
         const response = await axios.post(`${BASR_API_URL}/order/placeorder`, formData, {
             headers: {
@@ -79,7 +78,6 @@ export const getOrdersDetails = async (order_id) => {
 
 export const updatePaymentStatus = async (data) => {
     try{
-        console.log('data :',data)
         const response = await axios.put(`${BASR_API_URL}/order/updatepaymentstatus/${data.order_id}`, data, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,

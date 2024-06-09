@@ -96,6 +96,24 @@ payments.add_payment = (paymentData) => {
     })
 }
 
+payments.payment_details = (order_id) => {
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `select * from payments where order_id = ?`
+            dbConnection.execute(sql, [order_id], (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    resolve(res)
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
 
 
 

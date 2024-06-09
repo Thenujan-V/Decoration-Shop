@@ -12,7 +12,6 @@ export const addPaymentMethod = async (paymentData) => {
                 Authorization: `Bearer ${jwtToken}`,
               },
         })
-        console.log(response)
         return response
     }
     catch(error){
@@ -27,7 +26,20 @@ export const addPayment = async (paymentData) => {
                 Authorization: `Bearer ${jwtToken}`,
               },
         })
-        console.log('res :',response)
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}
+
+export const paymentdetails = async (order_id) => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/payment/paymentdetails/${order_id}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
         return response
     }
     catch(error){

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminVerticalNav from './AdminVerticalNav';
-import { getOrdersDetails } from '../../Services/OrderService';
+import { getOrdersDetails, updatePaymentStatus } from '../../Services/OrderService';
 import { asignEmployee, getAllEmployees, getAllowance, updateDeliveryStatus } from '../../Services/AdminServices';
 import { retrieveToken } from '../../Services/JwtToken';
 import { getUserDetails } from '../../Services/UserService';
-import { assingEmployee } from '../Styles'; 
+import { assingEmployee, payment } from '../Styles'; 
 import { all } from 'axios';
 import { toast } from 'react-toastify';
+import { addPayment, paymentdetails } from '../../Services/PaymentsService';
 
 const AssignEmployee = () => {
     const params = useParams();
@@ -31,7 +32,8 @@ const AssignEmployee = () => {
     const [selectedEmployee, setSelectedEmployee] = useState('');
     const [customer, setCustomer] = useState();
     const [allowance, setAllowance] = useState('')
-
+    const [payments, setPayments] = useState('')
+    
     useEffect(() => {
         const fetchDatas = async (order_id) => {
             try {
@@ -53,6 +55,16 @@ const AssignEmployee = () => {
             }
         };
         getEmpAllowance(order_id);
+
+        const paymentsDetails = async (order_id) => {
+            try {
+                const response = await paymentdetails(order_id);
+                setPayments(response.data);
+            } catch (error) {
+                console.log('allowance details fetching error:', error);
+            }
+        }
+        paymentsDetails(order_id)
 
     }, [order_id]);
 
@@ -119,6 +131,7 @@ const AssignEmployee = () => {
             }
         }
     };
+
    
     const handleDelivery = async() => {
         const data = {
@@ -126,6 +139,27 @@ const AssignEmployee = () => {
         }
         try{
             await updateDeliveryStatus(data, order_id)
+
+            const response = await getOrdersDetails(order_id);
+            setApiResponse(response.data);
+        }
+        catch(error){
+            console.log('error :', error)
+        }
+    }
+
+    const handlePayment = async() => {
+        const data = {
+            paid_amount : payments && payments.length > 0 && payments[0].total_amount,
+            order_id : order_id,
+            payment_status : 'completed'
+        }
+        try{
+            await addPayment(data)
+            await updatePaymentStatus(data)
+
+            const response = await getOrdersDetails(order_id);
+            setApiResponse(response.data);
         }
         catch(error){
             console.log('error :', error)
@@ -192,6 +226,8 @@ const AssignEmployee = () => {
                                                     (allowance[0].allowance_status === '1' ? ' completed' : ' Not Completed'): ' Not Allocate Allowance'
                                                 }
                                             </p>
+                                            <p>Customer Total Payment: {payments && payments.length > 0 && payments[0].total_amount} LKR</p>
+                                            <p>Customer Payment Method: {payments && payments.length > 0 && payments[0].method}</p>
                                             <p>Customer Payment Status: {apiResponse[0].payment_status}</p>
                                             <p>Working Status: {apiResponse[0].status}</p>
                                             <p>Ordered Date: {new Date(apiResponse[0].order_date).toLocaleDateString()}</p>
@@ -235,8 +271,10 @@ const AssignEmployee = () => {
                                     }
                                 </div>
                                 <div>
-                                    { apiResponse && apiResponse.length > 0 && apiResponse[0].status === 'delivery processing' &&
-                                        <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'#03044F'}}>if complte delivery process click this <button className='btn btn-success' onClick={handleDelivery}>Delivery Completed</button></p>
+                                    { apiResponse && apiResponse.length > 0 && apiResponse[0].payment_status === 'payment pending' ? (
+                                            <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'#03044F'}}>if complete payment process? click this <button className='btn btn-success' onClick={handlePayment}>Payment Completed</button></p>
+                                        ): apiResponse.length > 0 && apiResponse[0].status === 'delivery processing' ? (
+                                        <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'rgb(10, 101, 71)'}}>if complete delivery process? click this <button className='btn btn-info' onClick={handleDelivery}>Delivery Completed</button></p> ):''
                                     }
                                 </div>
                             </div>

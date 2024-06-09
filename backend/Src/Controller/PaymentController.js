@@ -25,3 +25,16 @@ exports.addPayment = (req, res) => {
             })
         })
 }
+
+exports.paymentDetails = (req, res) => {
+    paymentModel.payment_details(req.params.order_id)
+        .then((paymentRes) => {
+            return res.status(201).send(paymentRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'fetching failed',
+                details : err.message
+            })
+        })
+}
