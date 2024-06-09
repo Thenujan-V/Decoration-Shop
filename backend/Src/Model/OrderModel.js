@@ -167,6 +167,29 @@ order.update_payment_status = (order_id, datas) => {
 }
 
 
+order.least_delivered = () => {
+    return new Promise((resolve, reject) => {
+        try{
+            const sql = `select * from order_table order by delivery_date asc limit 1`
+            dbConnection.execute(sql, (err, res) => {
+                if(err){
+                    reject(err)
+                }
+                else{
+                    console.log('deld :', res)
+                    resolve(res)
+                }
+            })
+        }
+        catch(error){
+            reject(error)
+        }
+    })
+}
+
+
+
+
 
 
 module.exports = order

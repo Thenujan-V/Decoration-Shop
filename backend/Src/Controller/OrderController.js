@@ -81,3 +81,16 @@ exports.updatePaymentStatus = (req, res) => {
             })
         })      
 }
+
+exports.leastDelivered = (req, res) => {
+    orderModel.least_delivered()
+     .then((orderRes) => {
+        return res.status(200).send(orderRes)
+        })
+        .catch((err) => {
+            return res.status(501).json({
+                error : 'order fetching faild',
+                dettails : err.message
+            })
+        })      
+}

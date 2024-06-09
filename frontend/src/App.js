@@ -35,6 +35,7 @@ import UserProfile from './Pages/UserProfile'
 import AddServices from './Components/Admin/AddServices'
 import ViewEmpOrders from './Components/Admin/ViewEmpOrders'
 import { ToastContainer } from 'react-toastify';
+import ParentComponent from './Pages/ParentComponent'
 
 
 const App = () => {
@@ -70,7 +71,7 @@ const App = () => {
         <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
         <Route path='/customerMgt' element={<CustomerMgt />} />
         <Route path='/viewCustomer/:user_Id' element={<ViewCustomer />} />
-        <Route path='/review' element={<Review />} />
+        <Route path='/review' element={<ParentComponent />} />
         <Route path='/reviewCheck' element={<ReviewCheck />} />
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />

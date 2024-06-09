@@ -53,15 +53,25 @@ const Dashboard = () => {
         try{
             const response = await showAssignedOrders()
             setNoOfAssignedOrders(response.data.length)
-
-            const noOfToDeliver = response.data.reduce((acc, order) => order.work_status === 'delivery processing' ? acc + 1 : acc, 0)
-            setDeliveryNos(noOfToDeliver)
         }
             catch(error){
                 console.log('fetch services error :', error)
             }  
         }
         assignedOrders()
+
+        const toDeliverd = async () => {
+            try{
+                const response = await getAllOrders()
+    
+                const noOfToDeliver = response.data.reduce((acc, order) => order.status === 'delivery processing' ? acc + 1 : acc, 0)
+                setDeliveryNos(noOfToDeliver)
+            }
+                catch(error){
+                    console.log('fetch services error :', error)
+                }  
+            }
+            toDeliverd()
 
     }, [])
 

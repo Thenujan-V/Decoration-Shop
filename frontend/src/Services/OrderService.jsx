@@ -89,3 +89,18 @@ export const updatePaymentStatus = async (data) => {
         throw error
     }
 }
+
+
+export const getLeastDelivery= async () => {
+    try{
+        const response = await axios.get(`${BASR_API_URL}/order/getleastdeliverdorder`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

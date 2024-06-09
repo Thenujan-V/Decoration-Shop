@@ -4,7 +4,6 @@ const secret_key = 'sdfghgfdasdfghjhtrewqwertyuytrewqaxcvbhuytrewsxcvhytrewasxcv
 
 
 function verifyToken(req, res, next) {
-  console.log('fhfnf :',req.headers['authorization'])
 
   const token = req.headers['authorization'];
   if (!token) {

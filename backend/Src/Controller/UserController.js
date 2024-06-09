@@ -67,7 +67,6 @@ exports.showDetails = (req, res) => {
 exports.askQuestions = (req, res) => {    
     userModels.ask_questions(req.body)
         .then((detailsRes) => {
-            console.log('res :',detailsRes)
             return res.status(201).json(detailsRes)
         })
         .catch(err => {
