@@ -20,6 +20,7 @@ const cardRouter = require('./Src/Routers/CardRouter')
 const orderRouter = require('./Src/Routers/OrderRouter')
 const reviewRouter = require('./Src/Routers/ReviewRouter')
 const paymentRouter = require('./Src/Routers/PaymentRouter')
+const emailRouter = require('./Src/Routers/EmailRouter')
 
 
 Server.use('/api/user', userRouter)
@@ -30,6 +31,7 @@ Server.use('/api/card', verifyToken, checkRole(['user']), cardRouter)
 Server.use('/api/order', orderRouter)
 Server.use('/api/review', reviewRouter)
 Server.use('/api/payment', paymentRouter)
+Server.use('/api/email', emailRouter)
 
 Server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

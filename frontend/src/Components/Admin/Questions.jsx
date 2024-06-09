@@ -4,6 +4,7 @@ import { getQuestionsFromUsers, sendSMS } from '../../Services/AdminServices';
 import { question } from '../Styles';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../../Services/JwtToken';
+import { sendEmails } from '../../Services/EmailServices';
 
 
 const Questions = () => {
@@ -43,24 +44,37 @@ const Questions = () => {
         [id]: e.target.value
         });
     };
+console.log('ans :', answers)
 
-    const handleAnswerSubmit = async(id, userPhoneNumber) => {
+    const handleAnswerSubmit = async(id, mailId, message, question) => {
+        try{
+            const data = {
+                to : mailId,
+                subject : question,
+                text : message
+            }
+            console.log('data :', data)
+            await sendEmails(data)
+        }
+        catch(error){
+            console.log('error :', error)
+        }
         
 // SMS SEND USERS WITH Twilio
 
-        const answer = answers[id];
-        const datas = {
-            answer : answer,
-            userPhoneNumber : userPhoneNumber
-        }
-        try{
-            const response = await sendSMS(id, datas)
-            console.log(response.data)
-            setSendSms(response.data)
-        }
-        catch(error){
-            console.log('sending messag faild :', error.response)
-        }
+        // const answer = answers[id];
+        // const datas = {
+        //     answer : answer,
+        //     userPhoneNumber : userPhoneNumber
+        // }
+        // try{
+        //     const response = await sendSMS(id, datas)
+        //     console.log(response.data)
+        //     setSendSms(response.data)
+        // }
+        // catch(error){
+        //     console.log('sending messag faild :', error.response)
+        // }
     };
 
   return (
@@ -83,13 +97,13 @@ const Questions = () => {
                             id={`answer-${question.id}`}
                             className="form-control"
                             value={answers.value}
-                            onChange={(e) => handleAnswerChange(e, question.user_Id)}
+                            onChange={(e) => handleAnswerChange(e, question.id)}
                             required
                             />
                         </div>
                         <button
                             className="btn btn-primary mt-2"
-                            onClick={() => handleAnswerSubmit(question.user_Id, question.contact_no)}
+                            onClick={(e) => handleAnswerSubmit(question.user_Id, question.email, answers.undefined, question.content)}
                         >
                             Submit Answer
                         </button>
