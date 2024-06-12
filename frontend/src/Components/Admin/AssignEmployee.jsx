@@ -115,6 +115,7 @@ const AssignEmployee = () => {
                     draggable: true,
                     progress: undefined,
                   });
+                  window.location.reload()
 
             } catch (error) {
                 if (error.response.status === 500) {
@@ -283,7 +284,7 @@ const AssignEmployee = () => {
                                     }
                                 </div>
                                 <div>
-                                    { apiResponse && apiResponse.length > 0 && apiResponse[0].payment_status === 'payment pending' ? (
+                                    { apiResponse && apiResponse.length > 0 && apiResponse[0].status === 'delivery processing' && apiResponse[0].payment_status === 'payment pending' ? (
                                             <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'#03044F'}}>if complete payment process? click this <button className='btn btn-success' onClick={handlePayment}>Payment Completed</button></p>
                                         ): apiResponse.length > 0 && apiResponse[0].status === 'delivery processing' ? (
                                         <p style={{fontSize:'20px', fontWeight:'bold', fontStyle:'italic', color:'rgb(10, 101, 71)'}}>if complete delivery process? click this <button className='btn btn-info' onClick={handleDelivery}>Delivery Completed</button></p> ):''
