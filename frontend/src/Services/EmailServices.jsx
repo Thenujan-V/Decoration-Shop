@@ -18,3 +18,17 @@ export const sendEmails = async(data) => {
         throw error
     }
 }
+
+export const updateNotification = async(data) => {
+    try{
+        const response = await axios.put(`${BASR_API_URL}/email/update`, data, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+        })
+        return response
+    }
+    catch(error){
+        throw error
+    }
+}

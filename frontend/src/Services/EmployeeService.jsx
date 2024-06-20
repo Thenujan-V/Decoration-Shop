@@ -99,7 +99,6 @@ export const getAllAllowanceDetails = async(employee_id) => {
                 Authorization: `Bearer ${jwtToken}`,
               },
         })
-    console.log('emp ;', response)
 
         return response
     }

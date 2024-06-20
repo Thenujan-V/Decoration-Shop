@@ -60,7 +60,6 @@ const Contact = () => {
         progress: undefined,
       })
       handleClear()
-
     }
     catch(error){
       console.log(error.response)
@@ -79,7 +78,7 @@ const Contact = () => {
           </div>
           <div className="contact-form">
             <h2 className="contact-title">Contact Us</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="form-group">
                 <label htmlFor="formName">Name</label>
                 <input

@@ -33,9 +33,9 @@ const ParentComponent = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container">
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" onClick={handleShow} className='btn btn-warning'>
           Leave a Review
         </Button>
         <Review show={showReviewModal} handleClose={handleClose} />

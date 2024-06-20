@@ -38,7 +38,10 @@ const OrderReq = () => {
             }
         }
         fetchOrderDetails(order_id)
+        
+    },[order_id])
 
+    useEffect(() => {
         const getAllowance = async(employee_id, order_id) => {
             try{
                 const response = await getAllowanceDetails(employee_id, order_id)
@@ -80,17 +83,6 @@ const OrderReq = () => {
         }
     }
 
-    // const handelClickReject = async() => {
-    //     try{
-    //         const response = await 
-    //         setAcceptRes(response.data)
-    //     }
-    //     catch(error){
-    //         console.log('error update :',error.response.data)
-    //     }
-    // }
-
-console.log('res :',apiResponse)
 
   return (
     <div>
@@ -113,14 +105,9 @@ console.log('res :',apiResponse)
                             
                     </div>
                     <div className="col-lg-4 info">
-                    {
-                        allowance.length > 0 && (
-                            <>
-                                <p className='date'>DEADLINE - {new Date(apiResponse[0].deadline).toLocaleDateString()}</p>
-                                <p className='allowance'>Allowance - {allowance[0].total_amount} LKR</p>
-                            </>
-                        )
-                    }
+                        {apiResponse && apiResponse.length > 0 && <p className='date'>DEADLINE - {new Date(apiResponse[0].deadline).toLocaleDateString()}</p>}
+                        {allowance && allowance.length > 0 && <p className='allowance'>Allowance - {allowance[0].total_amount} LKR</p>}
+                        
                         <div className="buttons">
                             <button className='btn accept' onClick={() => handelClickAccept(employee_id, order_id, {"task_acceptence": "1"})}>Accept</button>
                             <button className='btn reject' onClick={() => handelClickAccept(employee_id, order_id, {"task_acceptence": "0"})}>Reject</button>

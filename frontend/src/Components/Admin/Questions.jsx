@@ -4,7 +4,8 @@ import { getQuestionsFromUsers, sendSMS } from '../../Services/AdminServices';
 import { question } from '../Styles';
 import { useNavigate } from 'react-router-dom';
 import { retrieveToken } from '../../Services/JwtToken';
-import { sendEmails } from '../../Services/EmailServices';
+import { sendEmails, updateNotification } from '../../Services/EmailServices';
+import { toast } from 'react-toastify';
 
 
 const Questions = () => {
@@ -46,15 +47,17 @@ const Questions = () => {
     };
 console.log('ans :', answers)
 
-    const handleAnswerSubmit = async(id, mailId, message, question) => {
+    const handleAnswerSubmit = async(nId, id, mailId, message, question) => {
         try{
             const data = {
                 to : mailId,
                 subject : question,
-                text : message
+                text : message,
+                nId : nId
             }
-            console.log('data :', data)
             await sendEmails(data)
+            await updateNotification(data)
+            toast.success('mail send')
         }
         catch(error){
             console.log('error :', error)
@@ -103,7 +106,7 @@ console.log('ans :', answers)
                         </div>
                         <button
                             className="btn btn-primary mt-2"
-                            onClick={(e) => handleAnswerSubmit(question.user_Id, question.email, answers.undefined, question.content)}
+                            onClick={(e) => handleAnswerSubmit(question.notification_id, question.user_Id, question.email, answers.undefined, question.content)}
                         >
                             Submit Answer
                         </button>

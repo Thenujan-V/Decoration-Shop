@@ -4,6 +4,7 @@ import { myOrders } from '../Components/Styles'
 import { retrieveToken } from '../Services/JwtToken'
 import { getOrders } from '../Services/OrderService'
 import { useNavigate } from 'react-router-dom'
+import ParentComponent from './ParentComponent'
 
 const MyOrders = () => {
     const navigater = useNavigate()
@@ -128,9 +129,10 @@ const MyOrders = () => {
                                 <p className={`${addClassName(groupedOrders[orderId].payment_status)}`}>Payment - {groupedOrders[orderId].payment_status}</p>
                                 <p>Total Amount - {groupedOrders[orderId].totalPrice} LKR</p>
                                 <p>Ordered Date - {new Date(groupedOrders[orderId].order_date).toLocaleDateString('en-US')}</p>
-                                <p>Delivery Date - {new Date(groupedOrders[orderId].deadline).toLocaleDateString('en-US')}</p>       
+                                <p>Delivery Date - {new Date(groupedOrders[orderId].deadline).toLocaleDateString('en-US')}</p>
+                                {groupedOrders[orderId].status === 'delivered' && <div className='mb-5'><ParentComponent /></div>}
                             </div>  
-                        </div>
+                        </div> 
                     </div>
                     ))
                 ) : (

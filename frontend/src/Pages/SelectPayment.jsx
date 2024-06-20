@@ -81,7 +81,8 @@ const SelectPayment = () => {
                 navigater('/payment')
             }
             else{
-                navigater('/review')
+                // navigater('/review')
+                navigater('/')
             }
         }
         catch(error){

@@ -218,7 +218,7 @@ const AssignEmployee = () => {
                                         <div>
                                             <p>Working Employee: 
                                                 {   allowance && allowance.length > 0  ? 
-                                                        <Link to={`/viewemployee/${allowance[0].employee_id}`}> {allowance[0].employee_id}</Link>: ' Not Assignd Employee'
+                                                        <Link to={`/viewemployee/${allowance[0].employee_id}`}> {allowance[0].task_acceptence === 1 ? allowance[0].employee_id : ' Not Assignd Employee'}</Link>: ' Not Assignd Employee'
                                                 }
                                             </p>
                                             <p>Task Acceptance:
@@ -230,12 +230,12 @@ const AssignEmployee = () => {
                                             </p>
                                             <p>Allowance: 
                                                 {
-                                                    allowance && allowance.length > 0 ? ` ${allowance[0].total_amount} LKR` : ' Not Allocate Allowance'
+                                                    (allowance && allowance.length > 0 && allowance[0].task_acceptence === 1) ? ` ${allowance[0].total_amount} LKR` : ' Not Allocate Allowance'
                                                 }
                                             </p>
                                             <p>Allowance Status: 
                                                 {
-                                                    allowance && allowance.length > 0 ?
+                                                    allowance && allowance.length > 0 && allowance[0].task_acceptence === 1 ?
                                                     (allowance[0].allowance_status === '1' ? ' completed' : ' Not Completed'): ' Not Allocate Allowance'
                                                 }
                                             </p>
@@ -250,7 +250,7 @@ const AssignEmployee = () => {
                                 </div>
                                 <div className="buttons col-lg-6">
                                     {
-                                        allowance.length === 0 ? (
+                                        allowance.length === 0 || (allowance.length > 0 && allowance[0].task_acceptence === 0) ? (
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-control">
                                                     <label htmlFor="emp">Select Employee</label>

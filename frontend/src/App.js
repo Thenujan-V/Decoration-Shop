@@ -71,7 +71,7 @@ const App = () => {
         <Route path='/allowanceDetails/:emp_id' element={<AllowanceDetails />} />
         <Route path='/customerMgt' element={<CustomerMgt />} />
         <Route path='/viewCustomer/:user_Id' element={<ViewCustomer />} />
-        <Route path='/review' element={<ParentComponent />} />
+        <Route path='/review' element={<Review />} />
         <Route path='/reviewCheck' element={<ReviewCheck />} />
         <Route path='/addemployee' element={<AddEmployee />} />
         <Route path='/addworkers' element={<AddEmployee />} />

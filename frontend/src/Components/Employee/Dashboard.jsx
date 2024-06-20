@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { dashboard } from '../Styles'
 import VerticalNavbar from './VerticalNavbar'
 import { Link, useNavigate } from 'react-router-dom'
-import { getEmployeeDetails, getOrders } from '../../Services/EmployeeService'
+import { getAllAllowanceDetails, getEmployeeDetails, getOrders } from '../../Services/EmployeeService'
 import { retrieveToken } from '../../Services/JwtToken'
 
 const Dashboard = () => {
@@ -30,11 +30,11 @@ const Dashboard = () => {
     const [completeWorks, setCompleteWorks] = useState([])
     const [employee, setEmployee] = useState([])
     const [empId, setEmpId] = useState('')
+    const [allowance, setAllowance] = useState('')
 
 
     useEffect(() => {
         const fetchEmployeeDetails = async(user_Id) =>{
-console.log('user_Id :', user_Id)
             try{
                 const response = await getEmployeeDetails(user_Id)
                 setEmpId(response.data[0].employee_id)
@@ -59,11 +59,27 @@ console.log('user_Id :', user_Id)
             }
         }
         fetchEmployeeOrders(empId)
+
+        const fetchEmployeeAllowance = async(empId) => {
+            try{
+                const response = await getAllAllowanceDetails(empId)
+                setAllowance(response.data)
+
+            }
+            catch(error){
+                console.log('error fetching orders :', error.response.data)
+            }
+        }
+        fetchEmployeeAllowance(empId)
     },[empId])
+
 
      
     const compeleted_works_count = orderReq.reduce((noOfCompleteWorks, work) => work.work_status === 'delivery processing' ? noOfCompleteWorks + 1 : noOfCompleteWorks, 0)
 
+    const totalEarnings = allowance.length > 0 ? allowance.reduce((total, item) => item.allowance_status === "1" ? total + item.total_amount : total, 0) : 0;
+
+    console.log('all :', allowance)
 
   return (
     <div style={{display:'flex'}}>
@@ -122,7 +138,7 @@ console.log('user_Id :', user_Id)
             <div className="container other">
                 <div className='earnings '>
                     <h1>Total Earnings</h1>
-                    <p>30,000 LKR</p>
+                    <p>{totalEarnings} LKR</p>
                 </div>
                 <div className='totalOrders'>
                     <h1>Total Completed Orders</h1>
